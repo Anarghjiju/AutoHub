@@ -1,0 +1,57 @@
+import React, { useState } from 'react';
+import '../App.css';
+
+const LogisticsDashboard: React.FC = () => {
+  const [warehouseItems, setWarehouseItems] = useState<number>(100); // Warehouse inventory balance
+  const [quantityToReduce, setQuantityToReduce] = useState<number>(5); // Default quantity for reduction, minimum 5
+  const [truckCount, setTruckCount] = useState<number>(0); // Count of dispatched trucks
+
+  const handleTruckDeparture = () => {
+    // Ensure the quantity is valid and there are enough items in the warehouse
+    if (quantityToReduce >= 5 && quantityToReduce <= 20) {
+      if (quantityToReduce <= warehouseItems) {
+        // Reduce the warehouse items and increment the truck dispatch count
+        setWarehouseItems(prevItems => prevItems - quantityToReduce);
+        setTruckCount(prevCount => prevCount + 1); // Increment truck dispatch count
+      } else {
+        alert('The quantity exceeds the available items in the warehouse!');
+      }
+    } else {
+      alert('Please enter a quantity between 5 and 20!');
+    }
+  };
+
+  return (
+    <div className="dashboard">
+      <h1>Logistics Dashboard</h1>
+
+      {/* Display warehouse inventory balance */}
+      <div className="warehouse-inventory">
+        <h2>Warehouse Inventory Balance</h2>
+        <p>{warehouseItems} items remaining</p>
+      </div>
+
+      {/* Input for user to enter quantity to reduce */}
+      <div className="quantity-input">
+        <label htmlFor="quantity">Enter quantity to reduce (between 5 and 20):</label>
+        <input
+          type="number"
+          id="quantity"
+          value={quantityToReduce}
+          onChange={(e) => setQuantityToReduce(Number(e.target.value))}
+          min="5"
+          max="20"
+        />
+        <button onClick={handleTruckDeparture}>Depart Truck</button>
+      </div>
+
+      {/* Display truck dispatch count */}
+      <div className="truck-dispatch">
+        <h2>Truck Dispatch Count</h2>
+        <p>{truckCount} trucks dispatched</p>
+      </div>
+    </div>
+  );
+};
+
+export default LogisticsDashboard;

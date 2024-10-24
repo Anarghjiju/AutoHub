@@ -1,0 +1,72 @@
+@startuml
+!define RECTANGLE class
+title Car Buy and Sell Application
+
+RECTANGLE User {
+  + id: String
+  + name: String
+  + email: String
+}
+
+RECTANGLE Admin {
+  + id: String
+  + name: String
+  + email: String
+}
+
+RECTANGLE Mechanic {
+  + id: String
+  + status: String
+}
+
+RECTANGLE API_Gateway {
+  + handleRequest()
+  + routes()
+}
+
+RECTANGLE Frontend_User {
+  + renderUserUI()
+  + handleInput()
+  + userServices()
+}
+
+RECTANGLE Frontend_Admin {
+  + renderAdminUI()
+  + handleInput()
+  + adminServices()
+}
+
+RECTANGLE Services {
+  + viewCars()
+  + buyCars()
+  + bookServices()
+  + sellCars()
+}
+
+RECTANGLE Admin_Service {
+  + viewAnalytics()
+  + CRUD()
+  + acceptRejectSales()
+}
+
+RECTANGLE API {
+  + respondPrice()
+}
+
+RECTANGLE DB {
+}
+
+User --> API_Gateway : login/register
+Admin --> API_Gateway : login/register
+Frontend_User --> API_Gateway : handle user request
+Frontend_Admin --> API_Gateway : admin dashboard
+API_Gateway --> Services : various API request
+Services --> API : request price
+API --> Services : response price
+Services --> Frontend_User : response price
+Services --> DB : query/update
+Mechanic --> DB : query/update
+Mechanic --> Admin_Service : query update
+Admin_Service --> Services : view analytics/CRUD/sale decisions
+
+@enduml 

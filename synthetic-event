@@ -1,0 +1,43 @@
+import React from 'react';
+
+const MyButton: React.FC = () => {
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault(); // Prevent default behavior
+    alert('Button clicked!');
+  };
+
+  return (
+    <button onClick={handleClick}>
+      Click Me
+    </button>
+  );
+};
+
+export default MyButton;
+
+
+
+
+
+
+
+
+
+
+
+
+
+import React from 'react';
+import './App.css';
+import MyButton from './MyButton';
+
+const App: React.FC = () => {
+  return (
+    <div className="App">
+      <h1>Welcome to My React App</h1>
+      <MyButton />
+    </div>
+  );
+};
+
+export default App;

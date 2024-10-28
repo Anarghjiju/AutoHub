@@ -1,12 +1,16 @@
 import React from 'react';
-import Header from '../components/header';
-import Banner from '../components/banner';
-
+import Navbar from '../components/Navbar';
+import HeroSection from '../components/Herosection';
+import ShopByBrands from '../components/ShopByBrands';
+import FeaturedCars from '../components/FeaturedCars';
+import '../styles/styles.css';
 const Home: React.FC = () => {
   return (
     <div>
-      <Header />
-      <Banner />
+      <Navbar />
+      <HeroSection />
+      <ShopByBrands />
+      <FeaturedCars />
     </div>
   );
 };

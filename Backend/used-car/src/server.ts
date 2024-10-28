@@ -14,4 +14,4 @@ app.use('/api',usedCarRoutes);
 
 const PORT=process.env.PORT || 3001;
 
-app.listen(PORT,()=>console.log(`Notification service is running in port ${PORT}`));
+app.listen(PORT,()=>console.log(`used car service is running in port ${PORT}`));

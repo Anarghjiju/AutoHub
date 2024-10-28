@@ -25,7 +25,6 @@ export interface ICarDetails extends Document {
 }
 
 const CarDetailsSchema : Schema = new Schema({
-    carId: {type: String, required:true},
     Make: {type: String, required:true},
     Model: {type: String, required:true},    
     Variant: {type: String, required:true},    
@@ -49,4 +48,4 @@ const CarDetailsSchema : Schema = new Schema({
     ABS: {type: String, required:true},
 })
 
-export default mongoose.model<ICarDetails>('carDetails',CarDetailsSchema);
+export const Car_details= mongoose.model<ICarDetails>('carDetails',CarDetailsSchema);

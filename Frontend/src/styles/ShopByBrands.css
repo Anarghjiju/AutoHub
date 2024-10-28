@@ -1,0 +1,94 @@
+/* src/styles/ShopByBrands.css */
+
+.shop-by-brands {
+    padding: 2rem;
+    background-color: #ffffff;
+    position: relative; /* For positioning arrows */
+  }
+  
+  .shop-by-brands h2 {
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 2rem;
+  }
+  
+  .brands-container {
+    display: flex;
+    align-items: center;
+    position: relative; /* Needed for absolute positioning of arrows */
+  }
+  
+  .brands-slider {
+    display: flex; /* Use flex to align brand cards in a row */
+    overflow: hidden; /* Hide overflow to keep it neat */
+    width: 100%; /* Full width for the container */
+  }
+  
+  .brands-display {
+    display: flex; /* Align cards in a row */
+    transition: transform 0.3s ease; /* Smooth transition */
+  }
+  
+  .brand-card {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    text-align: center;
+    padding: 1rem;
+    min-width: 150px; /* Ensure a minimum width for each card */
+    flex: 0 0 calc(100% / 6); /* Each card takes up 1/6 of the container */
+    margin-right: 1rem; /* Space between cards */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transition for smooth effect */
+  }
+  
+  /* Hover effect */
+  .brand-card:hover {
+    transform: scale(1.05); /* Slightly enlarge the card */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); /* Add a deeper shadow */
+  }
+  
+  .brand-card img {
+    width: 100%;
+    height: auto;
+  }
+  
+  .brand-card h3 {
+    font-size: 1.2rem;
+    margin: 0.5rem 0;
+  }
+  
+  /* Arrow Buttons */
+  .arrow-button {
+    background-color: transparent;
+    border: none;
+    font-size: 2rem;
+    cursor: pointer;
+    color: #007bff;
+    padding: 1rem;
+    z-index: 1; /* Ensure buttons are on top */
+  }
+  
+  .arrow-button:disabled {
+    color: #ccc; /* Gray color when disabled */
+    cursor: not-allowed; /* Change cursor to not-allowed when disabled */
+  }
+  
+  /* See More Button */
+  .see-more-button {
+    display: block;
+    margin: 2rem auto 0;
+    padding: 1rem 2rem;
+    font-size: 1rem;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .see-more-button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+  }
+  

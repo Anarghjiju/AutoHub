@@ -1,0 +1,179 @@
+/* src/styles/styles.css */
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  /* Navbar */
+  .navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 2rem;
+    background-color: white;
+    font-family: Arial, sans-serif;
+  }
+  
+  .logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+  
+  .nav-links {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+  }
+  
+  .nav-links li a {
+    text-decoration: none;
+    color: black;
+    font-size: 1.1rem;
+    position: relative;
+    transition: color 0.3s ease;
+  }
+  
+  .nav-links li a:hover {
+    color: #007bff;
+  }
+  
+  .nav-links li a:hover::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: #007bff;
+    transition: width 0.3s ease;
+  }
+  
+  /* Profile Icon */
+  .profile-icon {
+    font-size: 1.5rem;
+    cursor: pointer;
+  }
+  
+  /* Hero Section */
+  .hero-section {
+    position: relative;
+    text-align: center;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    height: 80vh;
+  }
+  
+  .hero-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  /* Hero Text Styling */
+  .hero-text {
+    position: absolute;
+    bottom: 15%;
+    text-align: center;
+    color: black;
+  }
+  
+  .hero-text h1 {
+    font-size: 3em;
+    margin-bottom: 0.2em;
+  }
+  
+  .hero-text p {
+    font-size: 1.5em;
+    margin-bottom: 0.5em;
+  }
+  
+  /* Positioning Buttons */
+  .hero-buttons {
+    position: absolute;
+    bottom: 5%;
+    display: flex;
+    gap: 1rem;
+  }
+  
+  /* Buttons */
+  .primary-button,
+  .secondary-button {
+    padding: 1rem 2rem;
+    font-size: 1rem;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+  }
+  
+  .primary-button {
+    background-color: #007bff;
+    color: white;
+  }
+  
+  .secondary-button {
+    background-color: #f3f3f3;
+    color: black;
+  }
+  
+  .primary-button:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+  }
+  
+  .secondary-button:hover {
+    background-color: #ddd;
+    transform: scale(1.05);
+  }
+  
+  /* Shop by Brands Section */
+  .shop-by-brands {
+    text-align: center;
+    margin: 20px 0;
+  }
+  
+  .brands-container {
+    display: flex;
+    overflow-x: auto;
+    padding: 10px 0;
+  }
+  
+  .brand-card {
+    min-width: 200px;
+    margin: 0 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+  }
+  
+  .brand-card img {
+    width: 100%;
+    border-radius: 5px;
+  }
+  
+  /* Featured Cars Section */
+  .featured-cars {
+    text-align: center;
+    margin: 20px 0;
+  }
+  
+  .cars-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+  
+  .car-card {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+  }
+  
+  .car-card img {
+    width: 100%;
+    border-radius: 5px;
+  }
+  

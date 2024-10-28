@@ -1,0 +1,73 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: #fff;
+  }
+  
+  .nav {
+    display: flex;
+    gap: 30px;
+  }
+  
+  .profileIcon {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+  }
+
+  
+  .banner {
+    position: relative;
+    text-align: center;
+    color: #fff;
+  }
+  
+  .image {
+    width: 100%;
+    height: auto;
+  }
+  
+  .content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  
+  .buttons {
+    display: flex;
+    gap: 20px;
+    padding-left: 45px;
+  }
+  
+  .loginButton {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  
+  .signupButton {
+    background-color: #f0f0f0;
+    color: #333;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  /* Set all links to black without underline */
+a {
+    color: black; /* Set link color to black */
+    text-decoration: none; /* Remove underline */
+  }
+  
+  a:hover {
+    color: #555; /* Optional: Change color on hover to a lighter shade of black */
+    text-decoration: underline; /* Optional: Add underline on hover */
+  }
+  
+  

@@ -1,6 +1,6 @@
 import React from 'react';
 import Navbar from '../components/Navbar';
-import HeroSection from '../components/Herosection';
+import HeroSection from '../components/HeroSection';
 import ShopByBrands from '../components/ShopByBrands';
 import FeaturedCars from '../components/FeaturedCars';
 import '../styles/styles.css';

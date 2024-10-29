@@ -8,6 +8,7 @@ import Register from './pages/RegisterPage';
 import CarBrandListing from './pages/CarBrandListing';
 import CarDetail from './pages/CarDetailsPage'
 import CarListing from './pages/CarListing';
+import BrandCarList from './pages/BrandCarList'
 
 
 const App: React.FC = () => {
@@ -21,6 +22,7 @@ const App: React.FC = () => {
         <Route path="/cars" element={<CarListing />} />
         <Route path="/detail" element={<CarDetail />} />
 
+        <Route path="/cars/:name" element={<BrandCarList />} />
       </Routes>
     </Router>
   );

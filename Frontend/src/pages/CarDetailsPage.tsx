@@ -1,63 +1,100 @@
 import React, { useState } from 'react';
 import '../styles/carDetail.css';
 import Navbar from '../components/Navbar';
-import sampleCarImage1 from '../assets/car1.jpg'; // Replace with your actual image paths
-import sampleCarImage2 from '../assets/car2.jpg';
-import sampleCarImage3 from '../assets/car3.jpg'; // Add more images as needed
- // Add more images as needed
+import sampleCarImage1 from '../assets/tesla.png'; 
+import sampleCarImage2 from '../assets/tesla2.png'; 
 
-const UsedCarDetail: React.FC = () => {
-  const [selectedImage, setSelectedImage] = useState(sampleCarImage1);
-
-  const handleImageSelect = (image: string) => {
-    setSelectedImage(image);
-  };
-
+const CarDetailPage: React.FC = () => {
   return (
     <div>
-    <Navbar/>
-    <div className="used-car-details-main">
-      <div className="used-car-details-container">
-        <div className="used-car-image-container">
-          <div className="thumbnail-container">
-            <div className="thumbnail-images">
-              <img
-                src={sampleCarImage1}
-                alt="Car Thumbnail 1"
-                onClick={() => handleImageSelect(sampleCarImage1)}
-              />
-              <img
-                src={sampleCarImage2}
-                alt="Car Thumbnail 2"
-                onClick={() => handleImageSelect(sampleCarImage2)}
-              />
-               <img
-                src={sampleCarImage3}
-                alt="Car Thumbnail 2"
-                onClick={() => handleImageSelect(sampleCarImage3)}
-              />
-              {/* Add more thumbnails as needed */}
+        <Navbar />
+  
+   
+    <div className="car-detail-page">
+      <div className="car-image-gallery">
+        <div id="carouselExampleControls" className="carousel slide" data-bs-ride="carousel">
+          <div className="carousel-inner">
+            <div className="carousel-item active">
+              <img className="d-block w-100" src={sampleCarImage1} alt="First slide" />
             </div>
+            <div className="carousel-item">
+              <img className="d-block w-100" src={sampleCarImage2} alt="Second slide" />
+            </div>
+          
           </div>
-          <div className="main-image-container">
-            <img src={selectedImage} alt="Selected Car" />
-          </div>
-        </div>
-
-        <div className="used-car-info-container">
-          <h2>Toyota Camry 2020</h2>
-          <p className="used-car-detail-card-title">Price: <span className="used-car-detail-card-price">Rs. 20,00,000</span></p>
-          <p className="used-car-detail-card-location">Mileage: 15,000 km</p>
-          <p className="used-car-detail-card-location">Fuel Type: Petrol</p>
-          <p className="used-car-detail-card-location">Location: Mumbai</p>
-          <p className="used-car-detail-card-location">Owner: 1st Owner</p>
+          <a
+            className="carousel-control-prev custom-arrow-prev"
+            href="#carouselExampleControls"
+            role="button"
+            data-bs-slide="prev"
+          >
+            <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+          </a>
+          <a
+            className="carousel-control-next custom-arrow-next"
+            href="#carouselExampleControls"
+            role="button"
+            data-bs-slide="next"
+          >
+            <span className="carousel-control-next-icon" aria-hidden="true"></span>
+          </a>
         </div>
       </div>
 
-      <div className="below-details-container">
-        <div className="used-car-description-main">
-          <h3>Description:</h3>
-          <p>This Toyota Camry is in excellent condition, has a clean title, and has been well maintained. It comes with a comprehensive service history and is fully loaded with features.</p>
+      <div className="car-info">
+        <header className="car-detail-header">
+          <h1>2022 Model Y</h1>
+          <h3>Long Range All-Wheel Drive</h3>
+        </header>
+
+        <div className="car-detail-content">
+          <h2>Vehicle Details</h2>
+          <ul>
+            <li><strong>Range:</strong> 330 miles</li>
+            <li><strong>Top Speed:</strong> 135 mph</li>
+            <li><strong>0-60 mph:</strong> 4.2 seconds</li>
+            <li><strong>Odometer:</strong> 15,405 miles</li>
+            <li><strong>VIN:</strong> 7SAYGDEE8NF313E07</li>
+            <li><strong>Paint:</strong> Pearl White</li>
+          </ul>
+          <div className="price-section">
+            <h3>Price: RS.75,00,000</h3>
+            <button className="order-button">Order Now</button>
+          </div>
+        </div>
+
+        <div className="car-detail-sections">
+          <section>
+            <h2>Basic Autopilot</h2>
+            <p>Included</p>
+          </section>
+
+          <section>
+            <h2>Charging</h2>
+          </section>
+
+          <section>
+            <h2>Warranty</h2>
+            <p>1 year / 10,000 miles</p>
+          </section>
+
+          <section>
+            <h2>Condition</h2>
+            <ul>
+              <li>No reported accidents</li>
+              <li>Meets Tesla's mechanical requirements</li>
+              <li>May be subject to an open recall</li>
+            </ul>
+          </section>
+
+          <section>
+            <h2>Delivery Location</h2>
+            <label>
+              Registration Zip Code:
+              <input type="text" placeholder="Enter Zip Code" />
+            </label>
+            <button className="submit-button">Submit</button>
+          </section>
         </div>
       </div>
     </div>
@@ -65,4 +102,4 @@ const UsedCarDetail: React.FC = () => {
   );
 };
 
-export default UsedCarDetail;
+export default CarDetailPage;

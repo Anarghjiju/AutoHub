@@ -1,40 +1,42 @@
 // src/components/ShopByBrands.tsx
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import '../styles/ShopByBrands.css';
-import brand1 from '../assets/brand1.jpg';
-import brand2 from '../assets/brand2.jpg';
-import brand3 from '../assets/brand3.jpg';
-import brand4 from '../assets/brand4.jpg';
-import brand5 from '../assets/brand5.jpg';
-import brand6 from '../assets/brand6.jpg';
-import brand7 from '../assets/brand7.jpg';
-import brand8 from '../assets/brand8.jpg';
+import brand1 from '../assets/Brands/aston-martin.webp';
+import brand2 from '../assets/Brands/audi.webp';
+import brand3 from '../assets/Brands/bajaj.webp';
+import brand4 from '../assets/Brands/bentley.webp';
+import brand5 from '../assets/Brands/benz.webp';
+import brand6 from '../assets/Brands/bmw.webp';
+import brand7 from '../assets/Brands/bugatti.webp';
+import brand8 from '../assets/Brands/datsun.webp';
 
 const brands = [
-  { id: 1, name: 'Brand 1', image: brand1 },
-  { id: 2, name: 'Brand 2', image: brand2 },
-  { id: 3, name: 'Brand 3', image: brand3 },
-  { id: 4, name: 'Brand 4', image: brand4 },
-  { id: 5, name: 'Brand 5', image: brand5 },
-  { id: 6, name: 'Brand 6', image: brand6 },
-  { id: 7, name: 'Brand 7', image: brand7 },
-  { id: 8, name: 'Brand 8', image: brand8 },
+  { id: 1, name: 'Aston Martin', image: brand1 },
+  { id: 2, name: 'Audi', image: brand2 },
+  { id: 3, name: 'Bajaj', image: brand3 },
+  { id: 4, name: 'Bentley', image: brand4 },
+  { id: 5, name: 'Benz', image: brand5 },
+  { id: 6, name: 'BMW', image: brand6 },
+  { id: 7, name: 'Bugatti', image: brand7 },
+  { id: 8, name: 'Datsun', image: brand8 }
 ];
 
 const ShopByBrands: React.FC = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const itemsToShow = 6; // Total number of brands to show at once (including hidden ones)
+  const itemsToShow = 6;
   const totalBrands = brands.length;
+  const navigate = useNavigate();
 
   const nextSlide = () => {
     if (currentIndex + itemsToShow < totalBrands) {
-      setCurrentIndex(currentIndex + 2); // Show 2 more brands on each click
+      setCurrentIndex(currentIndex + 2);
     }
   };
 
   const prevSlide = () => {
     if (currentIndex > 0) {
-      setCurrentIndex(currentIndex - 2); // Go back 2 brands
+      setCurrentIndex(currentIndex - 2);
     }
   };
   
@@ -59,7 +61,7 @@ const ShopByBrands: React.FC = () => {
           &gt;
         </button>
       </div>
-      <button className="see-more-button">See More</button>
+      <button className="see-more-button" onClick={() => navigate('/brands')}>See More</button>
     </div>
   );
 };

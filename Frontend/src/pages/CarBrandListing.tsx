@@ -37,13 +37,15 @@ import brand32 from '../assets/Brands/toyota.webp';
 import brand33 from '../assets/Brands/volkswagen.webp';
 import brand34 from '../assets/Brands/volvo.webp';
 
+import { useNavigate } from 'react-router-dom';
+
 const brands = [
   { id: 1, name: 'Aston Martin', image: brand1 },
   { id: 2, name: 'Audi', image: brand2 },
   { id: 3, name: 'Bajaj', image: brand3 },
   { id: 4, name: 'Bentley', image: brand4 },
   { id: 5, name: 'Benz', image: brand5 },
-  { id: 6, name: 'BMW', image: brand6 },
+  { id: 6, name: 'Bmw', image: brand6 },
   { id: 7, name: 'Bugatti', image: brand7 },
   { id: 8, name: 'Datsun', image: brand8 },
   { id: 9, name: 'Ferrari', image: brand9 },
@@ -62,7 +64,7 @@ const brands = [
   { id: 22, name: 'Mahindra', image: brand22 },
   { id: 23, name: 'Maruti', image: brand23 },
   { id: 24, name: 'Maserati', image: brand24 },
-  { id: 25, name: 'MG', image: brand25 },
+  { id: 25, name: 'Mg', image: brand25 },
   { id: 26, name: 'Mini', image: brand26 },
   { id: 27, name: 'Nissan', image: brand27 },
   { id: 28, name: 'Porsche', image: brand28 },
@@ -76,7 +78,9 @@ const brands = [
 
 
 
+
 const CarBrandListing: React.FC = () => {
+  const navigate = useNavigate();
   const [currentPage, setCurrentPage] = useState(1);
   const [brandsPerPage] = useState(12);
   const [searchTerm, setSearchTerm] = useState('');
@@ -93,6 +97,11 @@ const CarBrandListing: React.FC = () => {
 
   // Change page
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
+
+  // Handle click to navigate to CarList with brand name
+  const handleBrandClick = (brandName: string) => {
+    navigate(`/cars/${brandName}`);
+  };
 
   return (
     <div>
@@ -116,7 +125,11 @@ const CarBrandListing: React.FC = () => {
 
         <div className="brands-grid">
           {currentBrands.map((brand) => (
-            <div className="brand-card" key={brand.id}>
+            <div
+              className="brand-card"
+              key={brand.id}
+              onClick={() => handleBrandClick(brand.name)}
+            >
               <img src={brand.image} alt={brand.name} className="brand-image" />
               <h3>{brand.name}</h3>
             </div>
@@ -144,3 +157,4 @@ const CarBrandListing: React.FC = () => {
 };
 
 export default CarBrandListing;
+

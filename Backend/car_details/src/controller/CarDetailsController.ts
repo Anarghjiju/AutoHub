@@ -57,6 +57,20 @@ export const getDistinctMakes = async (req: Request, res: Response) => {
 };
 
 
+
+export const getCarsByMake = async(req:Request , res:Response) => {
+  try{
+    const result = await Car_details.find({ Make: req.params.Make });
+    if(!result)
+      res.status(404).json({message:"no cars for this make"});
+    res.status(200).json(result);
+  }
+  catch(error){
+    res.status(500).json({ message: 'Error getting cars for the makes' });
+  }
+}
+
+
 // // Endpoint to delete all documents where Make is "Dc"
 // export const deleteCarsByMake = async (req: Request, res: Response) => {
 //   try {

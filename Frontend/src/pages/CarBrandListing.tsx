@@ -74,6 +74,8 @@ const brands = [
   { id: 34, name: 'Volvo', image: brand34 }
 ];
 
+
+
 const CarBrandListing: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [brandsPerPage] = useState(12);

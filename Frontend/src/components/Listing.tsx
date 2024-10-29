@@ -1,5 +1,4 @@
-// src/pages/CarListing.tsx
-import React from 'react';
+import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import car1 from '../assets/car1.jpg';
 import car2 from '../assets/car2.jpg';
@@ -38,9 +37,17 @@ const cars: Car[] = [
 ];
 
 const CarListing: React.FC = () => {
+  const [searchTerm, setSearchTerm] = useState('');
+
+  // Filter cars based on the search term
+  const filteredCars = cars.filter((car) =>
+    car.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
     <div>
-    <div className="row align-items-center mb-4">
+      {/* Search Bar */}
+      <div className="row align-items-center mb-4">
         <div className="col">
           <h2 className="text-left">Car Listings</h2>
         </div>
@@ -49,23 +56,27 @@ const CarListing: React.FC = () => {
             type="text"
             className="form-control"
             placeholder="Search cars..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
           />
         </div>
       </div>
-    <div className="container py-4">
-      <div className="row">
-        {cars.map((car) => (
-          <div className="col-md-4 mb-4" key={car.id}>
-            <div className="card h-100 shadow-sm">
-              <img src={car.image} className="card-img-top" alt={car.name} />
-              <div className="card-body">
-                <h5 className="card-title text-center">{car.name}</h5>
+
+      {/* Display Car Cards */}
+      <div className="container py-4">
+        <div className="row">
+          {filteredCars.map((car) => (
+            <div className="col-md-4 mb-4" key={car.id}>
+              <div className="card h-100 shadow-sm">
+                <img src={car.image} className="card-img-top" alt={car.name} />
+                <div className="card-body">
+                  <h5 className="card-title text-center">{car.name}</h5>
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
-    </div>
     </div>
   );
 };

@@ -39,7 +39,7 @@ const ShopByBrands: React.FC = () => {
       setCurrentIndex(currentIndex - 2);
     }
   };
-
+  
   return (
     <div className="shop-by-brands">
       <h2>Shop by Brands</h2>

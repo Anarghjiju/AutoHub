@@ -1,15 +1,19 @@
 // src/App.tsx
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import './styles/styles.css';
-import Home from './pages/Home';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Home from './pages/Home'
+import Login from './pages/LoginPage';
+import Register from './pages/RegisterPage';
 import CarBrandListing from './pages/CarBrandListing';
 
 const App: React.FC = () => {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/home" element={<Home />} />
         <Route path="/brands" element={<CarBrandListing />} />
       </Routes>
     </Router>

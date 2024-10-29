@@ -1,0 +1,70 @@
+.used-car-details-main {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.used-car-details-container {
+  display: flex;
+  gap: 20px;
+  padding: 40px;
+}
+
+.used-car-image-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.thumbnail-container {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.thumbnail-images img {
+  width: 100px;
+  height: 100px;
+  cursor: pointer;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  transition: transform 0.3s;
+}
+
+.thumbnail-images img:hover {
+  transform: scale(1.05);
+}
+
+.main-image-container img {
+  width: 100%;
+  height: auto;
+  border-radius: 5px;
+}
+
+.used-car-info-container {
+  flex: 1;
+  padding: 20px;
+  background-color: #e7e7e7;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.used-car-detail-card-title {
+  font-weight: bold;
+  font-size: 24px;
+}
+
+.used-car-detail-card-price {
+  font-size: 20px;
+  color: #f39c12;
+}
+
+.below-details-container {
+  margin-top: 20px;
+}
+
+.used-car-description-main {
+  background-color: #ececec;
+  padding: 20px;
+  border-radius: 10px;
+}

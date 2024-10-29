@@ -2,12 +2,15 @@
 
 .container {
     margin-top: 2rem;
-    display: flex; /* Ensure the container is a flexbox for side-by-side layout */
+}
+
+.row {
+    display: flex; /* Ensure the row is a flexbox for side-by-side layout */
 }
 
 .filter-sidebar {
-    position: sticky;
-    top: 40px; /* Adjust this value as needed to align with your navbar */
+    position: sticky; /* Keep the sidebar sticky */
+    top: 40px; /* Distance from the top of the viewport */
     height: 90vh; /* Maintain the height of the sidebar */
     padding: 1rem;
     background-color: #f8f9fa;
@@ -26,7 +29,7 @@
 
 .navbar {
     position: relative;
-    margin-bottom: 1rem;
+    margin-bottom: 4rem;
 }
 
 .sub-navbar {
@@ -40,4 +43,21 @@
 
 .sub-navbar input {
     width: 250px;
+}
+
+/* Additional styles for listing and filtering */
+h2.text-left {
+    margin-bottom: 1rem;
+}
+
+.card {
+    transition: transform 0.2s;
+}
+
+.card:hover {
+    transform: scale(1.05);
+}
+
+.form-check-label {
+    margin-bottom: 0.5rem; /* Spacing for checkbox labels */
 }

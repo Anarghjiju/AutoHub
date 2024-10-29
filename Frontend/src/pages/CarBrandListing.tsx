@@ -95,17 +95,22 @@ const CarBrandListing: React.FC = () => {
   return (
     <div>
       <Navbar />
-      <div className="car-brand-listing">
-        <h2>Car Brand Listing</h2>
-        
-        {/* Search Input */}
-        <input
-          type="text"
-          placeholder="Search for a brand..."
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          className="search-input"
-        />
+      <div className="car-brand-listing container">
+        {/* Header and Search Input */}
+        <div className="row align-items-center mb-4">
+          <div className="col">
+            <h2 className="text-left">Car Brand Listing</h2>
+          </div>
+          <div className="col-auto">
+            <input
+              type="text"
+              className="form-control"
+              placeholder="Search for a brand..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+          </div>
+        </div>
 
         <div className="brands-grid">
           {currentBrands.map((brand) => (
@@ -117,17 +122,20 @@ const CarBrandListing: React.FC = () => {
         </div>
 
         {/* Pagination */}
-        <div className="pagination">
-          {Array.from({ length: Math.ceil(filteredBrands.length / brandsPerPage) }, (_, index) => (
-            <button
-              key={index + 1}
-              onClick={() => paginate(index + 1)}
-              className={`page-button ${currentPage === index + 1 ? 'active' : ''}`}
-            >
-              {index + 1}
-            </button>
-          ))}
-        </div>
+        <nav aria-label="Page navigation">
+          <ul className="pagination justify-content-center">
+            {Array.from({ length: Math.ceil(filteredBrands.length / brandsPerPage) }, (_, index) => (
+              <li className={`page-item ${currentPage === index + 1 ? 'active' : ''}`} key={index + 1}>
+                <button
+                  onClick={() => paginate(index + 1)}
+                  className="page-link"
+                >
+                  {index + 1}
+                </button>
+              </li>
+            ))}
+          </ul>
+        </nav>
       </div>
     </div>
   );

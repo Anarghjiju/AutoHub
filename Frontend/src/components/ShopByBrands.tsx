@@ -1,6 +1,7 @@
 // src/components/ShopByBrands.tsx
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+
 import '../styles/ShopByBrands.css';
 import brand1 from '../assets/Brands/aston-martin.webp';
 import brand2 from '../assets/Brands/audi.webp';

@@ -7,6 +7,8 @@ import Login from './pages/LoginPage';
 import Register from './pages/RegisterPage';
 import CarBrandListing from './pages/CarBrandListing';
 import CarDetail from './pages/CarDetailsPage'
+import CarListing from './pages/CarListing';
+
 
 const App: React.FC = () => {
   return (
@@ -16,6 +18,8 @@ const App: React.FC = () => {
         {/* <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/brands" element={<CarBrandListing />} /> */}
+        <Route path="/brands" element={<CarBrandListing />} />
+        <Route path="/cars" element={<CarListing />} />
       </Routes>
     </Router>
   );

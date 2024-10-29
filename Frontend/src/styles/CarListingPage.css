@@ -1,0 +1,43 @@
+/* src/styles/CarListingPage.css */
+
+.container {
+    margin-top: 2rem;
+    display: flex; /* Ensure the container is a flexbox for side-by-side layout */
+}
+
+.filter-sidebar {
+    position: sticky;
+    top: 40px; /* Adjust this value as needed to align with your navbar */
+    height: 90vh; /* Maintain the height of the sidebar */
+    padding: 1rem;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+}
+
+.filter-sidebar h5 {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+}
+
+.listing-content {
+    padding-left: 1rem;
+    flex: 1; /* Ensure the content takes the remaining space */
+}
+
+.navbar {
+    position: relative;
+    margin-bottom: 1rem;
+}
+
+.sub-navbar {
+    background-color: #f8f9fa;
+}
+
+.sub-navbar h4 {
+    margin: 0;
+    text-align: center;
+}
+
+.sub-navbar input {
+    width: 250px;
+}

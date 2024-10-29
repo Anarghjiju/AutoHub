@@ -6,6 +6,8 @@ import Home from './pages/Home'
 import Login from './pages/LoginPage';
 import Register from './pages/RegisterPage';
 import CarBrandListing from './pages/CarBrandListing';
+import CarListing from './pages/CarListing';
+
 
 const App: React.FC = () => {
   return (
@@ -15,6 +17,7 @@ const App: React.FC = () => {
         <Route path="/register" element={<Register />} />
         <Route path="/home" element={<Home />} />
         <Route path="/brands" element={<CarBrandListing />} />
+        <Route path="/cars" element={<CarListing />} />
       </Routes>
     </Router>
   );

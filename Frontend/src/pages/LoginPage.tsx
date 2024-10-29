@@ -25,13 +25,12 @@ const LoginForm: React.FC = () => {
   };
 
   return (
-    <section className="vh-100 d-flex justify-content-center align-items-center">
-      <div className="card shadow-lg" style={{ width: '80%',height:'80%',borderRadius:'25px' }}>
+    <section className=" d-flex justify-content-center align-items-center">
         <div className="row g-0">
           <div className="col-md-6 d-flex align-items-center">
-            <img src={logincar} className="img-fluid rounded-start" alt="Sample" style={{ width: '100%' }} />
+            <img src={logincar} className="img-fluid rounded-start" alt="Sample" style={{ width: '100%', height: 'auto' }} />
           </div>
-          <div className="col-md-6 d-flex align-items-center">
+          <div className="col-md-6">
             <div className="card-body p-5">
               <form onSubmit={(e) => e.preventDefault()}>
                 <div className="d-flex flex-row align-items-center justify-content-center">
@@ -51,7 +50,11 @@ const LoginForm: React.FC = () => {
                   <p className="text-center fw-bold mx-3 mb-0">Or</p>
                 </div>
 
+                <h3  id="loginText" className="text-center fw-bold mb-4">Login</h3>
+
                 <div className="form-outline mb-4">
+                <label className="form-label" htmlFor="form3Example3">Email address</label>
+
                   <input
                     type="email"
                     id="form3Example3"
@@ -60,10 +63,11 @@ const LoginForm: React.FC = () => {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                   />
-                  <label className="form-label" htmlFor="form3Example3">Email address</label>
                 </div>
 
                 <div className="form-outline mb-3">
+                <label className="form-label" htmlFor="form3Example4">Password</label>
+
                   <input
                     type="password"
                     id="form3Example4"
@@ -72,7 +76,6 @@ const LoginForm: React.FC = () => {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                   />
-                  <label className="form-label" htmlFor="form3Example4">Password</label>
                 </div>
 
                 <div className="d-flex justify-content-between align-items-center">
@@ -100,7 +103,7 @@ const LoginForm: React.FC = () => {
                   </button>
                   <p className="small fw-bold mt-2 pt-1 mb-0">
                     Don't have an account?{' '}
-                    <a href="#!" className="link-danger" onClick={handleRegisterRedirect}>
+                    <a  className="link-danger" onClick={handleRegisterRedirect}>
                       Register
                     </a>
                   </p>
@@ -109,7 +112,7 @@ const LoginForm: React.FC = () => {
             </div>
           </div>
         </div>
-      </div>
+     
     </section>
   );
 };

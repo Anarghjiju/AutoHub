@@ -9,11 +9,10 @@ const Signup: React.FC = () => {
       <div className="container h-100">
         <div className="row d-flex justify-content-center align-items-center h-100">
           <div className="col-lg-12 col-xl-11">
-            <div className="card shadow-lg" style={{ borderRadius: '25px' }}>
               <div className="card-body p-md-5">
                 <div className="row justify-content-center">
                   <div className="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
-                    <p className="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Sign up</p>
+                    <h3  id="registerText" className="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Sign up</h3>
 
                     <form className="mx-1 mx-md-4">
                       <div className="d-flex flex-row align-items-center mb-4">
@@ -89,7 +88,7 @@ const Signup: React.FC = () => {
                       src={RegisterCar}
                       className="img-fluid"
                       alt="Sample"
-                      style={{ width: '100%', maxHeight: '600px' }} // Set max-height or height as needed
+                      style={{ width: '100%', maxHeight: '500px' }} // Set max-height or height as needed
                     />
                   </div>
                 </div>
@@ -97,7 +96,6 @@ const Signup: React.FC = () => {
             </div>
           </div>
         </div>
-      </div>
     </section>
   );
 };

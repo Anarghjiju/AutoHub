@@ -1,8 +1,9 @@
 import React from 'react';
 import Navbar from '../components/Navbar';
-import HeroSection from '../components/Herosection';
+import HeroSection from '../components/HeroSection';
 import ShopByBrands from '../components/ShopByBrands';
 import FeaturedCars from '../components/FeaturedCars';
+import Footer from '../components/FooterSection';
 import '../styles/styles.css';
 const Home: React.FC = () => {
   return (
@@ -11,6 +12,7 @@ const Home: React.FC = () => {
       <HeroSection />
       <ShopByBrands />
       <FeaturedCars />
+      <Footer />
     </div>
   );
 };

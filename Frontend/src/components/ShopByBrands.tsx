@@ -37,7 +37,7 @@ const ShopByBrands: React.FC = () => {
       setCurrentIndex(currentIndex - 2); // Go back 2 brands
     }
   };
-
+  
   return (
     <div className="shop-by-brands">
       <h2>Shop by Brands</h2>

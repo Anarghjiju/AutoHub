@@ -1,6 +1,5 @@
-// src/components/HeroSection.tsx
 import React from 'react';
-import carimage from '../assets/carimage.jpg'
+import carimage from '../assets/carimage.png'
 
 const HeroSection: React.FC = () => {
   return (

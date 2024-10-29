@@ -87,8 +87,8 @@
   }
   
   .hero-text p {
-    font-size: 1.5em;
-    margin-bottom: 0.5em;
+    font-size: 1em;
+    margin-bottom: 1em;
   }
   
   /* Positioning Buttons */
@@ -107,20 +107,21 @@
     border: none;
     cursor: pointer;
     transition: transform 0.3s ease, background-color 0.3s ease;
+    border-radius: 10px;
   }
   
   .primary-button {
-    background-color: #007bff;
+    background-color: #000000;
     color: white;
   }
   
   .secondary-button {
     background-color: #f3f3f3;
-    color: black;
+    color: rgb(0, 0, 0);
   }
   
   .primary-button:hover {
-    background-color: #0056b3;
+    background-color: #1f1f1f;
     transform: scale(1.05);
   }
   

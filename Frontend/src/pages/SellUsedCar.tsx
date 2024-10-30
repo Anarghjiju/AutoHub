@@ -13,7 +13,7 @@ const UsedCarSell = () => {
     price: 0,
     description: '',
   });
-  const [images, setImages] = useState<string[]>(Array(5).fill('')); // Initialize array for 5 images
+  const [images, setImages] = useState<string[]>([]); // Store base64 images
   const history = useNavigate();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -26,19 +26,45 @@ const UsedCarSell = () => {
     if (file) {
       const reader = new FileReader();
       reader.onload = () => {
+        const base64String = reader.result as string;
         const updatedImages = [...images];
-        updatedImages[index] = reader.result as string;
+        updatedImages[index] = base64String;
         setImages(updatedImages);
       };
-      reader.readAsDataURL(file);
+      reader.readAsDataURL(file); 
     }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Form submitted:', { carDetails, images });
-    Swal.fire('Submitted!', 'Your car has been listed for sale!', 'success');
-    history('/dashboard');  // Navigate to dashboard or listings page
+    
+    const formData = {
+      ...carDetails,
+      sellerId: 'SOME_SELLER_ID',
+      buyerId: '',
+      images, 
+    };
+
+    try {
+      const response = await fetch('http://localhost:3001/api/usedcars', { // Replace with your backend API URL
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        Swal.fire('Submitted!', 'Your car has been listed for sale!', 'success');
+        history('/dashboard');  // Navigate to dashboard or listings page
+      } else {
+        const errorData = await response.json();
+        Swal.fire('Error', errorData.error || 'Failed to list your car.', 'error');
+      }
+    } catch (error) {
+      console.error('Error submitting car details:', error);
+      Swal.fire('Error', 'Failed to list your car.', 'error');
+    }
   };
 
   return (
@@ -68,30 +94,32 @@ const UsedCarSell = () => {
             <input type="number" name="price" value={carDetails.price} onChange={handleChange} required />
           </div>
           <div className="image-upload-container">
-  <label>Upload Images:</label>
-  <div className="upload-box-container">
-    {Array.from(Array(5), (_, index) => (
-      <div className="upload-box" key={index}>
-        {images[index] && (
-          <img className="image-preview" src={images[index]} alt="Preview" />
-        )}
-        <input
-          type="file"
-          id={`image-upload-${index}`}
-          accept="image/*"
-          onChange={(e) => handleImageUpload(e, index)}
-        />
-        <label htmlFor={`image-upload-${index}`}><span>+</span></label>
-      </div>
-    ))}
-  </div>
-</div>
+            <label>Upload Images:</label>
+            <div className="upload-box-container">
+              {Array.from(Array(5), (_, index) => (
+                <div className="upload-box" key={index}>
+                  {images[index] && (
+                    <img
+                      className="image-preview"
+                      src={images[index]}
+                      alt="Preview"
+                    />
+                  )}
+                  <input
+                    type="file"
+                    id={`image-upload-${index}`}
+                    accept="image/*"
+                    onChange={(e) => handleImageUpload(e, index)}
+                  />
+                  <label htmlFor={`image-upload-${index}`}><span>+</span></label>
+                </div>
+              ))}
+            </div>
+          </div>
           <div className="form-group">
             <label>Description</label>
             <textarea name="description" value={carDetails.description} onChange={handleChange} required />
           </div>
-   
-
           <button type="submit" className="submit-button">List Car for Sale</button>
         </form>
       </div>

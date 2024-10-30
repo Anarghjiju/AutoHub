@@ -57,18 +57,37 @@ export const getDistinctMakes = async (req: Request, res: Response) => {
 };
 
 
+export const getDistinctCarsByMake = async (req: Request, res: Response) => {
+  try {
+    const result = await Car_details.aggregate([
+      { $match: { Make: req.params.Make } }, // Filter by the specific make
+      { $group: { _id: "$Model", car: { $first: "$$ROOT" } } }, // Group by model, get the first document for each model
+      { $replaceRoot: { newRoot: "$car" } } // Replace the root to output the full document
+    ]);
 
-export const getCarsByMake = async(req:Request , res:Response) => {
-  try{
-    const result = await Car_details.find({ Make: req.params.Make });
-    if(!result)
-      res.status(404).json({message:"no cars for this make"});
-    res.status(200).json(result);
+    if (result.length === 0) {
+      res.status(404).json({ message: "No distinct models found for this make" });
+    }
+    else {
+      // Only send response if previous check was not triggered
+      res.status(200).json(result);
+    }
+  } catch (error) {
+    res.status(500).json({ message: 'Error getting distinct cars for the make' });
   }
-  catch(error){
-    res.status(500).json({ message: 'Error getting cars for the makes' });
-  }
-}
+};
+
+// export const getCarsByMake = async(req:Request , res:Response) => {
+//   try{
+//     const result = await Car_details.find({ Make: req.params.Make });
+//     if(!result)
+//       res.status(404).json({message:"no cars for this make"});
+//     res.status(200).json(result);
+//   }
+//   catch(error){
+//     res.status(500).json({ message: 'Error getting cars for the makes' });
+//   }
+// }
 
 
 // // Endpoint to delete all documents where Make is "Dc"

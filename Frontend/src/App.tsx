@@ -9,9 +9,7 @@ import BrandListing from './pages/BrandListing';
 import CarDetail from './pages/CarDetailsPage'
 import CarListing from './pages/CarExplorePage';
 import CarsInBrand from './pages/CarsInBrand'
-import BrandCarList from './pages/BrandCarList'
-import SellUsedCar from './pages/sellUsedCar';
-
+import SellUsedCar from './pages/SellUsedCar';
 
 const App: React.FC = () => {
   return (
@@ -25,10 +23,7 @@ const App: React.FC = () => {
         <Route path="/detail/:id" element={<CarDetail />} />
         <Route path="/cars/:name" element={<CarsInBrand  />} />
         <Route path="/detail" element={<CarDetail />} />
-        <Route path="/cars/:name" element={<BrandCarList />} />
         <Route path="/sell" element={<SellUsedCar />} />
-
-        <Route path="/cars/:name" element={<BrandCarList  />} />
       </Routes>
     </Router>
   );

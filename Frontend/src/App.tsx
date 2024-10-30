@@ -22,7 +22,6 @@ const App: React.FC = () => {
         <Route path="/cars" element={<CarListing />} />
         <Route path="/detail/:id" element={<CarDetail />} />
         <Route path="/cars/:name" element={<CarsInBrand  />} />
-        <Route path="/detail" element={<CarDetail />} />
         <Route path="/sell" element={<SellUsedCar />} />
       </Routes>
     </Router>

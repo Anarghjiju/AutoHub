@@ -46,7 +46,7 @@ const UsedCarSell = () => {
     };
 
     try {
-      const response = await fetch('http://localhost:3001/api/usedcars', { // Replace with your backend API URL
+      const response = await fetch('http://localhost:3001/api/usedcars', { 
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -56,7 +56,7 @@ const UsedCarSell = () => {
 
       if (response.ok) {
         Swal.fire('Submitted!', 'Your car has been listed for sale!', 'success');
-        history('/dashboard');  // Navigate to dashboard or listings page
+        history('/');  
       } else {
         const errorData = await response.json();
         Swal.fire('Error', errorData.error || 'Failed to list your car.', 'error');
@@ -71,7 +71,7 @@ const UsedCarSell = () => {
     <div>
       <Navbar />
       <div className="used-car-sell-container">
-        <form onSubmit={handleSubmit}>
+        <form className='sell-form' onSubmit={handleSubmit}>
           <h1>Sell Your Car</h1>
           <div className="form-group">
             <label>Make</label>

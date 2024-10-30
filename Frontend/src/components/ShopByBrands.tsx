@@ -18,7 +18,7 @@ const brands = [
   { id: 3, name: 'Bajaj', image: brand3 },
   { id: 4, name: 'Bentley', image: brand4 },
   { id: 5, name: 'Benz', image: brand5 },
-  { id: 6, name: 'BMW', image: brand6 },
+  { id: 6, name: 'Bmw', image: brand6 },
   { id: 7, name: 'Bugatti', image: brand7 },
   { id: 8, name: 'Datsun', image: brand8 }
 ];
@@ -40,6 +40,10 @@ const ShopByBrands: React.FC = () => {
       setCurrentIndex(currentIndex - 2);
     }
   };
+
+  const handleBrandClick = (brandName: string) => {
+    navigate(`/cars/${brandName}`);
+  };
   
   return (
     <div className="shop-by-brands">
@@ -51,7 +55,7 @@ const ShopByBrands: React.FC = () => {
         <div className="brands-slider">
           <div className="brands-display" style={{ transform: `translateX(-${(currentIndex * (100 / itemsToShow))}%)` }}>
             {brands.map((brand) => (
-              <div className="brand-card" key={brand.id}>
+              <div className="brand-card" key={brand.id} onClick={() => handleBrandClick(brand.name)}>
                 <img src={brand.image} alt={brand.name} />
                 <h3>{brand.name}</h3>
               </div>

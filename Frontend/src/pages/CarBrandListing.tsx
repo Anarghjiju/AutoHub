@@ -62,7 +62,7 @@ const brands = [
   { id: 20, name: 'Land Rover', image: brand20 },
   { id: 21, name: 'Lexus', image: brand21 },
   { id: 22, name: 'Mahindra', image: brand22 },
-  { id: 23, name: 'Maruti', image: brand23 },
+  { id: 23, name: 'Maruti Suzuki', image: brand23 },
   { id: 24, name: 'Maserati', image: brand24 },
   { id: 25, name: 'Mg', image: brand25 },
   { id: 26, name: 'Mini', image: brand26 },

@@ -3,8 +3,8 @@ import { createUsedCar, approveCarListing, getListedCars } from '../controllers/
 
 const router = express.Router();
 
-router.post('/used-cars', createUsedCar);            
-router.patch('/used-cars/approve/:carId',approveCarListing); 
-router.get('/used-cars', getListedCars);             
+router.post('/usedcars', createUsedCar);            
+router.patch('/usedcars/approve/:carId',approveCarListing); 
+router.get('/usedcars', getListedCars);             
 
 export default router;

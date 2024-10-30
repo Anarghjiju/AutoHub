@@ -1,56 +1,69 @@
-import mongoose,{Document,Schema} from 'mongoose';
+import mongoose, { Document, Schema } from 'mongoose';
 
-export interface IUsedCar extends Document{
-    make:string;
-    carModel:string;
-    year:number;
-    kmsDriven:number;
-    price:number;
-    sellerId:string;
-    description:string;
-    buyerId:string;
-    verified :boolean;
-    listed:boolean;
+export interface IUsedCar extends Document {
+    make: string;
+    carModel: string;
+    year: number;
+    kmsDriven: number;
+    price: number;
+    sellerId: string;
+    description: string;
+    buyerId?: string; // Optional if a buyer hasn't been assigned yet
+    verified: boolean;
+    listed: boolean;
+    images: {
+        publicId: string;
+        url: string;
+    }[];
 }
 
-const UsedCarSchema :Schema =new Schema({
-    make:{
-        type:String,
-        required :true
+const UsedCarSchema: Schema = new Schema({
+    make: {
+        type: String,
+        required: true,
     },
-    carModel:{
-        type:String,
-        required:true
+    carModel: {
+        type: String,
+        required: true,
     },
-    year:{
-        type:Number,
-        required:true
+    year: {
+        type: Number,
+        required: true,
     },
-    kmsDriven:{
-        type:Number,
-        required:true
+    kmsDriven: {
+        type: Number,
+        required: true,
     },
-    price:{
-        type:Number,
-        required:true,
+    price: {
+        type: Number,
+        required: true,
     },
-    sellerId:{
-        type:  String,
-        required:true
+    sellerId: {
+        type: String,
+        required: true,
     },
-    description:{
-        type:String,
-        required:true
+    images: [
+        {
+            publicId: { type: String, required: true }, // Make publicId required
+            url: { type: String, required: true }, // Make url required
+        },
+    ],
+    description: {
+        type: String,
+        required: true,
     },
-    buyerId:{
-        type:String,
+    buyerId: {
+        type: String,
+        required: false, // Optional field
     },
-    verified:{
-        type:Boolean,
+    verified: {
+        type: Boolean,
+        default: false, // Default value for verified
     },
-    listed:{
-        type:Boolean,
+    listed: {
+        type: Boolean,
+        default: true, // Default value for listed
     },
 });
 
-export const usedCar = mongoose.model<IUsedCar>('UsedCar',UsedCarSchema)
+export const usedCar = mongoose.model<IUsedCar>('UsedCar', UsedCarSchema);

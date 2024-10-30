@@ -24,7 +24,6 @@ const App: React.FC = () => {
         <Route path="/detail" element={<CarDetail />} />
         <Route path="/cars/:name" element={<BrandCarList />} />
         <Route path="/sell" element={<SellUsedCar />} />
-
         <Route path="/cars/:name" element={<BrandCarList  />} />
       </Routes>
     </Router>

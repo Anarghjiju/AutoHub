@@ -2,7 +2,7 @@ import React from 'react';
 
 import Navbar from '../components/Navbar';
 import FilterSidebar from '../components/FilterSidebar';
-import CarByBrandListing from '../components/CarByBrandListing'; // Make sure you import the correct component
+import CarByBrandListing from '../components/CarInBrandListing'; // Make sure you import the correct component
 import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap CSS
 import '../styles/CarListingPage.css'
 import { useParams } from 'react-router-dom';

@@ -14,7 +14,7 @@ const Navbar: React.FC = () => {
             <Link className="nav-link" to="#buy">Buy Car</Link>
           </li>
           <li className="nav-item">
-            <Link className="nav-link" to="#sell">Sell Car</Link>
+            <Link className="nav-link" to="/sell">Sell Car</Link>
           </li>
           <li className="nav-item">
             <Link className="nav-link" to="#service">Service</Link>

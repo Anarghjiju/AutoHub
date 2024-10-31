@@ -14,6 +14,7 @@ const UsedCarSell = () => {
     description: '',
   });
   const [images, setImages] = useState<string[]>([]); // Store base64 images
+  const [loading, setLoading] = useState(false); // Loading state
   const history = useNavigate();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -37,7 +38,7 @@ const UsedCarSell = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+    setLoading(true); // Start loading
     const formData = {
       ...carDetails,
       sellerId: 'SOME_SELLER_ID',
@@ -64,6 +65,8 @@ const UsedCarSell = () => {
     } catch (error) {
       console.error('Error submitting car details:', error);
       Swal.fire('Error', 'Failed to list your car.', 'error');
+    } finally {
+      setLoading(false); // End loading
     }
   };
 
@@ -71,57 +74,64 @@ const UsedCarSell = () => {
     <div>
       <Navbar />
       <div className="used-car-sell-container">
-        <form className='sell-form' onSubmit={handleSubmit}>
-          <h1>Sell Your Car</h1>
-          <div className="form-group">
-            <label>Make</label>
-            <input type="text" name="make" value={carDetails.make} onChange={handleChange} required />
+        {loading ? (
+          <div className="spinner-container">
+            <div className="spinner"></div> {/* Loading spinner */}
+            <p>Uploading...</p>
           </div>
-          <div className="form-group">
-            <label>Model</label>
-            <input type="text" name="carModel" value={carDetails.carModel} onChange={handleChange} required />
-          </div>
-          <div className="form-group">
-            <label>Year</label>
-            <input type="number" name="year" value={carDetails.year} onChange={handleChange} required />
-          </div>
-          <div className="form-group">
-            <label>Kilometers Driven</label>
-            <input type="number" name="kmsDriven" value={carDetails.kmsDriven} onChange={handleChange} required />
-          </div>
-          <div className="form-group">
-            <label>Price</label>
-            <input type="number" name="price" value={carDetails.price} onChange={handleChange} required />
-          </div>
-          <div className="image-upload-container">
-            <label>Upload Images:</label>
-            <div className="upload-box-container">
-              {Array.from(Array(5), (_, index) => (
-                <div className="upload-box" key={index}>
-                  {images[index] && (
-                    <img
-                      className="image-preview"
-                      src={images[index]}
-                      alt="Preview"
-                    />
-                  )}
-                  <input
-                    type="file"
-                    id={`image-upload-${index}`}
-                    accept="image/*"
-                    onChange={(e) => handleImageUpload(e, index)}
-                  />
-                  <label htmlFor={`image-upload-${index}`}><span>+</span></label>
-                </div>
-              ))}
+        ) : (
+          <form className="sell-form" onSubmit={handleSubmit}>
+            <h1>Sell Your Car</h1>
+            <div className="form-group">
+              <label>Make</label>
+              <input type="text" name="make" value={carDetails.make} onChange={handleChange} required />
             </div>
-          </div>
-          <div className="form-group">
-            <label>Description</label>
-            <textarea name="description" value={carDetails.description} onChange={handleChange} required />
-          </div>
-          <button type="submit" className="submit-button">List Car for Sale</button>
-        </form>
+            <div className="form-group">
+              <label>Model</label>
+              <input type="text" name="carModel" value={carDetails.carModel} onChange={handleChange} required />
+            </div>
+            <div className="form-group">
+              <label>Year</label>
+              <input type="number" name="year" value={carDetails.year} onChange={handleChange} required />
+            </div>
+            <div className="form-group">
+              <label>Kilometers Driven</label>
+              <input type="number" name="kmsDriven" value={carDetails.kmsDriven} onChange={handleChange} required />
+            </div>
+            <div className="form-group">
+              <label>Price</label>
+              <input type="number" name="price" value={carDetails.price} onChange={handleChange} required />
+            </div>
+            <div className="image-upload-container">
+              <label>Upload Images:</label>
+              <div className="upload-box-container">
+                {Array.from(Array(5), (_, index) => (
+                  <div className="upload-box" key={index}>
+                    {images[index] && (
+                      <img
+                        className="image-preview"
+                        src={images[index]}
+                        alt="Preview"
+                      />
+                    )}
+                    <input
+                      type="file"
+                      id={`image-upload-${index}`}
+                      accept="image/*"
+                      onChange={(e) => handleImageUpload(e, index)}
+                    />
+                    <label htmlFor={`image-upload-${index}`}><span>+</span></label>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div className="form-group">
+              <label>Description</label>
+              <textarea name="description" value={carDetails.description} onChange={handleChange} required />
+            </div>
+            <button type="submit" className="submit-button">List car for verification</button>
+          </form>
+        )}
       </div>
     </div>
   );

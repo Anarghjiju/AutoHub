@@ -10,6 +10,9 @@ import CarDetail from './pages/CarDetailsPage'
 import CarListing from './pages/CarExplorePage';
 import CarsInBrand from './pages/CarsInBrand'
 import SellUsedCar from './pages/SellUsedCar';
+import UsedCarListingPage from './pages/UsedCarListingPage';
+import UsedCarDetailsPage from './pages/UsedCarDetailsPage';
+import ProfilePage from './pages/ProfilePage';
 
 const App: React.FC = () => {
   return (
@@ -23,6 +26,9 @@ const App: React.FC = () => {
         <Route path="/detail/:id" element={<CarDetail />} />
         <Route path="/cars/:name" element={<CarsInBrand  />} />
         <Route path="/sell" element={<SellUsedCar />} />
+        <Route path="/buy" element={<UsedCarListingPage />} />
+        <Route path="/usedcar/:id" element={<UsedCarDetailsPage />} />
+        <Route path="/profile" element={<ProfilePage />} />
       </Routes>
     </Router>
   );

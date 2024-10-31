@@ -30,7 +30,7 @@
   }
   
   .logo:hover {
-    color: blue; /* Change color on hover */
+    color: rgb(0, 0, 0); /* Change color on hover */
     transform: scale(1.1); /* Slightly enlarge the logo on hover */
   }
   
@@ -68,5 +68,5 @@
 .profile-icon {
     font-size: 1.8rem; /* Adjust size for the profile icon */
     cursor: pointer; /* Change cursor on hover */
-    color: #333; /* Color for profile icon */
+    color: #000000; 
 }

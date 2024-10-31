@@ -1,0 +1,59 @@
+.container-fluid-profile {
+    display: flex;
+  }
+  
+  .sidebar-profile {
+    margin-top: 50px;
+    width: 200px;
+    height: 100vh;
+    padding: 20px;
+    background-color: #000000;
+    color: white;
+    border-radius: 8px;
+
+  }
+  
+  .side-profile {
+    cursor: pointer;
+    color: #ffffff;
+    font-size: medium;
+  }
+  
+  .mainprt-profile {
+    flex-grow: 1;
+    padding: 20px;
+  }
+  
+  .personal-info {
+    margin: 30px 30px;
+  }
+  
+  .mphead-personal-info {
+    margin-bottom: 20px;
+  }
+  
+  .listing-admin {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .car-box {
+    width: 30%;
+    margin: 10px;
+    padding: 10px;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    text-align: center;
+    font-size: small;
+  }
+  
+  .car-image {
+    width: 100%;
+    height: auto;
+  }
+  
+  .car-name, .car-details, .car-price {
+    margin: 5px 0;
+  }
+  

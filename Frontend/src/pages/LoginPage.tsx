@@ -35,6 +35,7 @@ const LoginForm: React.FC = () => {
               <form onSubmit={(e) => e.preventDefault()}>
                 <div className="d-flex flex-row align-items-center justify-content-center">
                   <p className="lead fw-normal mb-0 me-3">Sign in with</p>
+                  <div className='signin-btn'>
                   <button type="button" className="btn btn-floating mx-1" onClick={() => handleSocialLogin('Google')}>
                     <FontAwesomeIcon icon={faGoogle} />
                   </button>
@@ -45,7 +46,7 @@ const LoginForm: React.FC = () => {
                     <FontAwesomeIcon icon={faLinkedinIn} />
                   </button>
                 </div>
-
+                </div>
                 <div className="divider d-flex align-items-center my-4">
                   <p className="text-center fw-bold mx-3 mb-0">Or</p>
                 </div>

@@ -55,4 +55,9 @@ height: 100%;
   #loginText{
     font-size: 2rem; /* Increase font size of login text */
   }
+
+  .signin-btn button{
+    background-color:black;
+    color: white;
+  }
   

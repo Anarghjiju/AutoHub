@@ -81,9 +81,22 @@ export const getListedCars = async (req: Request, res: Response): Promise<void> 
     try {
         // Fetch all verified and listed cars
         const cars = await usedCar.find({ verified: true, listed: true });
-        res.status(200).json({ message: 'Listed cars fetched successfully', cars });
+        res.status(200).json( cars );
     } catch (error) {
         console.error('Error fetching listed cars:', error);
         res.status(500).json({ error: 'Error fetching listed cars' });
     }
 };
+
+export const getCarById = async (req: Request, res: Response):Promise<void>=> {
+  try{
+    const car = await usedCar.findById(req.params.id);
+    if(!car){
+      res.status(404).json({"message":"No car found"});
+  }
+  res.json(car);
+}catch(error){
+  res.status(500).json({message:"Error retrieving  car"});
+}
+  
+}

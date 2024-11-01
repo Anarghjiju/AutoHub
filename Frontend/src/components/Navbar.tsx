@@ -3,6 +3,7 @@ import React from 'react';
 import { Link } from 'react-router-dom'; // Import Link from react-router-dom
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../styles/Navbar.css';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 const Navbar: React.FC = () => {
   return (
@@ -11,7 +12,7 @@ const Navbar: React.FC = () => {
       <Link to="/" className="logo me-auto">AutoHub</Link> {/* Update this line */}
         <ul className="nav nav-pills">
           <li className="nav-item">
-            <Link className="nav-link" to="#buy">Buy Car</Link>
+            <Link className="nav-link" to="/buy">Buy Car</Link>
           </li>
           <li className="nav-item">
             <Link className="nav-link" to="/sell">Sell Car</Link>
@@ -23,7 +24,11 @@ const Navbar: React.FC = () => {
             <Link className="nav-link" to="/cars">Explore Cars</Link> {/* Update this line */}
           </li>
         </ul>
-        <div className="profile-icon ms-auto">👤</div>
+        <div className="profile-icon ms-auto">
+        <Link className="nav-link" to="/profile">
+          <AccountCircleIcon/>
+          </Link>
+        </div>
       </div>
     </nav>
   );

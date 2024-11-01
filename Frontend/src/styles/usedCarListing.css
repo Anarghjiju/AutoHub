@@ -1,0 +1,34 @@
+/* styles.css */
+.compact-card {
+    padding: 5px; 
+    /* Reduce padding for a more compact look */
+  }
+  
+  .car-make {
+    font-size: 1.5rem; /* Increase font size for car make */
+    font-weight: bold; /* Optional: Make the font bold for emphasis */
+  }
+  
+  .btn {
+    background-color: black; /* Set button background to black */
+    border-color: black; /* Optional: Remove border */
+  }
+  
+  .card-body {
+    display: flex; /* Use flexbox for centering */
+    flex-direction: column; /* Align children vertically */
+    justify-content: space-between; /* Space out items in the card */
+    align-items: center; /* Center the button horizontally */
+  }
+
+  /* styles.css */
+.card {
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5); /* Custom shadow effect */
+    transition: box-shadow 0.3s ease; /* Smooth transition for hover effect */
+  }
+  
+  .card:hover {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Enhanced shadow on hover */
+  }
+  
+  

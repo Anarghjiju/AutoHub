@@ -1,0 +1,62 @@
+.filter-sidebar {
+  position: sticky;
+  width: 250px;
+  padding: 15px;
+  border: 1px solid #dfdfdf;
+  border-radius: 8px;
+  background-color: #fff;
+  overflow-y: auto;
+  margin-top: 50px;
+  font-size: small;
+}
+
+.filter-section {
+  margin-bottom: 20px;
+}
+
+.filter-section select{
+  border: 1px solid #dfdfdf;
+  border-radius: 5px;
+  font-size: small;
+}
+
+.filter-section h5 {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.slider-container {
+  display: flex;
+  gap: 10px;
+}
+
+.budget-values {
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+  margin-top: 5px;
+}
+
+.suggestions {
+  margin-top: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.suggestions button {
+  background-color: #f0f0f0;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.search-input {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  border-radius: 4px;
+  border: 1px solid #ececec;
+}

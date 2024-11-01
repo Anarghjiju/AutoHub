@@ -26,7 +26,7 @@ export interface IProvider {
 
 const BookingPage: React.FC = () => {
     const location = useLocation();
-    const provider = location.state as IProvider; // Cast the provider data to IProvider
+    const { provider, service } = location.state as { provider: IProvider, service: IService };
 
     const [models, setModels] = useState<string[]>([]);
     const [selectedModel, setSelectedModel] = useState<string>('');
@@ -34,7 +34,6 @@ const BookingPage: React.FC = () => {
     const [preferredDate, setPreferredDate] = useState<string>('');
 
     useEffect(() => {
-        // Fetch models from the API based on the selected make
         const fetchModels = async () => {
             try {
                 const response = await axios.get(`http://localhost:5004/api/cars/models/${provider.provider_make}`);
@@ -49,22 +48,30 @@ const BookingPage: React.FC = () => {
         }
     }, [provider]);
 
-    const handleConfirmService = () => {
-        // Handle service confirmation logic here
+    const handleConfirmService = async () => {
         const bookingDetails = {
-            provider: provider.name,
-            model: selectedModel,
-            contactNo,
-            preferredDate,
+            providerId: provider.provider_id,
+            serviceId: service.service_id,
+            userId: 'random-user-id-123',
+            bookingDate: new Date(preferredDate),
+            status: true,
+            make: provider.provider_make,
+            car_model: selectedModel,
+            contact_no: contactNo,
         };
 
-        console.log('Booking Details:', bookingDetails);
-        // You can send this data to your backend API to create a booking
+        try {
+            const response = await axios.post('http://localhost:5001/api/book', bookingDetails);
+            alert('Booking confirmed successfully!');
+        } catch (error) {
+            console.error('Error confirming booking:', error);
+            alert('Failed to confirm booking. Please try again.');
+        }
     };
 
     return (
         <div className="booking-page">
-            <h2 className="booking-header">Book a Service with {provider.name}</h2>
+            <h2 className="booking-header">Book {service.service_name} with {provider.name}</h2>
             <form className="booking-form" onSubmit={(e) => e.preventDefault()}>
                 <label>
                     Make:

@@ -30,15 +30,14 @@ const BookService: React.FC = () => {
     const [locations, setLocations] = useState<string[]>([]);
     const [selectedMake, setSelectedMake] = useState<string>('');
     const [selectedLocation, setSelectedLocation] = useState<string>('');
-    const [providers, setProviders] = useState<IProvider[]>([]); // Store all providers
+    const [providers, setProviders] = useState<IProvider[]>([]);
     const navigate = useNavigate();
 
     useEffect(() => {
         const fetchServiceProviders = async () => {
             try {
                 const response = await axios.get<IProvider[]>('http://localhost:5002/api/providers');
-                setProviders(response.data); // Save providers in state
-                // Sort makes in descending order
+                setProviders(response.data);
                 const uniqueMakes = Array.from(new Set(response.data.map(provider => provider.provider_make)))
                     .sort((a, b) => b.localeCompare(a));
                 setCarMakes(uniqueMakes);
@@ -52,22 +51,17 @@ const BookService: React.FC = () => {
     useEffect(() => {
         const fetchLocations = async () => {
             if (selectedMake) {
-                try {
-                    // Filter locations based on the selected make
-                    const filteredLocations = Array.from(
-                        new Set(providers
-                            .filter(provider => provider.provider_make === selectedMake)
-                            .map(provider => provider.location)
-                        )
-                    ).sort((a, b) => b.localeCompare(a));
-                    setLocations(filteredLocations);
-                } catch (error) {
-                    console.error('Error fetching locations:', error);
-                }
+                const filteredLocations = Array.from(
+                    new Set(providers
+                        .filter(provider => provider.provider_make === selectedMake)
+                        .map(provider => provider.location)
+                    )
+                ).sort((a, b) => b.localeCompare(a));
+                setLocations(filteredLocations);
             }
         };
         fetchLocations();
-    }, [selectedMake, providers]); // Use providers in dependency
+    }, [selectedMake, providers]);
 
     const handleMakeChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         setSelectedMake(event.target.value);
@@ -80,7 +74,7 @@ const BookService: React.FC = () => {
 
     const handleFindProvider = () => {
         if (selectedMake && selectedLocation) {
-            const selectedProvider = providers.find(provider => 
+            const selectedProvider = providers.find(provider =>
                 provider.provider_make === selectedMake && provider.location === selectedLocation
             );
             if (selectedProvider) {
@@ -91,38 +85,37 @@ const BookService: React.FC = () => {
 
     return (
         <div>
-        <Navbar />
-        <div className="book-service">
-            
-            <div className="book-service-left"></div>
-            <div className="book-service-right">
-                <div className="book-service-container">
-                    <h2>Choose Your Car Make</h2>
-                    <select onChange={handleMakeChange} defaultValue="" className="dropdown">
-                        <option value="" disabled>Select a make</option>
-                        {carMakes.map((make, index) => (
-                            <option key={index} value={make}>{make}</option>
-                        ))}
-                    </select>
+            <Navbar />
+            <div className="book-service">
+                <div className="book-service-left"></div>
+                <div className="book-service-right">
+                    <div className="book-service-container">
+                        <h2>Choose Your Car Make</h2>
+                        <select onChange={handleMakeChange} defaultValue="" className="dropdown">
+                            <option value="" disabled>Select a make</option>
+                            {carMakes.map((make, index) => (
+                                <option key={index} value={make}>{make}</option>
+                            ))}
+                        </select>
 
-                    {selectedMake && (
-                        <>
-                            <h2>Choose Your Location</h2>
-                            <select onChange={handleLocationChange} value={selectedLocation} defaultValue="" className="dropdown">
-                                <option value="" disabled>Select a location</option>
-                                {locations.map((location, index) => (
-                                    <option key={index} value={location}>{location}</option>
-                                ))}
-                            </select>
-                        </>
-                    )}
+                        {selectedMake && (
+                            <>
+                                <h2>Choose Your Location</h2>
+                                <select onChange={handleLocationChange} value={selectedLocation} defaultValue="" className="dropdown">
+                                    <option value="" disabled>Select a location</option>
+                                    {locations.map((location, index) => (
+                                        <option key={index} value={location}>{location}</option>
+                                    ))}
+                                </select>
+                            </>
+                        )}
 
-                    <button onClick={handleFindProvider} disabled={!selectedMake || !selectedLocation} className="find-button">
-                        Find Your Provider
-                    </button>
+                        <button onClick={handleFindProvider} disabled={!selectedMake || !selectedLocation} className="find-button">
+                            Find Your Provider
+                        </button>
+                    </div>
                 </div>
             </div>
-        </div>
         </div>
     );
 };

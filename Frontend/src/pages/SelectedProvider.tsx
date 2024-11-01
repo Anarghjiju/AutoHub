@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom'; // Import useNavigate here
+import { useLocation, useNavigate } from 'react-router-dom';
 import '../styles/SelectedProvider.css';
 import Navbar from '../components/Navbar';
 
@@ -25,21 +25,25 @@ export interface IProvider {
 
 const ProviderDetails: React.FC = () => {
     const location = useLocation();
-    const navigate = useNavigate(); // Call useNavigate inside the component
-    const provider = location.state as IProvider; // Cast the provider data to IProvider
+    const navigate = useNavigate();
+    const provider = location.state as IProvider;
 
-    const [selectedService, setSelectedService] = useState<IService | null>(null); // State for the selected service
+    const [selectedService, setSelectedService] = useState<IService | null>(null);
 
     const handleServiceClick = (service: IService) => {
-        setSelectedService(service); // Set the selected service to display in the overlay
+        setSelectedService(service);
     };
 
     const handleBookService = () => {
-        navigate('/bookingConfirm', { state: provider }); // Pass the provider data to the booking page
+        if (selectedService) {
+            navigate('/bookingConfirm', { state: { provider, service: selectedService } });
+        } else {
+            alert('Please select a service to book.');
+        }
     };
 
     const handleCloseOverlay = () => {
-        setSelectedService(null); // Close the overlay
+        setSelectedService(null);
     };
 
     if (!provider) {

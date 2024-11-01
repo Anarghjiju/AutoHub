@@ -1,60 +1,103 @@
 .container-fluid-profile {
-    display: flex;
-  }
-  
-  .sidebar-profile {
-    margin-top: 50px;
-    width: 200px;
-    height: 100vh;
-    margin-left: 30px;
-    padding: 20px;
-    background-color: #000000;
-    color: white;
-    border-radius: 8px;
+  display: flex;
+  font-family: 'Arial', sans-serif;
+  color: #333;
+  background-color: #ffffff;
+  min-height: 100vh;
+}
 
-  }
-  
-  .side-profile {
-    cursor: pointer;
-    color: #ffffff;
-    font-size: medium;
-  }
-  
-  .mainprt-profile {
-    flex-grow: 1;
-    padding: 20px;
-  }
-  
-  .personal-info {
-    margin: 35px 30px;
-  }
-  
-  .mphead-personal-info {
-    margin-bottom: 20px;
-  }
-  
-  .listing-admin {
-    display: flex;
-    flex-wrap: wrap;
-  }
-  
-  .car-box {
-    width: 30%;
-    margin: 10px;
-    padding: 10px;
-    background-color: #ffffff;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    text-align: center;
-    font-size: small;
-  }
-  
-  .car-image {
-    width: 100%;
-    height: auto;
-  }
-  
-  .car-name, .car-details, .car-price {
-    margin: 5px 0;
-  }
-  
+.sidebar-profile {
+  margin-top: 50px;
+  margin-left: 20px;
+  width: 220px;
+  background-color: #000000;
+  color: #ffffff;
+  padding: 30px 20px;
+  border-radius: 10px;
+  height: auto;
+}
+
+.side-profile {
+  cursor: pointer;
+  font-size: 0.8rem;
+  padding: 15px 0;
+  text-transform: uppercase;
+  transition: color 0.3s ease;
+}
+
+.side-profile:hover,
+.active-tab {
+  color: #e3e3e3;
+  font-weight: bold;
+  border-left: 4px solid #e3e3e3;
+  padding-left: 10px;
+}
+
+.mainprt-profile {
+  flex-grow: 1;
+  padding: 40px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  /* box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); */
+}
+
+.mphead-personal-info {
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+  font-weight: 600;
+  color: #000000;
+  border-bottom: 2px solid #e3e3e3;
+  padding-bottom: 10px;
+}
+
+.personal-info {
+  margin: 25px 0;
+}
+
+.personal-info-details p {
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #333333;
+  margin: 10px 0;
+}
+
+.listing-admin {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: start;
+}
+
+.car-box {
+  width: 30%;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.car-box:hover {
+  transform: scale(1.02);
+}
+
+.car-image {
+  width: 100%;
+  height: auto;
+  border-radius: 5px;
+}
+
+.car-name {
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: #333;
+  margin: 10px 0;
+}
+
+.car-details,
+.car-price {
+  font-size: 1rem;
+  color: #666;
+  margin: 5px 0;
+}

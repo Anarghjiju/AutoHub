@@ -77,54 +77,6 @@ export const getDistinctCarsByMake = async (req: Request, res: Response) => {
   }
 };
 
-// export const getCarsByMake = async(req:Request , res:Response) => {
-//   try{
-//     const result = await Car_details.find({ Make: req.params.Make });
-//     if(!result)
-//       res.status(404).json({message:"no cars for this make"});
-//     res.status(200).json(result);
-//   }
-//   catch(error){
-//     res.status(500).json({ message: 'Error getting cars for the makes' });
-//   }
-// }
-
-
-// // Endpoint to delete all documents where Make is "Dc"
-// export const deleteCarsByMake = async (req: Request, res: Response) => {
-//   try {
-//     const result = await Car_details.deleteMany({ Make: "Premier" });
-
-//     // Check how many documents were deleted
-//     if (result.deletedCount === 0) {
-//       res.status(404).json({ message: 'No cars found with Make "Dc"' });
-//     }
-
-//     res.status(200).json({ message: `${result.deletedCount} cars deleted with Make "Dc"` });
-//   } catch (error) {
-//     res.status(500).json({ message: 'Error deleting cars'});
-//   }
-// };
-
-
-// // Endpoint to update the Make to "Maruti Suzuki" where Model is "Wagon"
-// export const updateMakeByModel = async (req: Request, res: Response) => {
-//   try {
-//     const result = await Car_details.updateMany(
-//       { Model: "Wagon" }, // Condition to match
-//       { $set: { Make: "Maruti Suzuki" } } // Update operation
-//     );
-
-//     if (result.modifiedCount === 0) {
-//       res.status(404).json({ message: 'No cars found with Model "Wagon"' });
-//     }
-
-//     res.status(200).json({ message: `${result.modifiedCount} cars updated to Make "Maruti Suzuki"` });
-//   } catch (error) {
-//     res.status(500).json({ message: 'Error updating cars'});
-//   }
-// };
-
 
 
 

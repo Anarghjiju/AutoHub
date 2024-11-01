@@ -7,7 +7,8 @@ import {
   getAllProviders,
   getProviderByServiceId,
   addServiceToProvider,
-  deleteServiceFromProvider
+  deleteServiceFromProvider,
+  getProvidersByMake
 } from '../controller/providerController';
 
 const router = express.Router();
@@ -35,5 +36,8 @@ router.post('/:provider_id/service', addServiceToProvider);
 
 // Route to delete a specific service from a provider by service_id
 router.delete('/:provider_id/service/:service_id', deleteServiceFromProvider);
+
+// Route to get providers by a specific make
+router.get('/make/:make', getProvidersByMake);
 
 export default router;

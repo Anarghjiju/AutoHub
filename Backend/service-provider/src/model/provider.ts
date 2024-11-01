@@ -11,6 +11,7 @@ export interface IService {
 export interface IProvider extends Document {
   provider_id: string; // Unique identifier for the provider
   name: string;
+  provider_make: string;
   contactInfo: string;
   location: string;
   servicesOffered: IService[]; // Array of service objects
@@ -29,6 +30,7 @@ const ServiceSchema: Schema = new Schema({
 const ProviderSchema: Schema = new Schema({
   provider_id: { type: String, required: true, unique: true }, // Unique identifier for the provider
   name: { type: String, required: true },
+  provider_make: { type: String, required: true },
   contactInfo: { type: String, required: true },
   location: { type: String, required: true },
   servicesOffered: [ServiceSchema], // Array of service objects

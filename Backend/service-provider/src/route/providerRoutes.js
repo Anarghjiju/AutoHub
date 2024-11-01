@@ -22,4 +22,6 @@ router.get('/service/:service_id', providerController_1.getProviderByServiceId);
 router.post('/:provider_id/service', providerController_1.addServiceToProvider);
 // Route to delete a specific service from a provider by service_id
 router.delete('/:provider_id/service/:service_id', providerController_1.deleteServiceFromProvider);
+// Route to get providers by a specific make
+router.get('/make/:make', providerController_1.getProvidersByMake);
 exports.default = router;

@@ -1,19 +1,26 @@
 // src/components/CarImageGallery.tsx
 import React from 'react';
-import sampleCarImage1 from '../assets/tesla.png'; 
-import sampleCarImage2 from '../assets/tesla2.png'; 
 
-const CarImageGallery: React.FC = () => {
+interface CarImageGalleryProps {
+  imageUrls: string[];
+}
+
+const CarImageGallery: React.FC<CarImageGalleryProps> = ({ imageUrls }) => {
   return (
     <div className="car-image-gallery">
       <div id="carouselExampleControls" className="carousel slide" data-bs-ride="carousel">
         <div className="carousel-inner">
-          <div className="carousel-item active">
-            <img className="d-block w-100" src={sampleCarImage1} alt="First slide" />
-          </div>
-          <div className="carousel-item">
-            <img className="d-block w-100" src={sampleCarImage2} alt="Second slide" />
-          </div>
+          {imageUrls.length > 0 ? (
+            imageUrls.map((url, index) => (
+              <div key={index} className={`carousel-item ${index === 0 ? 'active' : ''}`}>
+                <img className="d-block w-100" src={url} alt={`Car slide ${index + 1}`} />
+              </div>
+            ))
+          ) : (
+            <div className="carousel-item active">
+              <p>No images available.</p>
+            </div>
+          )}
         </div>
         <a
           className="carousel-control-prev custom-arrow-prev"

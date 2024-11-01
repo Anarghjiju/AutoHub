@@ -2,28 +2,32 @@
 import React from 'react';
 
 interface Car {
-  _id: string;
-  Make: string;
-  Model: string;
-  Variant: string;
-  Ex_Showroom_Price: string;
-  Fuel_Type: string;
-  Power: string;
-  Torque: string;
-  Displacement: string;
-  Fuel_Tank_Capacity: string;
-  Type: string;
-  Body_Type: string;
-  Seating_Capacity: string;
-  ARAI_Certified_Mileage: string;
-  Length: string;
-  Width: string;
-  Height: string;
-  Kerb_Weight: string;
-  Ground_Clearance: string;
-  Front_Brakes: string;
-  Rear_Brakes: string;
-  ABS: string;
+    _id: string;
+    Make: string;
+    Model: string;	
+    Variant: string;	
+    Ex_Showroom_Price: string;
+    Fuel_Type: string;
+    Power: string;
+    Torque: string;
+    Displacement: string;	
+    Fuel_Tank_Capacity: string;	
+    Type: string;	
+    Body_Type: string;	
+    Doors: string;
+    Seating_Capacity: string;	
+    ARAI_Certified_Mileage: string;	
+    Length: string;	
+    Width: string;	
+    Height: string;	
+    Kerb_Weight: string;	
+    Ground_Clearance: string;	
+    Front_Brakes: string;	
+    Rear_Brakes: string;	
+    ABS: string;
+    Electric_Range: string;
+    Variants: string[];
+    imageUrls: string[];
 }
 
 interface CarDetailsProps {

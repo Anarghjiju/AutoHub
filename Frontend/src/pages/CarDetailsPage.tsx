@@ -19,6 +19,7 @@ interface Car {
   Fuel_Tank_Capacity: string;
   Type: string;
   Body_Type: string;
+  Doors: string;
   Seating_Capacity: string;
   ARAI_Certified_Mileage: string;
   Length: string;
@@ -29,9 +30,10 @@ interface Car {
   Front_Brakes: string;
   Rear_Brakes: string;
   ABS: string;
+  Electric_Range: string;
+  Variants: string[];
+  imageUrls: string[];
 }
-
-
 
 const CarDetailPage: React.FC = () => {
   const { state } = useLocation();
@@ -40,11 +42,13 @@ const CarDetailPage: React.FC = () => {
   if (!car) {
     return <p>No car found.</p>;
   }
+  
   return (
     <div>
       <Navbar />
       <div className="car-detail-page">
-        <CarImageGallery />
+        {/* Pass the imageUrls to CarImageGallery */}
+        <CarImageGallery imageUrls={car.imageUrls} />
         <CarDetails car={car} />
       </div>
     </div>

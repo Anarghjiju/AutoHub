@@ -18,6 +18,21 @@ export const getCarById = async (req:Request,res:Response) => {
 };
 
 
+export const getCarsByMake = async (req: Request, res: Response) => {
+  try {
+    const cars = await Car_details.find({ Make: req.params.Make });
+
+    if (!cars || cars.length === 0) {
+      res.status(404).json({ message: 'No cars found with the specified make' });
+    } else {
+      res.status(200).json(cars);
+    }
+  } catch (error) {
+    res.status(500).json({ message: 'Error getting cars by make' });
+  }
+};
+
+
 export const getDistinctMakes = async (req: Request, res: Response) => {
   try {
     const makes = await Car_details.aggregate([
@@ -77,6 +92,36 @@ export const getDistinctCarsByMake = async (req: Request, res: Response) => {
   }
 };
 
+
+export const getAllCars = async (req: Request, res: Response) => {
+  try {
+    const cars = await Car_details.find();
+    res.status(200).json(cars);
+  } catch (error) {
+    res.status(500).json({ message: 'Error retrieving car data' });
+  }
+};
+
+
+
+export const updateFieldName = async (req: Request, res: Response) => {
+  try {
+    // Step 1: Rename the field `Ex-Showroom_Price` to `Ex_Showroom_Price`
+    const result = await Car_details.updateMany(
+      { "Ex-Showroom_Price": { $exists: true } }, // Check if `Ex-Showroom_Price` exists
+      { $rename: { "Ex-Showroom_Price": "Ex_Showroom_Price" } } // Rename the field
+    );
+
+    // Step 2: Check if any documents were modified
+    if (result.modifiedCount > 0) {
+      res.status(200).json({ message: "Field name updated successfully." });
+    } else {
+      res.status(404).json({ message: "No documents found to update." });
+    }
+  } catch (error) {
+    res.status(500).json({ message: "Error updating field name", error });
+  }
+};
 
 
 

@@ -29,7 +29,8 @@ const UserSchema : Schema = new Schema({
         default:'user'
     },
     boughtCars:[{
-        type:Schema.Types.ObjectId,ref :'UsedCar'
+        type:Schema.Types.ObjectId,
+        ref :'UsedCar'
     }],
     soldCars:[
         {

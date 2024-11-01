@@ -39,7 +39,10 @@ const Profile: React.FC = () => {
         <main className="mainprt-profile">
           {activeTab === 'personal' && (
             <section className="personal-info">
+              <div className='mphead-personal-info-container'> 
               <h3 className="mphead-personal-info">Personal Information</h3>
+              <button className='edit-button'>Edit</button>
+              </div>
               <div className="personal-info-details">
                 <p>Name: John Doe</p>
                 <p>Email: johndoe@example.com</p>

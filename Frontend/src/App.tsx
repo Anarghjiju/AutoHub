@@ -15,6 +15,8 @@ import UsedCarDetailsPage from './pages/UsedCarDetailsPage';
 import ProfilePage from './pages/ProfilePage';
 import BookAService from './pages/BookAService';
 import ServiceListPage from './pages/ServiceListPage';
+import SelectedProvider from './pages/SelectedProvider';
+import BookingConfirmPage from './pages/BookingConfirmPage';
 
 const App: React.FC = () => {
   return (
@@ -33,6 +35,8 @@ const App: React.FC = () => {
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/service" element={<BookAService />} />
         <Route path="/servicelist/:make" element={<ServiceListPage />} />
+        <Route path="/provider/:make/:location" element={<SelectedProvider />} />
+        <Route path="/bookingConfirm" element={<BookingConfirmPage />} />
       </Routes>
     </Router>
   );

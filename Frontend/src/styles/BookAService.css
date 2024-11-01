@@ -74,7 +74,4 @@
     color: white;
 }
 
-html, body {
-    overflow: hidden; /* Prevent scrolling */
-    height: 100%; /* Ensure full height for the body */
-}
+

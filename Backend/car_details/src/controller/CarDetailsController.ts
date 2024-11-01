@@ -123,7 +123,29 @@ export const updateFieldName = async (req: Request, res: Response) => {
   }
 };
 
+export const getModelsByMake = async (req: Request, res: Response) => {
+  // Extract the make parameter from req.params
+  const make = req.params.Make;  // Use req.params.make to access the route parameter
 
+  console.log(make); // Log the make for debugging
+
+  try {
+      // Find all unique models for the specified make
+      const models = await Car_details.find({ Make: make }).distinct('Model');
+
+      // Check if models were found
+      if (!models.length) {
+          res.status(404).json({ message: 'No models found for this make.' });
+      }
+
+      // Return the list of models
+      else{
+      res.status(200).json(models);}
+  } catch (error) {
+      console.error('Error fetching models:', error);
+      res.status(500).json({ message: 'Server error while fetching models.' });
+  }
+};
 
 
 

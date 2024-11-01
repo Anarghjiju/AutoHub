@@ -1,3 +1,4 @@
+// BookService.tsx
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
@@ -29,12 +30,14 @@ const BookService: React.FC = () => {
     const [locations, setLocations] = useState<string[]>([]);
     const [selectedMake, setSelectedMake] = useState<string>('');
     const [selectedLocation, setSelectedLocation] = useState<string>('');
+    const [providers, setProviders] = useState<IProvider[]>([]); // Store all providers
     const navigate = useNavigate();
 
     useEffect(() => {
         const fetchServiceProviders = async () => {
             try {
                 const response = await axios.get<IProvider[]>('http://localhost:5002/api/providers');
+                setProviders(response.data); // Save providers in state
                 // Sort makes in descending order
                 const uniqueMakes = Array.from(new Set(response.data.map(provider => provider.provider_make)))
                     .sort((a, b) => b.localeCompare(a));
@@ -50,10 +53,9 @@ const BookService: React.FC = () => {
         const fetchLocations = async () => {
             if (selectedMake) {
                 try {
-                    const response = await axios.get<IProvider[]>('http://localhost:5002/api/providers');
-                    // Sort locations in descending order
+                    // Filter locations based on the selected make
                     const filteredLocations = Array.from(
-                        new Set(response.data
+                        new Set(providers
                             .filter(provider => provider.provider_make === selectedMake)
                             .map(provider => provider.location)
                         )
@@ -65,7 +67,7 @@ const BookService: React.FC = () => {
             }
         };
         fetchLocations();
-    }, [selectedMake]);
+    }, [selectedMake, providers]); // Use providers in dependency
 
     const handleMakeChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         setSelectedMake(event.target.value);
@@ -78,7 +80,12 @@ const BookService: React.FC = () => {
 
     const handleFindProvider = () => {
         if (selectedMake && selectedLocation) {
-            navigate(`/provider/${selectedMake}/${selectedLocation}`);
+            const selectedProvider = providers.find(provider => 
+                provider.provider_make === selectedMake && provider.location === selectedLocation
+            );
+            if (selectedProvider) {
+                navigate(`/provider/${selectedMake}/${selectedLocation}`, { state: selectedProvider });
+            }
         }
     };
 

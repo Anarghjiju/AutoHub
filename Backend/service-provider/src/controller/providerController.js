@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteProvider = exports.deleteServiceFromProvider = exports.addServiceToProvider = exports.updateProvider = exports.getProviderByServiceId = exports.getAllProviders = exports.getProviderById = exports.registerProvider = void 0;
+exports.getProvidersByMake = exports.deleteProvider = exports.deleteServiceFromProvider = exports.addServiceToProvider = exports.updateProvider = exports.getProviderByServiceId = exports.getAllProviders = exports.getProviderById = exports.registerProvider = void 0;
 const provider_1 = __importDefault(require("../model/provider"));
 // Register a new provider
 const registerProvider = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -123,3 +123,14 @@ const deleteProvider = (req, res) => __awaiter(void 0, void 0, void 0, function*
     }
 });
 exports.deleteProvider = deleteProvider;
+//get all providers for a make
+const getProvidersByMake = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const providers = yield provider_1.default.find({ provider_make: req.params.make });
+        res.json(providers);
+    }
+    catch (error) {
+        res.status(500).json({ message: "Error retrieving providers", error });
+    }
+});
+exports.getProvidersByMake = getProvidersByMake;

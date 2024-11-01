@@ -1,0 +1,110 @@
+/* ProviderDetails.css */
+
+.provider-details {
+    padding: 40px; /* Increased padding for the provider details */
+    max-width: 800px; /* Max width for the provider details */
+    margin: 20px auto; /* Centered with top margin */
+    border: 2px solid black; /* Black border around the provider details */
+    border-radius: 8px; /* Rounded corners for the details section */
+    background-color: #f9f9f9; /* Light background */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    color: black; /* Black text for the provider details */
+}
+
+.provider-details h2 {
+    font-size: 32px; /* Larger font size for the provider name */
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.provider-details p {
+    font-size: 20px; /* Larger font size for paragraphs */
+    margin: 10px 0; /* Increased margin for spacing */
+}
+
+.provider-details h3 {
+    font-size: 24px; /* Larger font size for services section */
+    margin: 20px 0 10px;
+}
+
+.provider-details ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.provider-details li {
+    padding: 15px; /* Increased padding for list items */
+    margin: 10px 0; /* Increased margin for spacing */
+    border: 1px solid #ddd; /* Light border for list items */
+    border-radius: 5px;
+    background-color: transparent; /* Transparent background */
+    color: black; /* Black text for list items */
+    cursor: pointer; /* Pointer cursor on hover */
+}
+
+.provider-details li:hover {
+    background-color: black; /* Black background on hover */
+    color: white; /* White text on hover */
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent black background */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 60px;
+}
+
+.overlay-content {
+    background-color: #f9f9f9; /* White background for overlay content */
+    padding: 60px; /* Increased padding for the overlay */
+    border-radius: 8px;
+    color: black; /* Black text for overlay */
+    max-width: 550px; /* Increased max width for the overlay */
+    width: 70%; /* Full width with a max */
+    height: 75%;
+    position: relative;
+}
+
+.overlay-content h2 {
+    color: black; /* Black text */
+    margin-bottom: 20px; /* Space below the title */
+}
+
+.service-details {
+    margin-bottom: 20px; /* Space between each service details */
+}
+
+.book-button {
+    background-color: black; /* Black background */
+    color: white; /* White text */
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    position: absolute; /* Position at the bottom left */
+    left: 55px; /* Left alignment */
+    bottom: 60px; /* Space above the button */
+}
+
+.close-button {
+    background-color: transparent; /* Transparent background */
+    color: black; /* Black text */
+    border: 1px solid black; /* Black border */
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    position: absolute; /* Position at the bottom right */
+    right: 40px; /* Right alignment */
+    bottom: 60px; /* Space above the button */
+}
+
+.close-button:hover {
+    background-color: black; /* Black background on hover */
+    color: white; /* White text on hover */
+}

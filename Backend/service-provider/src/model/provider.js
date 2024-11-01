@@ -34,6 +34,7 @@ const ServiceSchema = new mongoose_1.Schema({
 const ProviderSchema = new mongoose_1.Schema({
     provider_id: { type: String, required: true, unique: true }, // Unique identifier for the provider
     name: { type: String, required: true },
+    provider_make: { type: String, required: true },
     contactInfo: { type: String, required: true },
     location: { type: String, required: true },
     servicesOffered: [ServiceSchema], // Array of service objects

@@ -3,18 +3,19 @@ import express from 'express';
 import{
     getCarById,
     getDistinctMakes,
-    getDistinctCarsByMake
-    //getCarsByMake
-    // deleteCarsByMake,
-    // updateMakeByModel
+    getCarsByMake,
+    getAllCars,
+    updateFieldName,
+    getModelsByMake
+
 } from '../controller/CarDetailsController';
 
 const router = express.Router();
 
 router.get('/id/:id',getCarById);
 router.get('/makes',getDistinctMakes);
-router.get('/cars/:Make',getDistinctCarsByMake);
-//router.get('/cars/:Make',getCarsByMake);
-// router.delete('/make',deleteCarsByMake);
-// router.put('/make',updateMakeByModel);
+router.get('/cars/:Make',getCarsByMake);
+router.get('/test',getAllCars);
+router.get('/update',updateFieldName)
+router.get('/models/:Make',getModelsByMake)
 export default router;

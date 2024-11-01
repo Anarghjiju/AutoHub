@@ -107,3 +107,13 @@ export const deleteProvider = async (req: Request, res: Response) => {
     res.status(500).json({ message: "Error deleting provider", error });
   }
 };
+
+//get all providers for a make
+export const getProvidersByMake = async (req: Request, res: Response) => {
+  try {
+    const providers = await Provider.find({ provider_make: req.params.make });
+    res.json(providers);
+  } catch (error) {
+    res.status(500).json({ message: "Error retrieving providers", error });
+  }
+};

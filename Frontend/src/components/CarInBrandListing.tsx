@@ -2,31 +2,34 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import placeholderImage from '../assets/car1.jpg';
 
 interface Car {
   _id: string;
   Make: string;
-  Model: string;
-  Variant: string;
-  Ex_Showroom_Price: string;
-  Fuel_Type: string;
-  Power: string;
-  Torque: string;
-  Displacement: string;
-  Fuel_Tank_Capacity: string;
-  Type: string;
-  Body_Type: string;
-  Seating_Capacity: string;
-  ARAI_Certified_Mileage: string;
-  Length: string;
-  Width: string;
-  Height: string;
-  Kerb_Weight: string;
-  Ground_Clearance: string;
-  Front_Brakes: string;
-  Rear_Brakes: string;
-  ABS: string;
+    Model: string;	
+    Variant: string;	
+    Ex_Showroom_Price: string;
+    Fuel_Type: string;
+    Power: string;
+    Torque: string;
+    Displacement: string;	
+    Fuel_Tank_Capacity: string;	
+    Type: string;	
+    Body_Type: string;	
+    Doors: string;
+    Seating_Capacity: string;	
+    ARAI_Certified_Mileage: string;	
+    Length: string;	
+    Width: string;	
+    Height: string;	
+    Kerb_Weight: string;	
+    Ground_Clearance: string;	
+    Front_Brakes: string;	
+    Rear_Brakes: string;	
+    ABS: string;
+    Electric_Range: string;
+    Variants: string[];
+    imageUrls: string[];
 }
 
 interface CarByBrandListingProps {
@@ -86,7 +89,7 @@ const CarList: React.FC<CarByBrandListingProps> = ({ name }) => {
             {filteredCars.map((car) => (
               <div className="col-md-4 mb-4" key={car._id} onClick={() => handleCardClick(car)}>
                 <div className="card h-100 shadow-sm">
-                  <img src={placeholderImage} className="card-img-top" alt={car.Model} />
+                  <img src={car.imageUrls[0]} className="card-img-top" alt={car.Model} />
                   <div className="card-body">
                     <h5 className="card-title text-center">{car.Model}</h5>
                   </div>

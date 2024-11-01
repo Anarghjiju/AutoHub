@@ -36,6 +36,7 @@ import brand31 from '../assets/Brands/tata.webp';
 import brand32 from '../assets/Brands/toyota.webp';
 import brand33 from '../assets/Brands/volkswagen.webp';
 import brand34 from '../assets/Brands/volvo.webp';
+import brand35 from '../assets/Brands/rolls-royce.webp';
 
 import { useNavigate } from 'react-router-dom';
 
@@ -73,7 +74,8 @@ const brands = [
   { id: 31, name: 'Tata', image: brand31 },
   { id: 32, name: 'Toyota', image: brand32 },
   { id: 33, name: 'Volkswagen', image: brand33 },
-  { id: 34, name: 'Volvo', image: brand34 }
+  { id: 34, name: 'Volvo', image: brand34 },
+  { id: 35, name: 'Rolls Royce', image: brand35 },
 ];
 
 

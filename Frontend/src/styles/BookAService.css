@@ -1,0 +1,77 @@
+.book-service {
+    display: flex;
+    height: 100vh;
+}
+
+.book-service-left {
+    flex: 0.4;
+    background: url(https://ik.imagekit.io/driveu/Service/Group_1987_zP7xP-W53.png) no-repeat center center;
+    background-size: cover;
+    height: auto;;
+}
+
+.book-service-right {
+    flex: 0.6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.book-service-container {
+    border: 2px solid black;
+    padding: 2rem;
+    border-radius: 8px;
+    width: 80%;
+    text-align: center;
+}
+
+.book-service h2 {
+    margin-bottom: 1rem;
+    color: #333;
+}
+
+.dropdown {
+    padding: 0.75rem;
+    width: 100%;
+    background-color: white;
+    color: black;
+    border: 1px solid black;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-bottom: 1.5rem; /* Spacing between dropdowns */
+    transition: background-color 0.3s, color 0.3s;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.dropdown option {
+    padding: 0.5rem;
+    color: black;
+    background-color: white;
+}
+
+.dropdown:hover {
+    background-color: black;
+    color: white;
+}
+
+.find-button {
+    padding: 0.75rem 1rem;
+    background-color: white;
+    color: black;
+    border: 2px solid black;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+    width: 100%;
+    font-size: 1rem;
+    font-weight: 600;
+    margin-top: 1rem; /* Spacing between dropdown and button */
+}
+
+.find-button:hover {
+    background-color: black;
+    color: white;
+}
+
+

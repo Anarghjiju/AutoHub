@@ -4,12 +4,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
-const dotenv_1 = __importDefault(require("dotenv"));
-const database_1 = __importDefault(require("./config/database"));
 const providerRoutes_1 = __importDefault(require("./route/providerRoutes"));
 const cors = require('cors');
-dotenv_1.default.config();
-(0, database_1.default)();
+const mongoose_1 = __importDefault(require("mongoose"));
+mongoose_1.default.connect("mongodb+srv://autohub024:AutoHub@cluster0.qi4lt.mongodb.net/serviceproviderdb?retryWrites=true&w=majority")
+    .then(() => console.log('Connected to mongoDb'))
+    .catch((error) => console.log('not connected to mongoDb'));
 const app = (0, express_1.default)();
 app.use(express_1.default.json());
 app.use(cors());

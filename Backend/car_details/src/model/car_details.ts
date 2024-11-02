@@ -55,4 +55,4 @@ const CarDetailsSchema : Schema = new Schema({
   imageUrls: { type: [String], default: [] }
 })
 
-export const Car_details= mongoose.model<ICarDetails>('Car_details',CarDetailsSchema,'imagetest');
+export const Car_details= mongoose.model<ICarDetails>('Car_details',CarDetailsSchema,'explorecardetails');

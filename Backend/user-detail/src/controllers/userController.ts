@@ -4,7 +4,7 @@ import { usedCar } from '../models/usedCarModel';
 
 export const createUser = async (req: Request, res: Response) => {
     try {
-        const {name, email, password } = req.body;
+        const { name, email, password } = req.body;
         const newUser = new User({ name, email, password });
         console.log(newUser);
         await newUser.save();
@@ -16,7 +16,7 @@ export const createUser = async (req: Request, res: Response) => {
 
 export const getUserDetails = async (req: Request, res: Response) => {
     try {
-        const  {id } = req.params;
+        const { id } = req.params;
         console.log(id);
         const user = await User.findById(id);
         res.status(200).json(user);
@@ -28,10 +28,27 @@ export const getUserDetails = async (req: Request, res: Response) => {
 export const updateUserRoles = async (req: Request, res: Response) => {
     try {
         const { id } = req.params;
-        const updatedUser = await User.findByIdAndUpdate(id, { role :  req.body.role }, { new: true });
-
+        const updatedUser = await User.findByIdAndUpdate(id, { role: req.body.role }, { new: true });
         res.status(200).json(updatedUser);
     } catch (error) {
         res.status(500).json({ error: "Error updating user roles" });
+    }
+};
+
+export const updateUserDetails = async (req: Request, res: Response) => {
+    try {
+        const { id } = req.params;
+        const { name, email, password } = req.body;
+        
+        const updateData: Partial<{ name: string; email: string; password: string }> = {};
+        if (name) updateData.name = name;
+        if (email) updateData.email = email;
+        if (password) updateData.password = password;
+        
+        const updatedUser = await User.findByIdAndUpdate(id, updateData, { new: true });
+        
+        res.status(200).json(updatedUser);
+    } catch (error) {
+        res.status(500).json({ error: "Error updating user details" });
     }
 };

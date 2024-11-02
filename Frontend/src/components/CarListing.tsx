@@ -1,52 +1,94 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import car1 from '../assets/car1.jpg';
-import car2 from '../assets/car2.jpg';
-import car3 from '../assets/car3.jpg';
-import car4 from '../assets/car4.jpg';
-import car5 from '../assets/car5.jpg';
-import car6 from '../assets/car6.jpg';
-import car7 from '../assets/car1.jpg';
-import car8 from '../assets/car2.jpg';
-import car9 from '../assets/car3.jpg';
-import car10 from '../assets/car4.jpg';
-import car11 from '../assets/car5.jpg';
-import car12 from '../assets/car6.jpg';
+import { useNavigate } from 'react-router-dom';
 
-// Define a Car type
 interface Car {
-  id: number;
-  name: string;
-  image: string;
+  _id: string;
+  Make: string;
+  Model: string;
+  Variant: string;
+  Ex_Showroom_Price: string;
+  Fuel_Type: string;
+  Power: string;
+  Torque: string;
+  Displacement: string;
+  Fuel_Tank_Capacity: string;
+  Type: string;
+  Body_Type: string;
+  Doors: string;
+  Seating_Capacity: string;
+  ARAI_Certified_Mileage: string;
+  Length: string;
+  Width: string;
+  Height: string;
+  Kerb_Weight: string;
+  Ground_Clearance: string;
+  Front_Brakes: string;
+  Rear_Brakes: string;
+  ABS: string;
+  Electric_Range: string;
+  Variants: string[];
+  imageUrls: string[];
 }
 
-// Sample car data
-const cars: Car[] = [
-  { id: 1, name: 'Car Model 1', image: car1 },
-  { id: 2, name: 'Car Model 2', image: car2 },
-  { id: 3, name: 'Car Model 3', image: car3 },
-  { id: 4, name: 'Car Model 4', image: car4 },
-  { id: 5, name: 'Car Model 5', image: car5 },
-  { id: 6, name: 'Car Model 6', image: car6 },
-  { id: 7, name: 'Car Model 7', image: car7 },
-  { id: 8, name: 'Car Model 8', image: car8 },
-  { id: 9, name: 'Car Model 9', image: car9 },
-  { id: 10, name: 'Car Model 10', image: car10 },
-  { id: 11, name: 'Car Model 11', image: car11 },
-  { id: 12, name: 'Car Model 12', image: car12 },
-];
-
 const CarListing: React.FC = () => {
+  const [cars, setCars] = useState<Car[]>([]);
   const [searchTerm, setSearchTerm] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+  const carsPerPage = 12;
+  const maxVisiblePages = 3;
+  const navigate = useNavigate();
 
-  // Filter cars based on the search term
+  useEffect(() => {
+    const fetchCars = async () => {
+      try {
+        const response = await axios.get<Car[]>('http://localhost:5004/api/cars/test');
+        setCars(response.data);
+      } catch (error) {
+        console.error('Error fetching car data:', error);
+      }
+    };
+
+    fetchCars();
+  }, []);
+
+  useEffect(() => {
+    // Reset to the first page whenever search term changes
+    setCurrentPage(1);
+  }, [searchTerm]);
+
   const filteredCars = cars.filter((car) =>
-    car.name.toLowerCase().includes(searchTerm.toLowerCase())
+    car.Model.toLowerCase().includes(searchTerm.toLowerCase())
   );
+
+  const indexOfLastCar = currentPage * carsPerPage;
+  const indexOfFirstCar = indexOfLastCar - carsPerPage;
+  const currentCars = filteredCars.slice(indexOfFirstCar, indexOfLastCar);
+
+  const totalPages = Math.ceil(filteredCars.length / carsPerPage);
+
+  const handlePageChange = (pageNumber: number) => {
+    setCurrentPage(pageNumber);
+  };
+
+  const getVisiblePageNumbers = () => {
+    const startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
+    const endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
+
+    const pageNumbers = [];
+    for (let i = startPage; i <= endPage; i++) {
+      pageNumbers.push(i);
+    }
+    return pageNumbers;
+  };
+
+  const handleCardClick = (car: Car) => {
+    navigate(`/detail/${car._id}`, { state: { car } });
+  };
 
   return (
     <div>
-      {/* Search Bar */}
       <div className="row align-items-center mb-4">
         <div className="col">
           <h2 className="text-left">Car Listings</h2>
@@ -62,21 +104,45 @@ const CarListing: React.FC = () => {
         </div>
       </div>
 
-      {/* Display Car Cards */}
       <div className="container py-4">
         <div className="row">
-          {filteredCars.map((car) => (
-            <div className="col-md-4 mb-4" key={car.id}>
+          {currentCars.map((car) => (
+            <div className="col-md-4 mb-4" key={car._id} onClick={() => handleCardClick(car)}>
               <div className="card h-100 shadow-sm">
-                <img src={car.image} className="card-img-top" alt={car.name} />
+                <img src={car.imageUrls[0]} className="card-img-top" alt={car.Model} />
                 <div className="card-body">
-                  <h5 className="card-title text-center">{car.name}</h5>
+                  <h5 className="card-title text-center">{car.Model}</h5>
                 </div>
               </div>
             </div>
           ))}
         </div>
       </div>
+
+      <nav aria-label="Page navigation">
+        <ul className="pagination justify-content-center">
+          <li className={`page-item ${currentPage === 1 ? 'disabled' : ''}`}>
+            <button className="page-link" onClick={() => handlePageChange(currentPage - 1)}>
+              Previous
+            </button>
+          </li>
+          {getVisiblePageNumbers().map((pageNumber) => (
+            <li
+              key={pageNumber}
+              className={`page-item ${pageNumber === currentPage ? 'active' : ''}`}
+            >
+              <button className="page-link" onClick={() => handlePageChange(pageNumber)}>
+                {pageNumber}
+              </button>
+            </li>
+          ))}
+          <li className={`page-item ${currentPage === totalPages ? 'disabled' : ''}`}>
+            <button className="page-link" onClick={() => handlePageChange(currentPage + 1)}>
+              Next
+            </button>
+          </li>
+        </ul>
+      </nav>
     </div>
   );
 };

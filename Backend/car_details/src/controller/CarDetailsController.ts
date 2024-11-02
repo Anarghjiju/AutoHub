@@ -95,13 +95,26 @@ export const getDistinctCarsByMake = async (req: Request, res: Response) => {
 
 export const getAllCars = async (req: Request, res: Response) => {
   try {
-    const cars = await Car_details.find();
+    // Use MongoDB's $sample without size restriction to fetch all cars in random order
+    const cars = await Car_details.aggregate([{ $sample: { size: await Car_details.countDocuments() } }]);
     res.status(200).json(cars);
   } catch (error) {
     res.status(500).json({ message: 'Error retrieving car data' });
   }
 };
 
+
+export const getRandomCars = async (req: Request, res: Response) => {
+  try {
+    const cars = await Car_details.aggregate([
+      { $sample: { size: 8 } }
+    ]);
+    res.status(200).json(cars);
+  } catch (error) {
+    console.error('Error retrieving random car data:', error);
+    res.status(500).json({ message: 'Error retrieving car data' });
+  }
+};
 
 
 export const updateFieldName = async (req: Request, res: Response) => {

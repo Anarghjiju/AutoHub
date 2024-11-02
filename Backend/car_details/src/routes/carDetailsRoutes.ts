@@ -6,7 +6,8 @@ import{
     getCarsByMake,
     getAllCars,
     updateFieldName,
-    getModelsByMake
+    getModelsByMake,
+    getRandomCars
 
 } from '../controller/CarDetailsController';
 
@@ -18,4 +19,5 @@ router.get('/cars/:Make',getCarsByMake);
 router.get('/test',getAllCars);
 router.get('/update',updateFieldName)
 router.get('/models/:Make',getModelsByMake)
+router.get('/random',getRandomCars)
 export default router;

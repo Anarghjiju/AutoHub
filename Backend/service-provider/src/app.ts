@@ -1,12 +1,11 @@
 import express from 'express';
-import dotenv from 'dotenv';
-import connectDB from './config/database';
 import providerRoutes from './route/providerRoutes';
 const cors = require('cors');
+import mongoose from 'mongoose';
 
-
-dotenv.config();
-connectDB();
+mongoose.connect("mongodb+srv://autohub024:AutoHub@cluster0.qi4lt.mongodb.net/serviceproviderdb?retryWrites=true&w=majority")
+.then(()=>console.log('Connected to mongoDb'))
+.catch((error)=>console.log('not connected to mongoDb'));
 
 const app = express();
 app.use(express.json());

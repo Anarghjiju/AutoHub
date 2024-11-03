@@ -1,0 +1,38 @@
+.analytics-dashboard {
+    padding: 10px; /* Padding for the dashboard */
+    background-color: #f8f9fa; /* Background color */
+  }
+  
+  .analytics-cards {
+    display: flex;
+    flex-wrap: wrap; /* Allow wrapping of cards */
+    gap: 20px; /* Space between cards */
+    justify-content: center; /* Center the cards */
+  }
+  
+  .analytics-card {
+    background-color: white; /* Card background color */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Shadow for depth */
+    padding: 20px; /* Padding inside the card */
+    flex: 1 1 calc(25% - 20px); /* Flexbox to take equal space, with 25% width minus the gap */
+    min-width: 200px; /* Minimum width for cards */
+    text-align: center; /* Center text in cards */
+    transition: transform 0.2s; /* Smooth scaling on hover */
+  }
+  
+
+  
+  /* Media queries for responsiveness */
+  @media (max-width: 768px) {
+    .analytics-card {
+      flex: 1 1 calc(50% - 20px); /* 2 cards per row on medium screens */
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .analytics-card {
+      flex: 1 1 100%; /* 1 card per row on small screens */
+    }
+  }
+  

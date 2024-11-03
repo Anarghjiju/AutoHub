@@ -1,0 +1,154 @@
+/* src/styles/carDetail.css */
+
+.car-detail-page {
+    display: flex;
+    height: calc(90vh - 60px); /* Adjust height to account for the navbar height */
+    overflow: hidden; /* Prevent overflow on the page */
+    padding-top: 20px;
+  }
+  
+  .car-image-gallery {
+    flex: 0 0 60%; /* Fixed width for the gallery */
+    position: sticky; /* Make this section sticky */
+    top: 0; /* Stick to the top of the viewport */
+    height: calc(100vh - 60px); /* Full height of the viewport minus navbar */
+    overflow: hidden; /* Hide overflow for the gallery */
+  }
+  
+  .carousel-inner {
+    height: 100%; 
+  }
+  
+  .carousel-item {
+    height: 100%; 
+  }
+  
+  .carousel-item img {
+    height: 100%; /* Ensure the image takes full height */
+    width: 100%; /* Ensure the image takes full width */
+    object-fit: cover; /* Cover the entire area without distortion */
+  }
+  
+  .car-info {
+    flex: 1; /* Allow this section to take the remaining space */
+    max-height: calc(100vh - 60px); /* Limit max height to viewport height minus navbar */
+    overflow-y: auto; /* Enable scrolling for car info */
+    padding: 10px;
+    background-color: #ffffff; /* Light background for contrast */
+    border-radius: 8px; /* Rounded corners */
+  }
+  
+  .car-detail-header {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .car-detail-content {
+    background-color: #ffffff; /* White background for content area */
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+  }
+  
+  .price-section {
+    margin-top: 20px;
+  }
+  
+  .order-button {
+    padding: 10px 20px;
+    margin: 10px;
+    color: #fff;
+    background-color: #000; /* Black button */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .car-detail-sections section {
+    padding: 20px;
+    background-color: #ffffff; /* White background for section */
+    margin-bottom: 20px;
+    border-radius: 8px; /* Rounded corners */
+  }
+  
+  section h2 {
+    margin-bottom: 10px;
+  }
+  
+  .feature-button,
+  .learn-more-button,
+  .submit-button {
+    padding: 10px;
+    color: #fff; /* White text */
+    background-color: #007bff; /* Bootstrap primary color */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .submit-button {
+    background-color: #000; /* Black for submit button */
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .car-detail-page {
+        flex-direction: column; /* Stack on smaller screens */
+    }
+  
+    .car-info {
+        flex: 1; /* Allow car info to take full width on small screens */
+        max-width: 100%; /* Ensure full width */
+    }
+  }
+  
+  .carousel-control-prev,
+  .carousel-control-next {
+    width: 40px; /* Set the width for the arrow buttons */
+    height: 40px; /* Set the height for the arrow buttons */
+    top: 50%; /* Center vertically */
+    transform: translateY(-50%); /* Adjust position */
+    z-index: 1; /* Ensure controls are above the carousel images */
+  }
+  
+  .custom-arrow-prev .carousel-control-prev-icon,
+  .custom-arrow-next .carousel-control-next-icon {
+    background-color: rgb(190, 190, 190); /* Set arrow background to black */
+    border-radius: 50%; /* Optional: make arrows circular */
+  }
+  
+  /* Optional: Change the hover effect */
+  .custom-arrow-prev:hover .carousel-control-prev-icon,
+  .custom-arrow-next:hover .carousel-control-next-icon {
+    background-color: rgb(24, 24, 24); /* Change color on hover (optional) */
+  }
+  
+  .modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  .modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 300px;
+    text-align: center;
+  }
+  
+  .modal-buttons {
+    margin-top: 20px;
+  }
+  
+  .modal-buttons button {
+    margin: 0 5px;
+  }
+  

@@ -1,0 +1,48 @@
+.verified-car-list {
+    padding: 20px;
+}
+
+.filter-toggle {
+    margin-bottom: 15px;
+}
+
+.car-list {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+}
+
+.car-item {
+    padding: 15px;
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.car-item p {
+    margin: 0;
+}
+
+.toggle-container {
+    /* display: flex; */
+    padding: 10px; /* Optional padding */
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+
+.filter-toggle .btn {
+  
+    border: 1px solid #000000; /* Light gray border at the bottom */
+}
+
+.filter-toggle .btn-outline-light {
+    color: #000000; /* White text for outline buttons */
+    border-color: #ffffff; /* White outline */
+}
+
+.filter-toggle .btn-light {
+    color: #ffffff; /* Black text for active button */
+    background-color: #000000; /* White background for active button */
+}
+

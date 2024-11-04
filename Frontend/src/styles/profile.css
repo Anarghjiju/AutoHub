@@ -38,7 +38,6 @@
   padding: 40px;
   background-color: #ffffff;
   border-radius: 10px;
-  /* box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); */
 }
 
 .mphead-personal-info {
@@ -85,34 +84,79 @@
 .car-image {
   width: 100%;
   height: auto;
-  border-radius: 5px;
+  border-radius: 10px;
 }
 
-.car-name {
-  font-size: 1.2rem;
-  font-weight: 500;
-  color: #333;
+.car-name,
+.car-details,
+.car-price {
+  font-size: 0.9rem;
+  color: #333333;
   margin: 10px 0;
 }
 
-.car-details,
-.car-price {
-  font-size: 1rem;
-  color: #666;
-  margin: 5px 0;
+.notification-card {
+  display: block; /* Ensure each notification takes full width */
+  background-color: #f9f9f9; /* Background color for notification card */
+  border: 1px solid #ddd; /* Border for notification card */
+  border-radius: 5px; /* Rounded corners */
+  padding: 10px; /* Padding inside the card */
+  margin: 10px 0; /* Margin between notifications */
+  cursor: pointer; /* Pointer cursor on hover */
+  transition: background-color 0.3s ease; /* Smooth background color transition on hover */
 }
 
-.mphead-personal-info-container {
+.notification-card:hover {
+  background-color: #e0e0e0; /* Slightly darker background on hover */
+}
+
+.listing-admin {
+  display: flex; /* Make sure the listing-admin is a flex container */
+  flex-direction: column; /* Align children in a column */
+  align-items: stretch; /* Make children take the full width */
+  gap: 10px; /* Optional: space between notifications */
+}
+
+.notification-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
+  justify-content: center;
+  z-index: 1000;
 }
 
-/* .mphead-personal-info {
-  font-size: 1.5em;
-  font-weight: bold;
-} */
+.overlay-content {
+  background-color: #ffffff;
+  padding: 10px 15px; /* Reduce padding to minimize height */
+  border-radius: 10px;
+  text-align: center;
+  max-width: 200px; /* Width remains the same */
+  max-height: 220px; /* Set a maximum height */
+  overflow: hidden; /* Hide overflow to keep it contained */
+}
+
+.close-button {
+  padding: 20px 20px;
+  margin-top: 30px; /* Increase the top margin further */
+  margin-bottom: 10px; /* Keep bottom margin for spacing */
+  cursor: pointer;
+  background-color: #000000;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+
+
+.close-button:hover {
+  background-color: #e3e3e3;
+}
 
 .edit-button {
   background-color: black;
@@ -127,4 +171,11 @@
 
 .edit-button:hover {
   background-color: #333;
+}
+
+.mphead-personal-info-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
 }

@@ -1,13 +1,11 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import './index.css'
-import App from './App.tsx'
-// In index.tsx or App.tsx
-import 'bootstrap/dist/css/bootstrap.min.css';
+// src/AdminApp.tsx (or your main admin entry point file)
+import ReactDOM from 'react-dom';
+import App from './App'; // Your main admin component
+import { UserProvider } from './UserContext';
 
-
-createRoot(document.getElementById('root')!).render(
-  <StrictMode>
+ReactDOM.render(
+  <UserProvider>
     <App />
-  </StrictMode>,
-)
+  </UserProvider>,
+  document.getElementById('root')
+);

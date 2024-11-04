@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Modal, Form, Table } from 'react-bootstrap';
 import '../styles/serviceProviderList.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
 
 interface IService {
     service_id: string;
@@ -199,21 +201,23 @@ const ServiceProviderList: React.FC = () => {
                             <td>{provider.name}</td>
                             <td>{provider.provider_make}</td>
                             <td>
-                                <ul>
-                                    {provider.servicesOffered.map((service) => (
-                                        <li key={service.service_id}>
-                                            {service.service_name} (Price: {service.service_price})
-                                            <br />
-                                            <Button className='remove-btn'
-                                                
-                                                onClick={() => handleDeleteService(provider.provider_id, service.service_id)}
-                                            >
-                                                Remove service
-                                            </Button>
-                                        </li>
-                                    ))}
-                                </ul>
-                            </td>
+    <ul style={{ listStyle: 'none', padding: 0 }}>
+        {provider.servicesOffered.map((service) => (
+            <li key={service.service_id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '8px 0' }}>
+                <span>
+                    {service.service_name} (Price: {service.service_price})
+                </span>
+                <span
+                    style={{ cursor: 'pointer', color: 'black' }} 
+                    onClick={() => handleDeleteService(provider.provider_id, service.service_id)}
+                >
+                    <FontAwesomeIcon icon={faTrash} />
+                </span>
+            </li>
+        ))}
+    </ul>
+</td>
+
                             <td>
                                 <Button
                                   className='add-service-btn'

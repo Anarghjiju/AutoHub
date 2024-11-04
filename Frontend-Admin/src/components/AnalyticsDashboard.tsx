@@ -18,15 +18,17 @@ const AnalyticsDashboard: React.FC = () => {
         responsive: [{ breakpoint: 480, options: { chart: { width: 100 }, legend: { position: 'bottom' } } }],
     });
 
-    const [chartSeries, setChartSeries] = useState<number[]>([]);
-    
+    const [chartSeries, setChartSeries] = useState<number[]>([0, 0]);  // Default values to prevent undefined
+
     const [barChartOptions, setBarChartOptions] = useState<ApexOptions>({
         chart: { type: 'bar' },
         xaxis: { categories: [] },
         title: { text: 'Cars Sold by Make' },
     });
 
-    const [barChartSeries, setBarChartSeries] = useState<{ name: string; data: number[] }[]>([]);
+    const [barChartSeries, setBarChartSeries] = useState<{ name: string; data: number[] }[]>([
+        { name: 'Cars Sold', data: [] }  // Default values to prevent undefined
+    ]);
 
     useEffect(() => {
         const fetchAnalytics = async () => {
@@ -42,7 +44,7 @@ const AnalyticsDashboard: React.FC = () => {
                     salesByMake: data.salesByMake
                 });
 
-                setChartSeries([data.totalSoldCars, (data.totalUnSoldCars+data.totalSoldCars)]);
+                setChartSeries([data.totalSoldCars, data.totalUnSoldCars + data.totalSoldCars]);
 
                 // Prepare data for the bar chart
                 const makeCategories = data.salesByMake.map((item: { _id: string }) => item._id);
@@ -84,14 +86,18 @@ const AnalyticsDashboard: React.FC = () => {
             <div className="card widget-card border-light shadow-sm my-4">
                 <div className="card-body">
                     <h5 className="card-title widget-card-title">Sales Overview</h5>
-                    <Chart options={chartOptions} series={chartSeries} type="pie" width="70%" />
+                    {chartSeries.length > 0 && (
+                        <Chart options={chartOptions} series={chartSeries} type="pie" width="70%" />
+                    )}
                 </div>
             </div>
 
             <div className="card widget-card border-light shadow-sm my-4">
                 <div className="card-body">
                     <h5 className="card-title widget-card-title">Sales by Make</h5>
-                    <Chart options={barChartOptions} series={barChartSeries} type="bar" width="70%" />
+                    {barChartSeries[0].data.length > 0 && (
+                        <Chart options={barChartOptions} series={barChartSeries} type="bar" width="70%" />
+                    )}
                 </div>
             </div>
         </div>

@@ -1,0 +1,65 @@
+.divider:after,
+.divider:before {
+content: "";
+flex: 1;
+height: 1px;
+background: #eee;
+}
+.h-custom {
+height: calc(100% - 73px);
+}
+@media (max-width: 450px) {
+.h-custom {
+height: 100%;
+}
+}
+/* loginPage.css */
+.main-login{
+  width: 100%;;
+}
+.card-body {
+    padding: 2rem; /* Reduce padding in card body */
+  }
+  
+  .form-outline {
+    margin-bottom: 1rem; /* Reduce margin between form elements */
+  }
+  
+  .form-control {
+    font-size: 0.9rem; /* Reduce font size of input fields */
+  }
+  
+  .form-label {
+    font-size: 0.8rem; /* Reduce font size of labels */
+  }
+  
+  .btn {
+    padding: 0.5rem 1rem; /* Reduce button padding */
+    font-size: 0.9rem; /* Reduce button font size */
+  }
+  
+  .text-center {
+    font-size: 0.9rem; /* Reduce font size of text */
+  }
+  
+  .lead {
+    font-size: 0.9rem; /* Reduce size of lead text */
+  }
+  
+  .link-danger {
+    font-size: 0.8rem; /* Reduce size of register link */
+  }
+  
+  .small {
+    font-size: 0.8rem; /* Reduce size of small text */
+  }
+
+  #loginText{
+    font-size: 2rem; /* Increase font size of login text */
+  }
+
+  .signin-btn button{
+    background-color:black;
+    color: white;
+  }
+  

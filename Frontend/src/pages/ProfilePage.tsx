@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import '../styles/Profile.css';
+import { useUserContext } from '../UserContext';
 
 interface Notification {
   _id: string;
@@ -14,6 +16,8 @@ const Profile: React.FC = () => {
   const [activeTab, setActiveTab] = useState('personal');
   const [notifications, setNotifications] = useState<Notification[]>([]);
   const [selectedNotification, setSelectedNotification] = useState<Notification | null>(null);
+  const { user } = useUserContext();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (activeTab === 'notifications') {
@@ -39,6 +43,12 @@ const Profile: React.FC = () => {
     } catch (error) {
       console.error('Error marking notification as read:', error);
     }
+  };
+
+  const handleLogout = () => {
+    // Clear any user authentication data, e.g., tokens
+    localStorage.removeItem('authToken'); // Assuming token is stored in localStorage
+    navigate('/login');
   };
 
   return (
@@ -86,7 +96,7 @@ const Profile: React.FC = () => {
                 <button className='edit-button'>Edit</button>
               </div>
               <div className="personal-info-details">
-                <p>Name: John Doe</p>
+                <p>Name: {user?.name}</p>
                 <p>Email: johndoe@example.com</p>
                 <p>Phone: 123-456-7890</p>
               </div>
@@ -135,45 +145,46 @@ const Profile: React.FC = () => {
             </section>
           )}
 
-{activeTab === 'notifications' && (
-  <section className="personal-info">
-    <h3 className="mphead-personal-info">Notifications</h3>
-    <div className="listing-admin">
-      {notifications.length > 0 ? (
-        notifications.map((notification) => (
-          <div
-            key={notification._id}
-            className="notification-card"
-            onClick={() => setSelectedNotification(notification)}
-          >
-            <h4 className="notification-message">{notification.message}</h4>
-            <p className="notification-date">Date: {new Date(notification.date).toLocaleString()}</p>
-          </div>
-        ))
-      ) : (
-        <p>No new notifications.</p>
-      )}
-    </div>
+          {activeTab === 'notifications' && (
+            <section className="personal-info">
+              <h3 className="mphead-personal-info">Notifications</h3>
+              <div className="listing-admin">
+                {notifications.length > 0 ? (
+                  notifications.map((notification) => (
+                    <div
+                      key={notification._id}
+                      className="notification-card"
+                      onClick={() => setSelectedNotification(notification)}
+                    >
+                      <h4 className="notification-message">{notification.message}</h4>
+                      <p className="notification-date">Date: {new Date(notification.date).toLocaleString()}</p>
+                    </div>
+                  ))
+                ) : (
+                  <p>No new notifications.</p>
+                )}
+              </div>
 
-    {selectedNotification && (
-      <div className="notification-overlay">
-        <div className="overlay-content">
-          <h4>{selectedNotification.message}</h4>
-          <p>{new Date(selectedNotification.date).toLocaleString()}</p>
-          <button
-            className="close-button"
-            onClick={() => {
-              handleMarkAsRead(selectedNotification._id);
-              setSelectedNotification(null);
-            }}
-          >
-            Close
-          </button>
-        </div>
-      </div>
-    )}
-  </section>
-)}
+              {selectedNotification && (
+                <div className="notification-overlay">
+                  <div className="overlay-content">
+                    <h4>{selectedNotification.message}</h4>
+                    <p>{new Date(selectedNotification.date).toLocaleString()}</p>
+                    <button
+                      className="close-button"
+                      onClick={() => {
+                        handleMarkAsRead(selectedNotification._id);
+                        setSelectedNotification(null);
+                      }}
+                    >
+                      Close
+                    </button>
+                  </div>
+                </div>
+              )}
+              <button className="logout-button" onClick={handleLogout}>Logout</button>
+            </section>
+          )}
         </main>
       </div>
     </div>

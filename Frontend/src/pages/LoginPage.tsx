@@ -5,36 +5,38 @@ import logincar from '../assets/logincar.png';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTwitter, faLinkedinIn, faGoogle } from '@fortawesome/free-brands-svg-icons';
-import { auth } from '../firebase'; // Import your Firebase config
-import { signInWithEmailAndPassword } from 'firebase/auth'; // Import signIn function
-import axios from 'axios'; // Import axios for making HTTP requests
+import { auth } from '../firebase';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import axios from 'axios';
+import { useUserContext } from '../UserContext'; // Import your custom hook
 
 const LoginForm: React.FC = () => {
   const navigate = useNavigate(); 
+  const { setUser } = useUserContext(); // Get setUser from UserContext
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [rememberMe, setRememberMe] = useState<boolean>(false);
-  const [error, setError] = useState<string | null>(null); // State for error messages
+  const [error, setError] = useState<string | null>(null);
 
   const handleLogin = async () => {
     try {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
-      const user = userCredential.user; // This contains the user object
-      console.log('Logged in user:', user); // You can see all user data here
+      const user = userCredential.user;
 
       // Fetch user data from your endpoint
-      const response = await axios.get(`http://localhost:3002/api/users/${user.uid}`); // Replace with your actual API URL
+      const response = await axios.get(`http://localhost:3003/api/users/${user.uid}`);
       const userData = response.data;
 
       // Check if user is admin
-      if (userData.isAdmin) {
+      if (!userData.isAdmin) {
+        setUser(userData); // Set the user data in context
         navigate('/'); // Redirect to the home page
       } else {
         setError('You do not have admin access.');
       }
     } catch (error) {
       console.error('Error during login:', error);
-      setError('Invalid email or password.'); // Set error message for invalid credentials
+      setError('Invalid email or password.');
     }
   };
 
@@ -54,7 +56,7 @@ const LoginForm: React.FC = () => {
         </div>
         <div className="col-md-6">
           <div className="card-body p-5">
-            {error && <div className="alert alert-danger">{error}</div>} {/* Display error message */}
+            {error && <div className="alert alert-danger">{error}</div>}
             <form onSubmit={(e) => e.preventDefault()}>
               <div className="d-flex flex-row align-items-center justify-content-center">
                 <p className="lead fw-normal mb-0 me-3">Sign in with</p>

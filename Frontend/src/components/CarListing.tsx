@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useNavigate } from 'react-router-dom';
 
@@ -32,8 +31,11 @@ interface Car {
   imageUrls: string[];
 }
 
-const CarListing: React.FC = () => {
-  const [cars, setCars] = useState<Car[]>([]);
+interface CarListingProps {
+  cars: Car[]; // Accept filtered cars as a prop
+}
+
+const CarListing: React.FC<CarListingProps> = ({ cars }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const carsPerPage = 12;
@@ -41,24 +43,16 @@ const CarListing: React.FC = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchCars = async () => {
-      try {
-        const response = await axios.get<Car[]>('http://localhost:5004/api/cars/test');
-        setCars(response.data);
-      } catch (error) {
-        console.error('Error fetching car data:', error);
-      }
-    };
-
-    fetchCars();
-  }, []);
-
-  useEffect(() => {
-    // Reset to the first page whenever search term changes
+    // Reset to the first page whenever the search term changes
     setCurrentPage(1);
   }, [searchTerm]);
 
-  const filteredCars = cars.filter((car) =>
+  const cleanedCars = cars.map(car => ({
+    ...car,
+    cleanedPrice: parseFloat(car.Ex_Showroom_Price.replace(/Rs\.?\s?|,/g, '').trim()),
+  }));
+
+  const filteredCars = cleanedCars.filter(car =>
     car.Model.toLowerCase().includes(searchTerm.toLowerCase())
   );
 

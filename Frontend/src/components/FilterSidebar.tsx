@@ -1,29 +1,34 @@
-import React, { useState } from 'react';
-import '../styles/filterBar.css'
+import React from 'react';
+import '../styles/filterBar.css';
 
-const FilterSidebar: React.FC = () => {
-  const [minBudget, setMinBudget] = useState<number>(100000);
-  const [maxBudget, setMaxBudget] = useState<number>(1200000);
-  //const [selectedMakes, setSelectedMakes] = useState<string[]>([]);
-  const [modelYear, setModelYear] = useState<string>('');
-  const [kmsDriven, setKmsDriven] = useState<string>('');
-  const [fuelType, setFuelType] = useState<string>('');
-  const [bodyType, setBodyType] = useState<string>('');
-  const [transmission, setTransmission] = useState<string>('');
-  const [color, setColor] = useState<string>('');
+interface FilterSidebarProps {
+  minBudget: number;
+  setMinBudget: React.Dispatch<React.SetStateAction<number>>;
+  maxBudget: number;
+  setMaxBudget: React.Dispatch<React.SetStateAction<number>>;
+  fuelType: string;
+  setFuelType: React.Dispatch<React.SetStateAction<string>>;
+  bodyType: string;
+  setBodyType: React.Dispatch<React.SetStateAction<string>>;
+  transmission: string;
+  setTransmission: React.Dispatch<React.SetStateAction<string>>;
+}
 
-  const modelYears = ['2023', '2022', '2021', '2020', '2019'];
-  const kmsDrivenOptions = ['Under 10,000 km', '10,000 - 30,000 km', '30,000 - 50,000 km', 'Above 50,000 km'];
+const FilterSidebar: React.FC<FilterSidebarProps> = ({
+  minBudget,
+  setMinBudget,
+  maxBudget,
+  setMaxBudget,
+  fuelType,
+  setFuelType,
+  bodyType,
+  setBodyType,
+  transmission,
+  setTransmission,
+}) => {
   const fuelTypes = ['Petrol', 'Diesel', 'Electric', 'Hybrid'];
   const bodyTypes = ['SUV', 'Sedan', 'Hatchback', 'Convertible'];
   const transmissions = ['Manual', 'Automatic'];
-  const colors = ['Black', 'White', 'Blue', 'Red', 'Gray'];
-
-  // const handleCheckboxChange = (make: string) => {
-  //   setSelectedMakes((prev) =>
-  //     prev.includes(make) ? prev.filter((m) => m !== make) : [...prev, make]
-  //   );
-  // };
 
   return (
     <div className="filter-sidebar">
@@ -34,14 +39,14 @@ const FilterSidebar: React.FC = () => {
           <input
             type="range"
             min={100000}
-            max={1200000}
+            max={50000000}
             value={minBudget}
             onChange={(e) => setMinBudget(Number(e.target.value))}
           />
           <input
             type="range"
             min={100000}
-            max={1200000}
+            max={50000000}
             value={maxBudget}
             onChange={(e) => setMaxBudget(Number(e.target.value))}
           />
@@ -51,38 +56,10 @@ const FilterSidebar: React.FC = () => {
           <span>{`₹ ${maxBudget.toLocaleString()}`}</span>
         </div>
         <div className="suggestions">
-          <button onClick={() => { setMinBudget(300000); setMaxBudget(500000); }}>From 3 lakh - 5 lakh</button>
-          <button onClick={() => { setMinBudget(500000); setMaxBudget(700000); }}>From 5 lakh - 7 lakh</button>
-          <button onClick={() => { setMinBudget(700000); setMaxBudget(1000000); }}>From 7 lakh - 10 lakh</button>
+          <button onClick={() => { setMinBudget(300000); setMaxBudget(1000000); }}>From 3 lakh - 10 lakh</button>
+          <button onClick={() => { setMinBudget(1000000); setMaxBudget(7000000); }}>From 10 lakh - 70 lakh</button>
+          <button onClick={() => { setMinBudget(7000000); setMaxBudget(20000000); }}>From 70 lakh - 2 crore</button>
         </div>
-      </div>
-
-      {/* Make & Model Filter
-      <div className="filter-section">
-        <h5>Make & Model</h5>
-        <input type="text" placeholder="Search a brand or model" className="search-input" />
-      </div> */}
-
-      {/* Model Year Filter */}
-      <div className="filter-section">
-        <h5>Model Year</h5>
-        <select value={modelYear} onChange={(e) => setModelYear(e.target.value)}>
-          <option value="">Select Year</option>
-          {modelYears.map((year) => (
-            <option key={year} value={year}>{year}</option>
-          ))}
-        </select>
-      </div>
-
-      {/* Kms Driven Filter */}
-      <div className="filter-section">
-        <h5>Kms Driven</h5>
-        <select value={kmsDriven} onChange={(e) => setKmsDriven(e.target.value)}>
-          <option value="">Select Range</option>
-          {kmsDrivenOptions.map((kms) => (
-            <option key={kms} value={kms}>{kms}</option>
-          ))}
-        </select>
       </div>
 
       {/* Fuel Type Filter */}
@@ -109,22 +86,11 @@ const FilterSidebar: React.FC = () => {
 
       {/* Transmission Filter */}
       <div className="filter-section">
-        <h5>Transmission</h5>
+        <h5>Transmission Type</h5>
         <select value={transmission} onChange={(e) => setTransmission(e.target.value)}>
-          <option value="">Select Transmission</option>
+          <option value="">Select Transmission Type</option>
           {transmissions.map((trans) => (
             <option key={trans} value={trans}>{trans}</option>
-          ))}
-        </select>
-      </div>
-
-      {/* Color Filter */}
-      <div className="filter-section">
-        <h5>Color</h5>
-        <select value={color} onChange={(e) => setColor(e.target.value)}>
-          <option value="">Select Color</option>
-          {colors.map((col) => (
-            <option key={col} value={col}>{col}</option>
           ))}
         </select>
       </div>

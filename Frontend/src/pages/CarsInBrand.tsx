@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Navbar from '../components/Navbar';
-import FilterSidebar from '../components/FilterSidebar';
+import FilterSidebar from '../components/FilterSidebarused';
 import CarByBrandListing from '../components/CarInBrandListing'; // Make sure you import the correct component
 import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap CSS
 import '../styles/CarListingPage.css'
@@ -17,12 +17,8 @@ const CarListingPage: React.FC = () => {
       <div className="container">
         <div className="row">
           {/* Sidebar */}
-          <div className="col-md-3">
-            <FilterSidebar />
-          </div>
-
           {/* Main Content */}
-          <div className="col-md-9">
+          <div >
             <CarByBrandListing name={name}/>
           </div>
         </div>

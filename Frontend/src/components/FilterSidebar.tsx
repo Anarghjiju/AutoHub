@@ -4,7 +4,7 @@ import '../styles/filterBar.css'
 const FilterSidebar: React.FC = () => {
   const [minBudget, setMinBudget] = useState<number>(100000);
   const [maxBudget, setMaxBudget] = useState<number>(1200000);
-  const [selectedMakes, setSelectedMakes] = useState<string[]>([]);
+  //const [selectedMakes, setSelectedMakes] = useState<string[]>([]);
   const [modelYear, setModelYear] = useState<string>('');
   const [kmsDriven, setKmsDriven] = useState<string>('');
   const [fuelType, setFuelType] = useState<string>('');
@@ -19,11 +19,11 @@ const FilterSidebar: React.FC = () => {
   const transmissions = ['Manual', 'Automatic'];
   const colors = ['Black', 'White', 'Blue', 'Red', 'Gray'];
 
-  const handleCheckboxChange = (make: string) => {
-    setSelectedMakes((prev) =>
-      prev.includes(make) ? prev.filter((m) => m !== make) : [...prev, make]
-    );
-  };
+  // const handleCheckboxChange = (make: string) => {
+  //   setSelectedMakes((prev) =>
+  //     prev.includes(make) ? prev.filter((m) => m !== make) : [...prev, make]
+  //   );
+  // };
 
   return (
     <div className="filter-sidebar">
@@ -57,11 +57,11 @@ const FilterSidebar: React.FC = () => {
         </div>
       </div>
 
-      {/* Make & Model Filter */}
+      {/* Make & Model Filter
       <div className="filter-section">
         <h5>Make & Model</h5>
         <input type="text" placeholder="Search a brand or model" className="search-input" />
-      </div>
+      </div> */}
 
       {/* Model Year Filter */}
       <div className="filter-section">

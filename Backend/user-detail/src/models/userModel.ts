@@ -2,11 +2,10 @@ import mongoose,{Document,Schema} from 'mongoose';
 
 export interface IUser extends Document{
     name : string;
+    uid: string;
     email:string;
-    role : string;
-    password:string;
-    boughtCars:string[];
-    soldCars : string[];
+    isAdmin : boolean;
+    phno: number;
     createdAt : Date;
 }
 
@@ -15,29 +14,23 @@ const UserSchema : Schema = new Schema({
         type:String,
         required :true
     },
+    uid:{
+        type:String,
+        required : true,
+        unique:true
+    },
     email:{
         type:String,
         required : true
     },
-    password:{
-        type:String,
-        required : true
+    isAdmin:{
+        type:Boolean,
+        default:false
     },
-    role:{
-        type:String,
-        enum :['admin','user'],
-        default:'user'
+    phno:{
+        type:Number,
+        unique:true
     },
-    boughtCars:[{
-        type:Schema.Types.ObjectId,
-        ref :'UsedCar'
-    }],
-    soldCars:[
-        {
-            type:Schema.Types.ObjectId,
-            ref:'UsedCar'
-        }
-    ],
     createdAt:{
         type:Date,
         default:Date.now

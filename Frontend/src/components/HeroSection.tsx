@@ -1,5 +1,7 @@
 import React from 'react';
 import carimage from '../assets/carimage.png'
+import { Link } from 'react-router-dom';
+
 
 const HeroSection: React.FC = () => {
   return (
@@ -10,8 +12,8 @@ const HeroSection: React.FC = () => {
         <p>Find Best Deals For your Car</p>
       </div>
       <div className="hero-buttons">
-        <button className="primary-button">Order Now</button>
-        <button className="secondary-button">Demo Drive</button>
+        <Link to="/login"><button className="primary-button" >Login</button></Link>
+        <Link to="/register"><button className="secondary-button">Sign Up</button></Link>
       </div>
     </div>
   );

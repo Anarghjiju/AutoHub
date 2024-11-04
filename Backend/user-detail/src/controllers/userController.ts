@@ -1,11 +1,26 @@
 import { Request, Response } from 'express';
-import { User } from '../models/userModel';
-import { usedCar } from '../models/usedCarModel';
+import {User} from '../models/userModel'; // Adjust the import path as necessary
+
+// Function to get user details by UID
+export const getUserDetailsUid = async (req: Request, res: Response) => {
+    try {
+        const { uid } = req.params; // Expecting uid to be passed as a URL parameter
+        const user = await User.findOne({ uid }); // Fetch user by uid
+        if (!user) {
+            res.status(404).json({ error: "User not found" });
+        }
+        else{
+        res.status(200).json(user);
+        }
+    } catch (error) {
+        res.status(500).json({ error: "Error fetching user details" });
+    }
+};
 
 export const createUser = async (req: Request, res: Response) => {
     try {
-        const { name, email, password } = req.body;
-        const newUser = new User({ name, email, password });
+        const { uid,name, email} = req.body;
+        const newUser = new User({ uid, name, email });
         console.log(newUser);
         await newUser.save();
         res.status(201).json(newUser);
@@ -14,21 +29,11 @@ export const createUser = async (req: Request, res: Response) => {
     }
 };
 
-export const getUserDetails = async (req: Request, res: Response) => {
-    try {
-        const { id } = req.params;
-        console.log(id);
-        const user = await User.findById(id);
-        res.status(200).json(user);
-    } catch (error) {
-        res.status(500).json({ error: "Error fetching user details" });
-    }
-};
 
 export const updateUserRoles = async (req: Request, res: Response) => {
     try {
         const { id } = req.params;
-        const updatedUser = await User.findByIdAndUpdate(id, { role: req.body.role }, { new: true });
+        const updatedUser = await User.findByIdAndUpdate(id, { isAdmin: true }, { new: true });
         res.status(200).json(updatedUser);
     } catch (error) {
         res.status(500).json({ error: "Error updating user roles" });
@@ -38,12 +43,12 @@ export const updateUserRoles = async (req: Request, res: Response) => {
 export const updateUserDetails = async (req: Request, res: Response) => {
     try {
         const { id } = req.params;
-        const { name, email, password } = req.body;
+        const { name, email,phno } = req.body;
         
-        const updateData: Partial<{ name: string; email: string; password: string }> = {};
+        const updateData: Partial<{ name: string; email: string; phno: number }> = {};
         if (name) updateData.name = name;
         if (email) updateData.email = email;
-        if (password) updateData.password = password;
+        if (phno) updateData.phno = phno;
         
         const updatedUser = await User.findByIdAndUpdate(id, updateData, { new: true });
         

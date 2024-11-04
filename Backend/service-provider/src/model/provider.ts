@@ -27,15 +27,23 @@ const ServiceSchema: Schema = new Schema({
   service_description: { type: String, required: true },
 });
 
-const ProviderSchema: Schema = new Schema({
-  provider_id: { type: String, required: true, unique: true }, // Unique identifier for the provider
+const ProviderSchema = new mongoose.Schema({
+  provider_id:{type:String,required : true},
   name: { type: String, required: true },
   provider_make: { type: String, required: true },
   contactInfo: { type: String, required: true },
   location: { type: String, required: true },
-  servicesOffered: [ServiceSchema], // Array of service objects
   availability: { type: Boolean, default: true },
-  contact: { type: String, required: true },
+  servicesOffered: {
+    type: [{ 
+      service_id: String, 
+      service_name: String, 
+      service_price: Number, 
+      service_duration: Number, 
+      service_description: String 
+    }],
+    default: [], // Default to an empty array if no services are provided
+  },
 });
 
 export default mongoose.model<IProvider>('Provider', ProviderSchema);

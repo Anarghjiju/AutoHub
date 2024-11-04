@@ -4,6 +4,7 @@ import SidebarComponent from '../components/Sidebar';
 import AnalyticsDashboard from '../components/AnalyticsDashboard';
 import ApproveCarList from '../components/ApproveCarListing';
 import CarList from '../components/CarList';
+import ServiceProviderList from '../components/ServiceProviderList';
 
 const DashboardPage: React.FC = () => {
   const [selectedOption, setSelectedOption] = useState('dashboard');
@@ -29,15 +30,13 @@ const DashboardPage: React.FC = () => {
         {selectedOption === 'approve' && <ApproveCarList />}
         {selectedOption === 'carList' && <CarList />}
         {selectedOption === 'user' && <ManageUsersContent />}
-        {selectedOption === 'service' && <ManageServiceProvidersContent />}
+        {selectedOption === 'service' && <ServiceProviderList />}
       </div>
     </div>
   );
 };
 
 // Define other content components
-const ApproveCarsContent = () => <div>Approve Cars Content</div>;
 const ManageUsersContent = () => <div>Manage Users Content</div>;
-const ManageServiceProvidersContent = () => <div>Manage Service Providers Content</div>;
 
 export default DashboardPage;

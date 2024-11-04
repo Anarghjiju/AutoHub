@@ -1,15 +1,29 @@
 import { Request, Response } from 'express';
 import Provider, { IProvider, IService } from '../model/provider';
 
-// Register a new provider
+
+
 export const registerProvider = async (req: Request, res: Response) => {
   try {
-    const provider = await Provider.create(req.body);
+    const {provider_id, name, provider_make, contactInfo, location, availability } = req.body;
+
+    const providerData = {
+      provider_id,
+      name,
+      provider_make,
+      contactInfo,
+      location,
+      availability,
+      servicesOffered: req.body.servicesOffered || [], // Set to empty array if not provided
+    };
+
+    const provider = await Provider.create(providerData);
     res.status(201).json(provider);
   } catch (error) {
     res.status(500).json({ message: "Error registering provider", error });
   }
 };
+
 
 // Get a provider by ID
 export const getProviderById = async (req: Request, res: Response) => {
@@ -72,29 +86,39 @@ export const addServiceToProvider = async (req: Request, res: Response) => {
       await provider.save();
       res.json({ message: "Service added to provider", provider });
     }
+    else{
     res.status(404).json({ message: "Provider not found" });
+    }
   } catch (error) {
     res.status(500).json({ message: "Error adding service to provider", error });
   }
 };
 
 // Delete a service from a provider by Service ID
-export const deleteServiceFromProvider = async (req: Request, res: Response) => {
+export const deleteServiceFromProvider = async (req:Request, res:Response) :Promise<void>=> {
   try {
-    const provider = await Provider.findOne({ provider_id: req.params.provider_id });
-    if (provider) 
-      {
-        const serviceId = req.params.service_id;
-        provider.servicesOffered = provider.servicesOffered.filter(service => service.service_id !== serviceId);
-        await provider.save();
-        res.json({ message: "Service deleted from provider", provider });
-      }
-    res.status(404).json({ message: "Provider not found" });
+      const provider = await Provider.findOne({ provider_id: req.params.provider_id });
+      
+      if (provider) {
+          const serviceId = req.params.service_id;
+          provider.servicesOffered = provider.servicesOffered.filter(service => service.service_id !== serviceId);
+          await provider.save();
 
+      res.json({ message: "Service deleted from provider", provider });
+      }
+      else{
+
+      // Send a 404 response if provider is not found and return immediately
+       res.status(404).json({ message: "Provider not found" });
+    }
+      
   } catch (error) {
-    res.status(500).json({ message: "Error deleting service from provider", error });
+      // Send a 500 response on error and return immediately
+      res.status(500).json({ message: "Error deleting service from provider", error });
   }
 };
+
+
 
 // Delete a provider
 export const deleteProvider = async (req: Request, res: Response) => {

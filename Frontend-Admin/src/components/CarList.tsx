@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, ButtonGroup } from 'react-bootstrap';
+import { Button, ButtonGroup, Modal } from 'react-bootstrap';
 import '../styles/carList.css';
 
 interface Car {
@@ -14,7 +14,7 @@ interface Car {
     buyerId?: string; // Optional if a buyer hasn't been assigned yet
     verified: boolean;
     listed: boolean;
-    isSold:boolean;
+    isSold: boolean;
     images: {
         publicId: string;
         url: string;
@@ -25,9 +25,11 @@ const CarList: React.FC = () => {
     const [carList, setCarList] = useState<Car[]>([]);
     const [filteredCars, setFilteredCars] = useState<Car[]>([]);
     const [filter, setFilter] = useState<'all' | 'sold' | 'unsold'>('all');
+    const [showModal, setShowModal] = useState(false); // State for controlling the modal
+    const [selectedCar, setSelectedCar] = useState<Car | null>(null); // State for the selected car
+    const [activeCarId, setActiveCarId] = useState<string | null>(null); // State to track the active car item for click effect
 
     useEffect(() => {
-        // Fetch the verified car listings from the backend
         const fetchCars = async () => {
             try {
                 const response = await fetch('http://localhost:3001/api/usedcars'); // Adjust endpoint as needed
@@ -42,7 +44,6 @@ const CarList: React.FC = () => {
         fetchCars();
     }, []);
 
-    // Update the displayed cars based on the selected filter
     useEffect(() => {
         let filtered;
         if (filter === 'sold') {
@@ -55,27 +56,45 @@ const CarList: React.FC = () => {
         setFilteredCars(filtered);
     }, [filter, carList]);
 
+    // Function to handle opening the modal with selected car details
+    const handleShowDetails = (car: Car) => {
+        setSelectedCar(car);
+        setShowModal(true);
+        setActiveCarId(car._id); // Set active car id for click effect
+    };
+
+    // Function to handle closing the modal
+    const handleClose = () => {
+        setShowModal(false);
+        setSelectedCar(null); // Clear selected car on close
+        setActiveCarId(null); // Reset active car id
+    };
+
     return (
         <div className="verified-car-list">
             <h3>Verified Car Listings</h3>
             <div className="toggle-container">
-  <ButtonGroup className="filter-toggle">
-    <Button variant={filter === 'all' ? 'light' : 'outline-light'} onClick={() => setFilter('all')}>
-      All
-    </Button>
-    <Button variant={filter === 'sold' ? 'light' : 'outline-light'} onClick={() => setFilter('sold')}>
-      Sold
-    </Button>
-    <Button variant={filter === 'unsold' ? 'light' : 'outline-light'} onClick={() => setFilter('unsold')}>
-      Unsold
-    </Button>
-  </ButtonGroup>
-</div>
+                <ButtonGroup className="filter-toggle">
+                    <Button variant={filter === 'all' ? 'light' : 'outline-light'} onClick={() => setFilter('all')}>
+                        All
+                    </Button>
+                    <Button variant={filter === 'sold' ? 'light' : 'outline-light'} onClick={() => setFilter('sold')}>
+                        Sold
+                    </Button>
+                    <Button variant={filter === 'unsold' ? 'light' : 'outline-light'} onClick={() => setFilter('unsold')}>
+                        Unsold
+                    </Button>
+                </ButtonGroup>
+            </div>
 
             <div className="car-list">
                 {filteredCars.length > 0 ? (
                     filteredCars.map((car) => (
-                        <div key={car._id} className="car-item">
+                        <div
+                            key={car._id}
+                            className={`car-item ${activeCarId === car._id ? 'active' : ''}`} // Add active class based on state
+                            onClick={() => handleShowDetails(car)}
+                        >
                             <p><strong>Make:</strong> {car.make}</p>
                             <p><strong>Model:</strong> {car.carModel}</p>
                             <p><strong>Seller ID:</strong> {car.sellerId}</p>
@@ -86,6 +105,28 @@ const CarList: React.FC = () => {
                     <p>No cars found for this filter.</p>
                 )}
             </div>
+
+            {/* Modal for displaying car details */}
+            {selectedCar && (
+                <Modal show={showModal} onHide={handleClose} centered>
+                    <Modal.Header closeButton>
+                        <Modal.Title>Car Details</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <h5>{selectedCar.make} {selectedCar.carModel}</h5>
+                        <p><strong>Year:</strong> {selectedCar.year}</p>
+                        <p><strong>KMs Driven:</strong> {selectedCar.kmsDriven}</p>
+                        <p><strong>Price:</strong> Rs. {selectedCar.price}</p>
+                        <p><strong>Seller ID:</strong> {selectedCar.sellerId}</p>
+                        <p><strong>Status:</strong> {selectedCar.isSold ? 'Sold' : 'Available'}</p>
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button variant="secondary" onClick={handleClose}>
+                            Close
+                        </Button>
+                    </Modal.Footer>
+                </Modal>
+            )}
         </div>
     );
 };

@@ -14,10 +14,19 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getProvidersByMake = exports.deleteProvider = exports.deleteServiceFromProvider = exports.addServiceToProvider = exports.updateProvider = exports.getProviderByServiceId = exports.getAllProviders = exports.getProviderById = exports.registerProvider = void 0;
 const provider_1 = __importDefault(require("../model/provider"));
-// Register a new provider
 const registerProvider = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const provider = yield provider_1.default.create(req.body);
+        const { provider_id, name, provider_make, contactInfo, location, availability } = req.body;
+        const providerData = {
+            provider_id,
+            name,
+            provider_make,
+            contactInfo,
+            location,
+            availability,
+            servicesOffered: req.body.servicesOffered || [], // Set to empty array if not provided
+        };
+        const provider = yield provider_1.default.create(providerData);
         res.status(201).json(provider);
     }
     catch (error) {
@@ -86,7 +95,9 @@ const addServiceToProvider = (req, res) => __awaiter(void 0, void 0, void 0, fun
             yield provider.save();
             res.json({ message: "Service added to provider", provider });
         }
-        res.status(404).json({ message: "Provider not found" });
+        else {
+            res.status(404).json({ message: "Provider not found" });
+        }
     }
     catch (error) {
         res.status(500).json({ message: "Error adding service to provider", error });
@@ -103,9 +114,13 @@ const deleteServiceFromProvider = (req, res) => __awaiter(void 0, void 0, void 0
             yield provider.save();
             res.json({ message: "Service deleted from provider", provider });
         }
-        res.status(404).json({ message: "Provider not found" });
+        else {
+            // Send a 404 response if provider is not found and return immediately
+            res.status(404).json({ message: "Provider not found" });
+        }
     }
     catch (error) {
+        // Send a 500 response on error and return immediately
         res.status(500).json({ message: "Error deleting service from provider", error });
     }
 });

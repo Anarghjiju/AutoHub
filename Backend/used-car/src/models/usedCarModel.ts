@@ -11,6 +11,7 @@ export interface IUsedCar extends Document {
     buyerId?: string; // Optional if a buyer hasn't been assigned yet
     verified: boolean;
     listed: boolean;
+    isSold:boolean;
     images: {
         publicId: string;
         url: string;
@@ -62,7 +63,11 @@ const UsedCarSchema: Schema = new Schema({
     },
     listed: {
         type: Boolean,
-        default: true, // Default value for listed
+        default: false, // Default value for listed
+    },
+    isSold: {
+        type: Boolean,
+        default: false, // Default value for listed
     },
 });
 

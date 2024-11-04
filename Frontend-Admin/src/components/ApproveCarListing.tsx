@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Link } from 'react-router-dom';
-import '../styles/usedCarListing.css'
 
 interface Image {
   publicId: string;
@@ -22,7 +21,7 @@ interface Car {
   images: Image[];
 }
 
-const UsedCarListing: React.FC = () => {
+const ApproveCarListing: React.FC = () => {
   const [cars, setCars] = useState<Car[]>([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [loading, setLoading] = useState(true);
@@ -30,7 +29,7 @@ const UsedCarListing: React.FC = () => {
   useEffect(() => {
     const fetchCars = async () => {
       try {
-        const response = await fetch('http://localhost:3001/api/usedcars');
+        const response = await fetch('http://localhost:3001/api/usedcars/pending-approval');
         const data = await response.json();
 
         if (Array.isArray(data)) {
@@ -57,7 +56,7 @@ const UsedCarListing: React.FC = () => {
     <div>
       <div className="row align-items-center mb-4">
         <div className="col">
-          <h3 className="text-left">Buy used cars</h3>
+          <h4 className="text-left">Cars waiting for approval</h4>
         </div>
         <div className="col-auto">
           <input
@@ -87,7 +86,7 @@ const UsedCarListing: React.FC = () => {
                     <h3 className="card-title car-make">{car.make}</h3>
                     <h5 className="card-title">{car.carModel}</h5>
                     <p className="card-text">Rs. {car.price}</p>
-                    <Link to={`/usedcar/${car._id}`} className="btn btn-dark text-white btn-lg">View Details</Link>
+                    <Link to={`/pending-approval/${car._id}`} className="btn btn-dark text-white btn-lg">View Details</Link>
                   </div>
                 </div>
               </div>
@@ -101,4 +100,4 @@ const UsedCarListing: React.FC = () => {
   );
 };
 
-export default UsedCarListing;
+export default ApproveCarListing;

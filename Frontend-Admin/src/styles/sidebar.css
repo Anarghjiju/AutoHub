@@ -1,0 +1,46 @@
+.sidebar {
+  position: fixed;
+  width: 70px; /* Width when collapsed */
+  height: 100vh; /* Full height */
+  background-color: #f8f9fa; /* Background color */
+  transition: width 0.3s; /* Transition for width */
+  overflow: hidden; /* Prevent overflow */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Align items to the start */
+  padding-top: 100px; /* Padding from the top */
+  border-right: 1px solid #e6e6e6; /* Right border with a light gray color */
+}
+
+.sidebar.expanded {
+  width: auto; /* Width when expanded */
+}
+
+.hamburger-button {
+  margin: 10px;
+}
+
+.sidebar .nav-link {
+  padding: 15px 20px; /* Padding for nav links */
+  color: #000;
+  font-weight:500;
+  font-size: small; /* Text color */
+}
+
+.sidebar .nav-link span {
+  display: inline; /* Show name */
+  transition: opacity 0.3s; /* Smooth transition for name */
+  opacity: 0; /* Initially hidden */
+}
+
+.sidebar.expanded .nav-link span {
+  opacity: 1; /* Show name when expanded */
+}
+
+.content-area {
+  margin-left: 250px;
+  padding-top: 70px; 
+  padding: 20px; /* Additional padding */
+  height: calc(100vh - 70px); /* Full height minus navbar height */
+  overflow-y: auto; /* Allow scrolling if content overflows */
+}

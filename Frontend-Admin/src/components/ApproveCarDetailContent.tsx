@@ -1,10 +1,10 @@
 // src/pages/CarDetailPage.tsx
 import React, { useEffect, useState } from 'react';
-import Navbar from '../components/Navbar';
-import UsedCarDetails from '../components/UsedCarDetails';
-import '../styles/carDetail.css';
+import '../styles/ApproveCarDetail.css';
+import NavbarComponent from './Navbar';
 import { useParams } from 'react-router-dom';
-import UsedCarImageGallery from '../components/UsedCarImageGallery';
+import ApproveCarGallery from './ApproveCarGallery';
+import ApproveCarDetail from './ApproveCarDetail';
 
 interface Image {
   publicId: string;
@@ -25,7 +25,7 @@ interface Car {
   images: Image[];
 }
 
-const UsedCarDetailsPage: React.FC = () => {
+const AppproveCarDetailContent: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const [car, setCar] = useState<Car | null>(null);
   const [loading, setLoading] = useState(true);
@@ -59,13 +59,13 @@ const UsedCarDetailsPage: React.FC = () => {
 
   return (
     <div>
-      <Navbar />
+        <NavbarComponent/>
       <div className="car-detail-page">
-        <UsedCarImageGallery images={car.images} />
-        <UsedCarDetails car={car} />
+        <ApproveCarGallery images={car.images} />
+        <ApproveCarDetail car={car} />
       </div>
     </div>
   );
 };
 
-export default UsedCarDetailsPage;
+export default AppproveCarDetailContent;

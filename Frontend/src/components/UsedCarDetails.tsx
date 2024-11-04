@@ -16,6 +16,7 @@ interface Car {
   description: string;
   verified: boolean;
   listed: boolean;
+  isSold:boolean;
   images: Image[];
 }
 

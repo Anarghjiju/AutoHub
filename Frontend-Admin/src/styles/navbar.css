@@ -1,0 +1,33 @@
+.nav-main {
+    /* Optional: You can set a bottom padding if needed */
+    padding-bottom: 50px; /* Adjust based on your design needs */
+  }
+  
+  .navbar {
+    height: 60px;
+    border-bottom: 1px solid #dee2e6; /* Light gray border at the bottom */
+    background-color: #f8f9fa;
+     /* Keep the background color consistent */
+  }
+  
+  .nav-main a {
+    text-decoration: none;
+    color: inherit; /* Ensures it matches the theme color */
+  }
+  
+  .nav-main a:hover {
+    color: inherit; /* Prevents color change on hover */
+    color: rgb(80, 80, 80);
+    
+  }
+  
+  .navbar img {
+    width: 75px; /* Adjust size as needed */
+    height: auto;
+    margin-left :50px ; /* Space between logo and brand name */
+  }
+  
+  .nav-main {
+    /* Any specific styles for the navbar container */
+  }
+  

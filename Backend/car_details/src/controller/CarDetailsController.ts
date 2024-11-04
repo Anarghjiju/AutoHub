@@ -8,7 +8,6 @@ export const getCarById = async (req:Request,res:Response) => {
     const car = await Car_details.findById(req.params.id);
     if(!car)
       res.status(404).json({message :'car not found'});
-
     res.status(200).json(car)
   }
   catch(error){
@@ -48,7 +47,7 @@ export const getDistinctMakes = async (req: Request, res: Response) => {
       {
         $group: {
           _id: "$Make",
-          id: { $first: "$_id" } // Capture the original _id of the first unique 'make'
+          id: { $first: "$_id" } 
         }
       },
       {

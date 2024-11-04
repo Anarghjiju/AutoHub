@@ -47,6 +47,7 @@ cloudinary.config({
         images: uploadedImages, // Use the updated images array
         verified: false,
         listed: false,
+        isSold:false,
       });
   
       await newCar.save();
@@ -79,7 +80,6 @@ export const approveCarListing = async (req: Request, res: Response): Promise<vo
 
 export const getListedCars = async (req: Request, res: Response): Promise<void> => {
     try {
-        // Fetch all verified and listed cars
         const cars = await usedCar.find({ verified: true, listed: true });
         res.status(200).json( cars );
     } catch (error) {
@@ -98,5 +98,66 @@ export const getCarById = async (req: Request, res: Response):Promise<void>=> {
 }catch(error){
   res.status(500).json({message:"Error retrieving  car"});
 }
-  
 }
+
+export const analyticalData = async (req: Request, res: Response): Promise<void> => {
+  try {
+      const totalSoldCars = await usedCar.countDocuments({ isSold: true });
+      const totalUnSoldCars = await usedCar.countDocuments({ isSold: false,listed :true,verified:true });
+      const totalPendingApproval = await usedCar.countDocuments({ verified: false, listed: false });
+
+      const soldCars = await usedCar.find({ isSold: true });
+      const totalIncome = soldCars.reduce((sum, car) => sum + car.price, 0);
+
+      // Group by `make` and count the number of sold cars for each make
+      const salesByMake = await usedCar.aggregate([
+          { $match: { isSold: true } },
+          { $group: { _id: "$make", count: { $sum: 1 } } }
+      ]);
+
+      res.status(200).json({ 
+          totalSoldCars, 
+          totalIncome, 
+          totalUnSoldCars, 
+          totalPendingApproval, 
+          salesByMake 
+      });
+  } catch (error) {
+      console.error('Error fetching analytics data:', error);
+      res.status(500).json({ error: 'Error fetching analytics data' });
+  }
+};
+
+
+export const getNotApprovedCars = async (req: Request, res: Response): Promise<void> => {
+  try {
+      const cars = await usedCar.find({ verified: false, listed: false });
+      res.status(200).json( cars );
+  } catch (error) {
+      console.error('Error fetching listed cars:', error);
+      res.status(500).json({ error: 'Error fetching listed cars' });
+  }
+};
+
+
+
+export const updateUsedCar = async (req: Request, res: Response): Promise<void> => {
+  try {
+      const { carId } = req.params;
+      const updates = req.body; // Capture the fields to update from the request body
+      console.log(updates);
+      // Update the used car document with the provided fields
+      const updatedCar = await usedCar.findByIdAndUpdate(carId, updates, { new: true });
+
+      if (!updatedCar) {
+          res.status(404).json({ error: 'Car not found' });
+          return;
+      }
+
+      res.status(200).json({ message: 'Car listing updated successfully', car: updatedCar });
+  } catch (error) {
+      console.error('Error updating car listing:', error);
+      res.status(500).json({ error: 'Error updating car listing' });
+  }
+};
+

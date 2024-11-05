@@ -16,13 +16,15 @@ interface User {
 // Create the UserContext with a default value
 const UserContext = createContext<{
   user: User | null;
+  loading: boolean; // Add loading state to the context
   setUser: React.Dispatch<React.SetStateAction<User | null>>;
   logout: () => Promise<void>; // Update logout function type to return a Promise
-}>({ user: null, setUser: () => {}, logout: async () => {} });
+}>({ user: null, loading: true, setUser: () => {}, logout: async () => {} });
 
 // Create a provider component
 export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
+  const [loading, setLoading] = useState(true); // Add loading state
 
   // Effect to check if user is authenticated
   useEffect(() => {
@@ -40,6 +42,7 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         // User is signed out
         setUser(null);
       }
+      setLoading(false); // Set loading to false after the check is complete
     });
 
     return () => unsubscribe(); // Cleanup subscription on unmount
@@ -56,10 +59,9 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       console.error('Error signing out:', error);
     }
   };
-  
 
   return (
-    <UserContext.Provider value={{ user, setUser, logout }}>
+    <UserContext.Provider value={{ user, loading, setUser, logout }}> {/* Provide loading state */}
       {children}
     </UserContext.Provider>
   );

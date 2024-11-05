@@ -37,7 +37,7 @@ const Signup: React.FC = () => {
       await axios.post('http://localhost:3003/api/users/register', userData);
       
       // Redirect to home page or any other page after successful registration
-      navigate('/');
+      navigate('/login');
     } catch (error) {
       setError("Registration failed! Please try again."); // Set error message for UI
       console.error('Error during registration:', error);

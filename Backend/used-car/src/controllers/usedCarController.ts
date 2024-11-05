@@ -80,7 +80,7 @@ export const approveCarListing = async (req: Request, res: Response): Promise<vo
 
 export const getListedCars = async (req: Request, res: Response): Promise<void> => {
     try {
-        const cars = await usedCar.find({ verified: true });
+        const cars = await usedCar.find({ verified: true,isSold:false });
         res.status(200).json( cars );
     } catch (error) {
         console.error('Error fetching listed cars:', error);
@@ -169,7 +169,9 @@ export const getCarsByUserId = async (req: Request, res: Response) => {
       if (!cars.length) {
           res.status(404).json({ message: 'No cars found for this user.' });
       }
+      else{
       res.status(200).json(cars);
+      }
   } catch (error) {
       console.error('Error fetching cars by userId:', error);
       res.status(500).json({ message: 'Internal server error' });
@@ -181,11 +183,13 @@ export const getCarsBySellerId = async (req: Request, res: Response) => {
   const { sellerId } = req.params; // Assume sellerId is passed as a URL parameter
 
   try {
-      const cars = await usedCar.find({ sellerId: sellerId }).exec(); // Fetch cars associated with the sellerId
+      const cars = await usedCar.find({ sellerId: sellerId ,isSold:true}).exec(); // Fetch cars associated with the sellerId
       if (!cars.length) {
           res.status(404).json({ message: 'No cars found for this seller.' });
       }
+      else{
       res.status(200).json(cars);
+      }
   } catch (error) {
       console.error('Error fetching cars by sellerId:', error);
       res.status(500).json({ message: 'Internal server error' });
@@ -269,10 +273,10 @@ export const updateCarBuyerId = async (req: Request, res: Response): Promise<voi
     // Check if the car was found and updated
     if (!updatedCar) {
       res.status(404).json({ error: 'Car not found' });
-      return;
     }
-
+    else{
     res.status(200).json({ message: 'Buyer ID and sale status updated successfully', car: updatedCar });
+    }
   } catch (error) {
     console.error('Error updating buyer ID and sale status:', error);
     res.status(500).json({ error: 'Error updating buyer ID and sale status' });

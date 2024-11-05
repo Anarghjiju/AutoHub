@@ -22,13 +22,21 @@ const FilterSidebarUsed: React.FC<FilterSidebarUsedProps> = ({
   kmsDriven,
   setKmsDriven,
 }) => {
-  const modelYears = ['2024','2023', '2022', '2021', '2020', '2019','2018','2017'];
+  const modelYears = ['2024', '2023', '2022', '2021', '2020', '2019', '2018', '2017'];
   const kmsDrivenOptions = [
     'Under 10,000 km',
     '10,000 - 30,000 km',
     '30,000 - 50,000 km',
     'Above 50,000 km',
   ];
+
+  // Function to reset filters
+  const resetFilters = () => {
+    setMinBudget(100000); // Set to default minimum budget
+    setMaxBudget(10000000); // Set to default maximum budget
+    setModelYear(''); // Reset model year selection
+    setKmsDriven(''); // Reset kms driven selection
+  };
 
   return (
     <div className="filter-sidebar">
@@ -82,6 +90,11 @@ const FilterSidebarUsed: React.FC<FilterSidebarUsedProps> = ({
             <option key={kms} value={kms}>{kms}</option>
           ))}
         </select>
+      </div>
+
+      {/* Reset Filters Button */}
+      <div className="filter-section">
+        <button onClick={resetFilters} className="reset-button-used">Reset Filters</button>
       </div>
     </div>
   );

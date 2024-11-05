@@ -1,29 +1,39 @@
 .filter-sidebar {
   position: sticky;
   width: 250px;
-  padding: 15px;
+  padding: 20px;
   border: 1px solid #dfdfdf;
   border-radius: 8px;
-  background-color: #fff;
+  background-color: #ffffff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Added shadow for depth */
   overflow-y: auto;
   margin-top: 50px;
   font-size: small;
 }
 
 .filter-section {
-  margin-bottom: 20px;
-}
-
-.filter-section select{
-  border: 1px solid #dfdfdf;
-  border-radius: 5px;
-  font-size: small;
+  margin-bottom: 25px; /* Increased space between sections */
 }
 
 .filter-section h5 {
   font-size: 16px;
-  font-weight: bold;
-  margin-bottom: 10px;
+  font-weight: 600; /* Slightly bolder for emphasis */
+  margin-bottom: 8px; /* Reduced margin for a tighter layout */
+  color: #000000; /* Darker text color for better readability */
+}
+
+.filter-section select {
+  width: 100%; /* Make select take full width */
+  padding: 10px; /* Added padding for better touch targets */
+  border: 1px solid #000000; /* Softer border color */
+  border-radius: 5px;
+  font-size: small;
+  background-color: #f9f9f9; /* Light background for selects */
+  transition: border-color 0.3s; /* Smooth border color transition */
+}
+
+.filter-section select:hover {
+  border-color: #000000; /* Change border color on hover */
 }
 
 .slider-container {
@@ -36,27 +46,72 @@
   justify-content: space-between;
   font-weight: bold;
   margin-top: 5px;
+  color: #000000; /* Softer color for budget values */
 }
 
 .suggestions {
   margin-top: 10px;
   display: flex;
   flex-wrap: wrap;
-  gap: 5px;
+  gap: 8px; /* Increased gap for better spacing */
 }
 
 .suggestions button {
-  background-color: #f0f0f0;
-  border: none;
-  padding: 5px 10px;
+  background-color: #ffffff; /* Light blue background for suggestions */
+  color: black;
+  border: 2px black;
+  padding: 8px 12px; /* Increased padding */
   border-radius: 5px;
   cursor: pointer;
+  font-size: small; /* Consistent font size */
+  transition: background-color 0.3s; /* Smooth background color transition */
 }
 
-.search-input {
-  width: 100%;
-  padding: 8px;
-  margin-bottom: 10px;
-  border-radius: 4px;
-  border: 1px solid #ececec;
+.suggestions button:hover {
+  background-color: #000000; /* Darker blue on hover */
+  color: white; /* White text on hover */
+}
+
+.reset-button-container {
+  margin-top: 20px; /* Increased margin for better separation */
+  text-align: center;
+}
+
+.reset-button,
+.reset-button-used {
+  padding: 10px 15px;
+  background-color: #ffffff; /* Default button background */
+  color: rgb(0, 0, 0);
+  border: 1px solid #ccc; /* Softer border */
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: small; /* Consistent font size */
+  transition: background-color 0.3s, color 0.3s; /* Smooth transitions */
+}
+
+.reset-button:hover,
+.reset-button-used:hover {
+  background-color: #000000; /* Light red on hover */
+  color: rgb(255, 255, 255); /* Keep text black */
+}
+
+/* Additional styles for fuel, body type, and transmission */
+.additional-filters {
+  margin-top: 20px; /* Add margin for spacing */
+}
+
+.additional-filters h5 {
+  font-weight: 600; /* Bold for emphasis */
+}
+
+.additional-filters select {
+  width: 100%; /* Full width */
+  padding: 10px; /* Consistent padding */
+  border: 1px solid #ccc; /* Softer border */
+  border-radius: 5px; /* Rounded corners */
+  background-color: #f9f9f9; /* Light background */
+}
+
+.additional-filters select:hover {
+  border-color: #000000; /* Change border color on hover */
 }

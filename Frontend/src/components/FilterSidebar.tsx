@@ -30,6 +30,15 @@ const FilterSidebar: React.FC<FilterSidebarProps> = ({
   const bodyTypes = ['SUV', 'Sedan', 'Hatchback', 'Convertible'];
   const transmissions = ['Manual', 'Automatic'];
 
+  // Function to reset all filters to their initial values
+  const resetFilters = () => {
+    setMinBudget(100000); // or any default minimum budget you want
+    setMaxBudget(50000000); // or any default maximum budget you want
+    setFuelType('');
+    setBodyType('');
+    setTransmission('');
+  };
+
   return (
     <div className="filter-sidebar">
       {/* Budget Filter */}
@@ -93,6 +102,11 @@ const FilterSidebar: React.FC<FilterSidebarProps> = ({
             <option key={trans} value={trans}>{trans}</option>
           ))}
         </select>
+      </div>
+
+      {/* Reset Filters Button */}
+      <div className="reset-button-container">
+        <button onClick={resetFilters} className="reset-button">Reset Filters</button>
       </div>
     </div>
   );

@@ -5,6 +5,7 @@ import AnalyticsDashboard from '../components/AnalyticsDashboard';
 import ApproveCarList from '../components/ApproveCarListing';
 import CarList from '../components/CarList';
 import ServiceProviderList from '../components/ServiceProviderList';
+import UserList from '../components/UserList';
 
 const DashboardPage: React.FC = () => {
   const [selectedOption, setSelectedOption] = useState('dashboard');
@@ -29,7 +30,7 @@ const DashboardPage: React.FC = () => {
         {selectedOption === 'dashboard' && <AnalyticsDashboard />}
         {selectedOption === 'approve' && <ApproveCarList />}
         {selectedOption === 'carList' && <CarList />}
-        {selectedOption === 'user' && <ManageUsersContent />}
+        {selectedOption === 'user' && <UserList />}
         {selectedOption === 'service' && <ServiceProviderList />}
       </div>
     </div>

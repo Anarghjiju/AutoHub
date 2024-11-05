@@ -80,7 +80,7 @@ export const approveCarListing = async (req: Request, res: Response): Promise<vo
 
 export const getListedCars = async (req: Request, res: Response): Promise<void> => {
     try {
-        const cars = await usedCar.find({ verified: true, listed: true });
+        const cars = await usedCar.find({ verified: true });
         res.status(200).json( cars );
     } catch (error) {
         console.error('Error fetching listed cars:', error);
@@ -213,5 +213,68 @@ export const addOrderToCar = async (req: Request, res: Response): Promise<void> 
   } catch (error) {
       console.error('Error adding order to car:', error);
       res.status(500).json({ error: 'Error adding order to car' });
+  }
+};
+
+export const deleteCar = async (req: Request, res: Response): Promise<void> => {
+  try {
+
+      // Find and delete the car by its ID
+      const deletedCar = await usedCar.findByIdAndDelete(req.params.id);
+
+      if (!deletedCar) {
+          res.status(404).json({ error: 'Car not found' });
+        
+      }
+      else{
+
+      res.status(200).json({ message: 'Car deleted successfully', car: deletedCar });
+      }
+  } catch (error) {
+      console.error('Error deleting car:', error);
+      res.status(500).json({ error: 'Error deleting car' });
+  }
+};
+
+
+export const getCarsWithOrders = async (req: Request, res: Response): Promise<void> => {
+  try {
+      const cars = await usedCar.find({ orders: { $exists: true, $not: { $size: 0 } } }); // Find cars with at least one order
+      res.status(200).json(cars);
+  } catch (error) {
+      console.error('Error fetching cars with orders:', error);
+      res.status(500).json({ error: 'Error fetching cars with orders' });
+  }
+};
+export const updateCarBuyerId = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const { buyerId } = req.body; // Get the new buyer ID from the request body
+
+    if (!buyerId) {
+      res.status(400).json({ error: 'Buyer ID is required' });
+      return;
+    }
+
+    // Find and update the car by adding the buyer ID, setting isSold to true, and listed to false
+    const updatedCar = await usedCar.findByIdAndUpdate(
+      req.params.id,
+      {
+        buyerId,
+        isSold: true,    // Mark car as sold
+        listed: false     // Unlist the car
+      },
+      { new: true } // Return the updated document
+    );
+
+    // Check if the car was found and updated
+    if (!updatedCar) {
+      res.status(404).json({ error: 'Car not found' });
+      return;
+    }
+
+    res.status(200).json({ message: 'Buyer ID and sale status updated successfully', car: updatedCar });
+  } catch (error) {
+    console.error('Error updating buyer ID and sale status:', error);
+    res.status(500).json({ error: 'Error updating buyer ID and sale status' });
   }
 };

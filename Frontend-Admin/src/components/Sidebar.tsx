@@ -1,7 +1,7 @@
 import React from 'react';
 import { Nav } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHome, faCar, faUser, faScrewdriverWrench, faCarBurst, faCarAlt, faCarBattery, faCarOn, faCarSide, faCarTunnel } from '@fortawesome/free-solid-svg-icons';
+import { faHome, faCar, faUser, faScrewdriverWrench, faCarBurst, faCarAlt, faCarBattery, faCarOn, faCarSide, faCarTunnel, faShop, faCartShopping } from '@fortawesome/free-solid-svg-icons';
 import '../styles/sidebar.css';
 
 interface SidebarComponentProps {
@@ -13,6 +13,7 @@ const SidebarComponent: React.FC<SidebarComponentProps> = ({ onOptionSelect }) =
     { icon: faHome, name: 'Dashboard', key: 'dashboard' },
     { icon: faCar, name: 'Approve cars',  key: 'approve' },
     { icon: faCarOn, name: 'Listed Cars', key: 'carList' },
+    { icon: faCartShopping, name: 'Upcoming orders', key: 'order' },
     { icon: faUser, name: 'Manage users', key: 'user' },
     { icon: faScrewdriverWrench, name: 'Manage service providers',  key: 'service' },
   ];

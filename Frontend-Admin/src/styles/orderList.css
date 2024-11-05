@@ -1,0 +1,63 @@
+/* orderList.css */
+
+/* Force width on modal dialog and content */
+
+/* Header styling */
+
+
+/* Body styling */
+
+
+.modal-body h3, .modal-body h4 {
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+/* Footer styling */
+.modal-footer {
+    background-color: #f8f9fa;
+    border-top: none;
+    border-radius: 0 0 10px 10px;
+}
+
+/* Button styling */
+.button-success {
+    background-color: #28a745;
+    color: white;
+    border: none;
+}
+
+.button-success:hover {
+    background-color: #218838;
+}
+
+/* Additional styling */
+.filter-toggle {
+    margin-bottom: 20px;
+}
+
+.order-list h3 {
+    margin-bottom: 20px;
+    font-size: 1.75rem;
+    font-weight: bold;
+}
+
+.order-list ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.order-list ul li {
+    padding: 15px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    cursor: pointer;
+    background-color: #f9f9f9;
+    transition: background-color 0.3s ease;
+}
+
+.order-list ul li:hover {
+    background-color: #f1f1f1;
+}

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Modal from '../components/Model';
 import ConfirmModal from '../components/ConfirmModel';
+import { useNavigate } from 'react-router-dom';
 
 interface Image {
   publicId: string;
@@ -37,6 +38,7 @@ const ApproveCarDetail: React.FC<UsedCarDetailsProps> = ({ car }) => {
   const [seller, setSeller] = useState<User | null>(null);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [isConfirmModalOpen, setIsConfirmModalOpen] = useState<boolean>(false);
+  const navigate = useNavigate();
 
   // Fetch seller details based on sellerId
   useEffect(() => {
@@ -117,10 +119,21 @@ const ApproveCarDetail: React.FC<UsedCarDetailsProps> = ({ car }) => {
       setIsConfirmModalOpen(false);
     }
   };
-  const handleReject = () => {
-    alert('Car rejected !')
-    sendNotification(car.sellerId, `Your  Car has been rejected by Admin`); // Send notification
+  const handleReject = async() => {
 
+    try {
+      const response = await fetch(`http://localhost:3001/api/usedcars/${car._id}`, {
+          method: 'DELETE',
+      });
+
+      if (!response.ok) {
+          throw new Error('Failed to delete car');
+      }
+  } catch (error) {
+      console.error('Error', error);
+  }
+    sendNotification(car.sellerId, `Your  Car has been rejected by Admin`); 
+    navigate('/')// Send notification
 
   };
   

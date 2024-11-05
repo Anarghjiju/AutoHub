@@ -6,6 +6,7 @@ import ApproveCarList from '../components/ApproveCarListing';
 import CarList from '../components/CarList';
 import ServiceProviderList from '../components/ServiceProviderList';
 import UserList from '../components/UserList';
+import OrderList from '../components/OrderList';
 
 const DashboardPage: React.FC = () => {
   const [selectedOption, setSelectedOption] = useState('dashboard');
@@ -32,6 +33,7 @@ const DashboardPage: React.FC = () => {
         {selectedOption === 'carList' && <CarList />}
         {selectedOption === 'user' && <UserList />}
         {selectedOption === 'service' && <ServiceProviderList />}
+        {selectedOption === 'order' && <OrderList />}
       </div>
     </div>
   );

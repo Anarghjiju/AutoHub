@@ -3,6 +3,8 @@ import '../styles/Sellcar.css';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import Navbar from '../components/Navbar';
+import { useUserContext } from '../UserContext';
+
 
 const GOOGLE_API_KEY = 'AIzaSyCzPJ-xFQL6qSd1Fv1a6ZcVbXAVVtKlaYY';  // Replace with your actual Google API key
 
@@ -29,6 +31,8 @@ const UsedCarSell: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [estimatedPrice, setEstimatedPrice] = useState('');
   const navigate = useNavigate();
+  const { user} = useUserContext();
+
 
   const calculateEstimatedPrice = async (carDetails: CarDetails) => {
     try {
@@ -107,7 +111,7 @@ const UsedCarSell: React.FC = () => {
     setLoading(true);
     const formData = {
       ...carDetails,
-      sellerId: 'SOME_SELLER_ID',
+      sellerId: user?._id,
       buyerId: '',
       images, 
     };

@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useUserContext } from '../UserContext';
-import '../styles/UsedCarDetail.css';
+// import '../styles/usedCarListing.css';
 
 interface Image {
   publicId: string;

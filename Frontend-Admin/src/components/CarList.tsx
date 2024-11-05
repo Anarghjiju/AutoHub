@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Button, ButtonGroup, Modal } from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrash } from '@fortawesome/free-solid-svg-icons'; // Import delete icon
 import '../styles/carList.css';
 
 interface Car {
@@ -70,6 +72,26 @@ const CarList: React.FC = () => {
         setActiveCarId(null); // Reset active car id
     };
 
+    // Function to handle car deletion
+    const handleDeleteCar = async (carId: string) => {
+        if (window.confirm('Are you sure you want to delete this car?')) {
+            try {
+                await fetch(`http://localhost:3001/api/usedcars/${carId}`, {
+                    method: 'DELETE',
+                });
+
+                // Update the state after deletion
+                setCarList((prevCars) => prevCars.filter((car) => car._id !== carId));
+                setFilteredCars((prevCars) => prevCars.filter((car) => car._id !== carId));
+
+                alert('Car deleted successfully.');
+            } catch (error) {
+                console.error('Error deleting car:', error);
+                alert('Error deleting car.');
+            }
+        }
+    };
+
     return (
         <div className="verified-car-list">
             <h3>Verified Car Listings</h3>
@@ -99,6 +121,13 @@ const CarList: React.FC = () => {
                             <p><strong>Model:</strong> {car.carModel}</p>
                             <p><strong>Seller ID:</strong> {car.sellerId}</p>
                             <p><strong>Price:</strong> Rs. {car.price}</p>
+                            <Button
+    style={{ backgroundColor: 'white', border: 'none' }} // Set background color to white and remove border
+    onClick={(e) => { e.stopPropagation(); handleDeleteCar(car._id); }}
+>
+    <FontAwesomeIcon color='black' icon={faTrash} />
+</Button>
+
                         </div>
                     ))
                 ) : (

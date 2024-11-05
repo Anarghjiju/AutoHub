@@ -31,4 +31,27 @@
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Enhanced shadow on hover */
   }
   
-  
+  /* usedCarListing.css */
+
+.pagination {
+  background-color: rgb(255, 255, 255); /* Black background for the pagination */
+  padding: 10px;
+  border-radius: 5px; /* Optional: add rounded corners */
+}
+
+.page-item .page-link {
+  color: rgb(0, 0, 0); /* White text color */
+  border: 1px solid black;
+  background-color: #ffffff; /* Darker shade for active page */
+}
+
+.page-item.active .page-link {
+  background-color: #000000; /* Darker shade for active page */
+  color: white; /* Ensure text is white */
+}
+
+.page-item.disabled .page-link {
+  color: #000000; /* Gray color for disabled links */
+  pointer-events: none; /* Disable clicks on disabled links */
+  background-color: #ffffff; /* Darker shade for active page */
+}

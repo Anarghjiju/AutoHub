@@ -23,6 +23,9 @@ interface Car {
   listed: boolean;
   isSold:boolean;
   images: Image[];
+  orders: string[];
+  sellerId: string;
+  buyerId: string;
 }
 
 const UsedCarDetailsPage: React.FC = () => {

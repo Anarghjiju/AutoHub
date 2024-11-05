@@ -22,6 +22,8 @@ interface Car {
   isSold: boolean;
   images: Image[];
   orders: string[]; // Assuming this array holds user IDs who have ordered this car
+  sellerId:string;
+  buyerId:string;
 }
 
 interface UsedCarDetailsProps {

@@ -3,6 +3,10 @@ import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';
 import '../styles/BookingConfirmPage.css';
+import { useUserContext } from '../UserContext';
+import { Link } from 'react-router-dom'; // Import Link from react-router-dom
+import Navbar from '../components/Navbar';
+
 
 export interface IService {
     service_id: string;
@@ -32,6 +36,7 @@ const BookingPage: React.FC = () => {
     const [selectedModel, setSelectedModel] = useState<string>('');
     const [contactNo, setContactNo] = useState<string>('');
     const [preferredDate, setPreferredDate] = useState<string>('');
+    const { user} = useUserContext();
 
     useEffect(() => {
         const fetchModels = async () => {
@@ -52,7 +57,7 @@ const BookingPage: React.FC = () => {
         const bookingDetails = {
             providerId: provider.provider_id,
             serviceId: service.service_id,
-            userId: 'random-user-id-123',
+            userId: user?._id,
             bookingDate: new Date(preferredDate),
             status: true,
             make: provider.provider_make,
@@ -70,7 +75,9 @@ const BookingPage: React.FC = () => {
     };
 
     return (
+        <div><Navbar />
         <div className="booking-page">
+            
             <h2 className="booking-header">Book {service.service_name} with {provider.name}</h2>
             <form className="booking-form" onSubmit={(e) => e.preventDefault()}>
                 <label>
@@ -98,8 +105,9 @@ const BookingPage: React.FC = () => {
                     <input type="date" value={preferredDate} onChange={(e) => setPreferredDate(e.target.value)} required />
                 </label>
 
-                <button type="button" onClick={handleConfirmService} className="confirm-button">Confirm Service</button>
+                <Link to='/' ><button type="button" onClick={handleConfirmService} className="confirm-button">Confirm Service</button></Link>
             </form>
+        </div>
         </div>
     );
 };

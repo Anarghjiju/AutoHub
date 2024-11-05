@@ -21,8 +21,9 @@ interface Car {
   description: string;
   verified: boolean;
   listed: boolean;
-  isSold:boolean;
+  isSold: boolean;
   images: Image[];
+  sellerId: string;
 }
 
 const AppproveCarDetailContent: React.FC = () => {

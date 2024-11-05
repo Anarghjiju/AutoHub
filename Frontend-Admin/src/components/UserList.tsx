@@ -22,7 +22,7 @@ const UserList: React.FC = () => {
     useEffect(() => {
         const fetchUsers = async () => {
             try {
-                const response = await fetch('http://localhost:5002/api/users');
+                const response = await fetch('http://localhost:3003/api/users');
                 const data = await response.json();
                 setUsers(data);
             } catch (error) {
@@ -34,7 +34,7 @@ const UserList: React.FC = () => {
 
     const handleDeleteUser = async (userId: string) => {
         try {
-            const response = await fetch(`http://localhost:5002/api/users/${userId}`, {
+            const response = await fetch(`http://localhost:3003/api/users/${userId}`, {
                 method: 'DELETE',
             });
             if (response.ok) {
@@ -51,7 +51,7 @@ const UserList: React.FC = () => {
         if (!selectedUser) return;
 
         try {
-            const response = await fetch(`http://localhost:5002/api/users/${selectedUser._id}/role`, {
+            const response = await fetch(`http://localhost:3003/api/users/${selectedUser._id}/roles`, {
                 method: 'PATCH',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ isAdmin: !selectedUser.isAdmin })
@@ -88,7 +88,6 @@ const UserList: React.FC = () => {
             <Table bordered className='user-table'>
                 <thead>
                     <tr>
-                        <th>UID</th>
                         <th>Name</th>
                         <th>Email</th>
                         <th>Role</th>
@@ -98,28 +97,34 @@ const UserList: React.FC = () => {
                 <tbody>
                     {filteredUsers.map((user) => (
                         <tr key={user._id}>
-                            <td>{user.uid}</td>
                             <td>{user.name}</td>
                             <td>{user.email}</td>
                             <td>{user.isAdmin ? "Admin" : "User"}</td>
-                            <td>
-                                <Button
-                                    variant="warning"
-                                    onClick={() => {
-                                        setSelectedUser(user);
-                                        setShowRoleModal(true);
-                                    }}
-                                >
-                                    <FontAwesomeIcon icon={faUserShield} /> Change Role
-                                </Button>
-                                <Button
-                                    variant="danger"
-                                    onClick={() => handleDeleteUser(user._id)}
-                                    className="ml-2"
-                                >
-                                    <FontAwesomeIcon icon={faTrash} /> Delete
-                                </Button>
-                            </td>
+                            <td className="d-flex justify-content-between align-items-center">
+    <div className="d-flex align-items-center">
+        {!user.isAdmin && (
+            <Button
+                variant="warning"
+                onClick={() => {
+                    setSelectedUser(user);
+                    setShowRoleModal(true);
+                }}
+                className="mr-2"
+            >
+                <FontAwesomeIcon icon={faUserShield} /> Change Role
+            </Button>
+        )}
+    </div>
+    <div className="ml-auto">
+        <FontAwesomeIcon
+            icon={faTrash}
+            onClick={() => handleDeleteUser(user._id)}
+            className="text-black delete-icon"
+            style={{ cursor: 'pointer' }}
+        />
+    </div>
+</td>
+
                         </tr>
                     ))}
                 </tbody>

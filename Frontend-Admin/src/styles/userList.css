@@ -20,15 +20,16 @@
     text-align: center;
 }
 
-.button-group {
+.button-group  {
     display: flex;
-    gap: 10px;
     justify-content: center;
+    margin: 20px;
 }
 
 .change-role-btn {
     background-color: rgb(17, 17, 17);
     border: none;
+    margin-right: 10px;
     color: white;
 }
 
@@ -83,4 +84,13 @@
     background-color: #ffffff;
     color: rgb(0, 0, 0);
     border: 1px solid #181818;
+}
+
+
+.delete-icon {
+    font-size: 1.2em;
+    transition: color 0.3s;
+}
+.delete-icon:hover {
+    color: darkred;
 }

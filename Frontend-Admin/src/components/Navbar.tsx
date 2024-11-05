@@ -8,8 +8,6 @@ import { Link } from 'react-router-dom';
 
 import { useUserContext } from '../UserContext'; // Import context to get user info
 
-
-
 const NavbarComponent: React.FC = () => {
   const { user, logout } = useUserContext(); // Access user info and logout function
 

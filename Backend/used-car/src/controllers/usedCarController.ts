@@ -191,3 +191,27 @@ export const getCarsBySellerId = async (req: Request, res: Response) => {
       res.status(500).json({ message: 'Internal server error' });
   }
 };
+
+export const addOrderToCar = async (req: Request, res: Response): Promise<void> => {
+  try {
+      const { carId } = req.params;
+      const { userId } = req.body;
+
+      // Find the car and update by adding the userId to the orders array
+      const updatedCar = await usedCar.findByIdAndUpdate(
+          carId,
+          { $addToSet: { orders: userId } }, // $addToSet ensures no duplicate user IDs
+          { new: true }
+      );
+
+      if (!updatedCar) {
+          res.status(404).json({ error: 'Car not found' });
+
+      }
+
+      res.status(200).json({ message: 'Order added successfully', car: updatedCar });
+  } catch (error) {
+      console.error('Error adding order to car:', error);
+      res.status(500).json({ error: 'Error adding order to car' });
+  }
+};

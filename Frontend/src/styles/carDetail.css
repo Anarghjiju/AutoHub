@@ -121,3 +121,34 @@ section h2 {
 .custom-arrow-next:hover .carousel-control-next-icon {
   background-color: rgb(24, 24, 24); /* Change color on hover (optional) */
 }
+
+/* CarDetails.css */
+
+.car-detail-sections {
+  display: flex;
+  flex-direction: column;
+}
+
+.variants-container {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+
+.variant-card {
+  background-color: #ffffff; /* Light background for cards */
+  border: 1px solid #000000; /* Light border */
+  border-radius: 5px; /* Rounded corners */
+  padding: 10px; /* Padding inside cards */
+  margin: 5px; /* Space between cards */
+  flex: 1 0 30%; /* Flexbox settings to allow 3 cards in a row */
+  text-align: center; /* Center text */
+  transition: transform 0.2s; /* Animation on hover */
+}
+
+.variant-card:hover {
+  transform: scale(1.05); /* Slightly scale up on hover */
+  background-color: #000000; /* Darken the background on hover */
+  color: rgb(255, 255, 255);
+  border: 1px solid white
+}

@@ -1,5 +1,5 @@
 import express from 'express';
-import { getCarsBySellerId,getCarsByUserId,createUsedCar, approveCarListing, getListedCars,getCarById ,analyticalData,getNotApprovedCars,updateUsedCar} from '../controllers/usedCarController';
+import { addOrderToCar,getCarsBySellerId,getCarsByUserId,createUsedCar, approveCarListing, getListedCars,getCarById ,analyticalData,getNotApprovedCars,updateUsedCar} from '../controllers/usedCarController';
 
 const router = express.Router();
 
@@ -12,5 +12,7 @@ router.get('/usedcars/pending-approval',getNotApprovedCars)
 router.put('/usedcar/update/:carId',updateUsedCar);
 router.get('/usedcars/seller/:sellerId', getCarsBySellerId);
 router.get('/usedcars/buyer/:buyerId', getCarsByUserId);
+router.patch('/usedcars/orders/:carId',addOrderToCar)
+
 
 export default router;

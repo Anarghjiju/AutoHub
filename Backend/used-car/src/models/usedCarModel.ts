@@ -8,14 +8,15 @@ export interface IUsedCar extends Document {
     price: number;
     sellerId: string;
     description: string;
-    buyerId?: string; // Optional if a buyer hasn't been assigned yet
+    buyerId?: string;
     verified: boolean;
     listed: boolean;
-    isSold:boolean;
+    isSold: boolean;
     images: {
         publicId: string;
         url: string;
     }[];
+    orders: string[]; // Array to store user IDs as strings
 }
 
 const UsedCarSchema: Schema = new Schema({
@@ -45,8 +46,8 @@ const UsedCarSchema: Schema = new Schema({
     },
     images: [
         {
-            publicId: { type: String, required: true }, // Make publicId required
-            url: { type: String, required: true }, // Make url required
+            publicId: { type: String, required: true },
+            url: { type: String, required: true },
         },
     ],
     description: {
@@ -55,20 +56,25 @@ const UsedCarSchema: Schema = new Schema({
     },
     buyerId: {
         type: String,
-        required: false, // Optional field
+        required: false,
     },
     verified: {
         type: Boolean,
-        default: false, // Default value for verified
+        default: false,
     },
     listed: {
         type: Boolean,
-        default: false, // Default value for listed
+        default: false,
     },
     isSold: {
         type: Boolean,
-        default: false, // Default value for listed
+        default: false,
     },
+    orders: [
+        {
+            type: String, // Each order is stored as a plain string
+        },
+    ],
 });
 
 export const usedCar = mongoose.model<IUsedCar>('UsedCar', UsedCarSchema);

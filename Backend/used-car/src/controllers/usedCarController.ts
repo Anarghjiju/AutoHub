@@ -161,3 +161,33 @@ export const updateUsedCar = async (req: Request, res: Response): Promise<void> 
   }
 };
 
+export const getCarsByUserId = async (req: Request, res: Response) => {
+  const { buyerId } = req.params; // Assume userId is passed as a URL parameter
+
+  try {
+      const cars = await usedCar.find({ buyerId: buyerId }).exec(); // Fetch cars associated with the buyerId
+      if (!cars.length) {
+          res.status(404).json({ message: 'No cars found for this user.' });
+      }
+      res.status(200).json(cars);
+  } catch (error) {
+      console.error('Error fetching cars by userId:', error);
+      res.status(500).json({ message: 'Internal server error' });
+  }
+};
+
+// Controller to get used car details based on sellerId
+export const getCarsBySellerId = async (req: Request, res: Response) => {
+  const { sellerId } = req.params; // Assume sellerId is passed as a URL parameter
+
+  try {
+      const cars = await usedCar.find({ sellerId: sellerId }).exec(); // Fetch cars associated with the sellerId
+      if (!cars.length) {
+          res.status(404).json({ message: 'No cars found for this seller.' });
+      }
+      res.status(200).json(cars);
+  } catch (error) {
+      console.error('Error fetching cars by sellerId:', error);
+      res.status(500).json({ message: 'Internal server error' });
+  }
+};

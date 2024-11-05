@@ -22,3 +22,13 @@ export const getBookings = async (req: Request, res: Response) => {
     }
 };
 
+export const getBookingByUserId = async(req:Request,res:Response) => {
+    const { userId } = req.params;
+    try{
+        const bookings = await Booking.find({userId:userId});
+        res.status(200).json(bookings);
+    }
+    catch(error){
+        res.status(500).json({message:"Error fetching bookings by user id"})
+    }
+}

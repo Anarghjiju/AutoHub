@@ -31,9 +31,10 @@ const Signup: React.FC = () => {
         name,
         email,
       };
+      console.log(userData);
 
       // Save user data to MongoDB via API
-      await axios.post('http://localhost:3003/api/users', userData);
+      await axios.post('http://localhost:3003/api/users/register', userData);
       
       // Redirect to home page or any other page after successful registration
       navigate('/');

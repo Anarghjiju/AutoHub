@@ -19,15 +19,31 @@ export const getUserDetailsUid = async (req: Request, res: Response) => {
 
 export const createUser = async (req: Request, res: Response) => {
     try {
-        const { uid,name, email} = req.body;
-        const newUser = new User({ uid, name, email });
-        console.log(newUser);
-        await newUser.save();
-        res.status(201).json(newUser);
-    } catch (error) {
-        res.status(500).json({ error: "Error creating user" });
+      const { uid, name, email, phno } = req.body;
+  
+      // Prepare the new user data, providing default values where needed
+      const newUser = new User({
+        uid,
+        name,
+        email,
+        phno: phno || null,  // Allow phno to be optional
+        isAdmin: false,      // Default value
+        createdAt: new Date() // Ensure createdAt is set to current date if not automatically handled by Mongoose
+      });
+  
+      console.log(newUser);
+  
+      // Save the new user document to MongoDB
+      await newUser.save();
+  
+      // Return the created user as a response
+      res.status(201).json(newUser);
+    } catch (error: any) {
+      console.error("Error creating user:", error);
+      // Return generic error response for other issues
+      res.status(500).json({ error: "Error creating user" });
     }
-};
+  };
 
 
 export const updateUserRoles = async (req: Request, res: Response) => {

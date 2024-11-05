@@ -14,8 +14,11 @@
   color: #ffffff;
   padding: 30px 20px;
   border-radius: 10px;
-  height: auto;
+  height: calc(100vh - 50px); /* Adjust height based on your layout */
+  flex-shrink: 0; /* Prevent shrinking */
+  overflow-y: auto; /* Enable scrolling if content exceeds height */
 }
+
 
 .side-profile {
   cursor: pointer;
@@ -178,4 +181,20 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 20px;
+}
+
+.logout-button {
+  background-color: black; /* Button background color */
+  color: white; /* Text color */
+  padding: 10px 15px; /* Padding for the button */
+  border: none; /* No border */
+  border-radius: 5px; /* Rounded corners */
+  cursor: pointer; /* Pointer cursor on hover */
+  margin-top: 20px; /* Space above the button */
+  transition: background-color 0.3s ease; /* Smooth background color transition */
+}
+
+.logout-button:hover {
+  background-color: #e3e3e3; /* Change background on hover */
+  color: black; /* Change text color on hover */
 }

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import '../styles/Profile.css';
 import { useUserContext } from '../UserContext';
+import { Link } from 'react-router-dom';
 
 interface Notification {
   _id: string;
@@ -12,24 +12,79 @@ interface Notification {
   status: boolean;
 }
 
+interface CarImage {
+  publicId: string;
+  url: string;
+}
+
+interface UsedCar {
+  _id: string;
+  make: string;
+  carModel: string;
+  price: number;
+  images: CarImage[];
+}
+
+interface ServiceBooked {
+  _id: string;
+  Make: string;
+  status: boolean;
+  bookingDate: Date;
+  price: number;
+  car_model: string;
+}
+
 const Profile: React.FC = () => {
   const [activeTab, setActiveTab] = useState('personal');
   const [notifications, setNotifications] = useState<Notification[]>([]);
   const [selectedNotification, setSelectedNotification] = useState<Notification | null>(null);
-  const { user } = useUserContext();
-  const navigate = useNavigate();
+  const [carsSold, setCarsSold] = useState<UsedCar[]>([]);
+  const [carsBought, setCarsBought] = useState<UsedCar[]>([]);
+  const [servicesBooked, setServicesBooked] = useState<ServiceBooked[]>([]);
+  const { user, logout } = useUserContext();
 
   useEffect(() => {
     if (activeTab === 'notifications') {
-      fetch('http://localhost:3002/api/notifications/user100')
-        .then((response) => response.json())
-        .then((data: Notification[]) => {
-          const unreadNotifications = data.filter(notification => !notification.status);
-          setNotifications(unreadNotifications);
-        })
-        .catch((error) => console.error('Error fetching notifications:', error));
+      if (user) {
+        fetch(`http://localhost:3002/api/notifications/${user._id}`)
+          .then((response) => response.json())
+          .then((data: Notification[]) => {
+            const unreadNotifications = data.filter(notification => !notification.status);
+            setNotifications(unreadNotifications);
+          })
+          .catch((error) => console.error('Error fetching notifications:', error));
+      }
     }
-  }, [activeTab]);
+
+    // Fetch cars sold and bought when respective tabs are active
+    if (activeTab === 'carsSold' && user) {
+      fetch(`http://localhost:3001/api/usedcars/seller/${user._id}`)
+        .then((response) => response.json())
+        .then((data: UsedCar[]) => {
+          setCarsSold(data);
+        })
+        .catch((error) => console.error('Error fetching sold cars:', error));
+    }
+
+    if (activeTab === 'carsBought' && user) {
+      fetch(`http://localhost:3001/api/usedcars/buyer/${user._id}`)
+        .then((response) => response.json())
+        .then((data: UsedCar[]) => {
+          setCarsBought(data);
+        })
+        .catch((error) => console.error('Error fetching bought cars:', error));
+    }
+
+    // Fetch booked services when the services tab is active
+    if (activeTab === 'services' && user) {
+      fetch(`http://localhost:5001/api/bookings/${user._id}`)
+        .then((response) => response.json())
+        .then((data: ServiceBooked[]) => {
+          setServicesBooked(data);
+        })
+        .catch((error) => console.error('Error fetching booked services:', error));
+    }
+  }, [activeTab, user]);
 
   const handleMarkAsRead = async (notificationId: string) => {
     try {
@@ -45,10 +100,9 @@ const Profile: React.FC = () => {
     }
   };
 
-  const handleLogout = () => {
-    // Clear any user authentication data, e.g., tokens
-    localStorage.removeItem('authToken'); // Assuming token is stored in localStorage
-    navigate('/login');
+  const handleLogout = async () => {
+    await logout();
+    window.location.href = '/login';
   };
 
   return (
@@ -56,36 +110,14 @@ const Profile: React.FC = () => {
       <Navbar />
       <div className="container-fluid-profile">
         <aside className="sidebar-profile">
-          <h5
-            className={`side-profile ${activeTab === 'personal' ? 'active-tab' : ''}`}
-            onClick={() => setActiveTab('personal')}
-          >
-            Personal Info
-          </h5>
-          <h5
-            className={`side-profile ${activeTab === 'carsSold' ? 'active-tab' : ''}`}
-            onClick={() => setActiveTab('carsSold')}
-          >
-            Cars Sold
-          </h5>
-          <h5
-            className={`side-profile ${activeTab === 'carsBought' ? 'active-tab' : ''}`}
-            onClick={() => setActiveTab('carsBought')}
-          >
-            Cars Bought
-          </h5>
-          <h5
-            className={`side-profile ${activeTab === 'services' ? 'active-tab' : ''}`}
-            onClick={() => setActiveTab('services')}
-          >
-            Booked Services
-          </h5>
-          <h5
-            className={`side-profile ${activeTab === 'notifications' ? 'active-tab' : ''}`}
-            onClick={() => setActiveTab('notifications')}
-          >
-            Notifications
-          </h5>
+          <h5 className={`side-profile ${activeTab === 'personal' ? 'active-tab' : ''}`} onClick={() => setActiveTab('personal')}>Personal Info</h5>
+          <h5 className={`side-profile ${activeTab === 'carsSold' ? 'active-tab' : ''}`} onClick={() => setActiveTab('carsSold')}>Cars Sold</h5>
+          <h5 className={`side-profile ${activeTab === 'carsBought' ? 'active-tab' : ''}`} onClick={() => setActiveTab('carsBought')}>Cars Bought</h5>
+          <h5 className={`side-profile ${activeTab === 'services' ? 'active-tab' : ''}`} onClick={() => setActiveTab('services')}>Booked Services</h5>
+          <h5 className={`side-profile ${activeTab === 'notifications' ? 'active-tab' : ''}`} onClick={() => setActiveTab('notifications')}>Notifications</h5>
+          {user && (
+            <h5 className={`side-profile ${activeTab === 'logout' ? 'active-tab' : ''}`} onClick={handleLogout}>Logout</h5>
+          )}
         </aside>
 
         <main className="mainprt-profile">
@@ -93,12 +125,12 @@ const Profile: React.FC = () => {
             <section className="personal-info">
               <div className='mphead-personal-info-container'>
                 <h3 className="mphead-personal-info">Personal Information</h3>
-                <button className='edit-button'>Edit</button>
+                {user && <button className='edit-button'>Edit</button>}
               </div>
               <div className="personal-info-details">
                 <p>Name: {user?.name}</p>
-                <p>Email: johndoe@example.com</p>
-                <p>Phone: 123-456-7890</p>
+                <p>Email: {user?.email}</p>
+                <p>Phone: {user?.phno}</p>
               </div>
             </section>
           )}
@@ -106,13 +138,24 @@ const Profile: React.FC = () => {
           {activeTab === 'carsSold' && (
             <section className="personal-info">
               <h3 className="mphead-personal-info">Cars Sold</h3>
-              <div className="listing-admin">
-                <div className="car-box">
-                  <img className="car-image" src="car-image-url" alt="Car Model" />
-                  <h4 className="car-name">Toyota Camry</h4>
-                  <p className="car-details">Year: 2019</p>
-                  <p className="car-price">Price: $15,000</p>
-                </div>
+              <div className="row">
+                {carsSold.map((car) => (
+                  <div className="col-md-4 mb-4" key={car._id}>
+                    <div className="card h-100 shadow-sm compact-card text-center">
+                      <img 
+                        src={car.images.length > 0 ? car.images[0].url : 'fallback-image-url.jpg'} 
+                        className="card-img-top" 
+                        alt={car.carModel} 
+                      />
+                      <div className="card-body">
+                        <h3 className="card-title car-make">{car.make}</h3>
+                        <h5 className="card-title">{car.carModel}</h5>
+                        <p className="card-text">Rs. {car.price}</p>
+                        <Link to={`/usedcar/${car._id}`} className="btn btn-dark text-white btn-lg">View Details</Link>
+                      </div>
+                    </div>
+                  </div>
+                ))}
               </div>
             </section>
           )}
@@ -120,13 +163,24 @@ const Profile: React.FC = () => {
           {activeTab === 'carsBought' && (
             <section className="personal-info">
               <h3 className="mphead-personal-info">Cars Bought</h3>
-              <div className="listing-admin">
-                <div className="car-box">
-                  <img className="car-image" src="car-image-url" alt="Car Model" />
-                  <h4 className="car-name">Ford Mustang</h4>
-                  <p className="car-details">Year: 2020</p>
-                  <p className="car-price">Price: $25,000</p>
-                </div>
+              <div className="row">
+                {carsBought.map((car) => (
+                  <div className="col-md-4 mb-4" key={car._id}>
+                    <div className="card h-100 shadow-sm compact-card text-center">
+                      <img 
+                        src={car.images.length > 0 ? car.images[0].url : 'fallback-image-url.jpg'} 
+                        className="card-img-top" 
+                        alt={car.carModel} 
+                      />
+                      <div className="card-body">
+                        <h3 className="card-title car-make">{car.make}</h3>
+                        <h5 className="card-title">{car.carModel}</h5>
+                        <p className="card-text">Rs. {car.price}</p>
+                        <Link to={`/usedcar/${car._id}`} className="btn btn-dark text-white btn-lg">View Details</Link>
+                      </div>
+                    </div>
+                  </div>
+                ))}
               </div>
             </section>
           )}
@@ -134,13 +188,23 @@ const Profile: React.FC = () => {
           {activeTab === 'services' && (
             <section className="personal-info">
               <h3 className="mphead-personal-info">Services Booked</h3>
-              <div className="listing-admin">
-                <div className="car-box">
-                  <h4 className="car-name">Maruti Service</h4>
-                  <p className="car-details">General services</p>
-                  <p className="car-price">Service Date: 10-07-2024</p>
-                  <p className="car-price">Price: Rs. 1000</p>
-                </div>
+              <div className="row">
+                {servicesBooked.length > 0 ? (
+                  servicesBooked.map((service) => (
+                    <div className="col-md-4 mb-4" key={service._id}>
+                      <div className="card h-100 shadow-sm compact-card text-center">
+                        <div className="card-body">
+                          <h3 className="card-title">{service.Make}</h3>
+                          <p className="card-text">{service.car_model}</p>
+                          <p className="card-price">Service Date: {new Date(service.bookingDate).toLocaleDateString()}</p>
+                          <p className="card-status">Status: {service.status ? "over" : "pending"}</p>
+                        </div>
+                      </div>
+                    </div>
+                  ))
+                ) : (
+                  <p>No services booked yet.</p>
+                )}
               </div>
             </section>
           )}
@@ -148,41 +212,18 @@ const Profile: React.FC = () => {
           {activeTab === 'notifications' && (
             <section className="personal-info">
               <h3 className="mphead-personal-info">Notifications</h3>
-              <div className="listing-admin">
+              <div className="notifications">
                 {notifications.length > 0 ? (
                   notifications.map((notification) => (
-                    <div
-                      key={notification._id}
-                      className="notification-card"
-                      onClick={() => setSelectedNotification(notification)}
-                    >
-                      <h4 className="notification-message">{notification.message}</h4>
-                      <p className="notification-date">Date: {new Date(notification.date).toLocaleString()}</p>
+                    <div className="notification-item" key={notification._id}>
+                      <p>{notification.message}</p>
+                      <button onClick={() => handleMarkAsRead(notification._id)}>Mark as Read</button>
                     </div>
                   ))
                 ) : (
-                  <p>No new notifications.</p>
+                  <p>No notifications.</p>
                 )}
               </div>
-
-              {selectedNotification && (
-                <div className="notification-overlay">
-                  <div className="overlay-content">
-                    <h4>{selectedNotification.message}</h4>
-                    <p>{new Date(selectedNotification.date).toLocaleString()}</p>
-                    <button
-                      className="close-button"
-                      onClick={() => {
-                        handleMarkAsRead(selectedNotification._id);
-                        setSelectedNotification(null);
-                      }}
-                    >
-                      Close
-                    </button>
-                  </div>
-                </div>
-              )}
-              <button className="logout-button" onClick={handleLogout}>Logout</button>
             </section>
           )}
         </main>

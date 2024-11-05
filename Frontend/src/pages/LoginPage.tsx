@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTwitter, faLinkedinIn, faGoogle } from '@fortawesome/free-brands-svg-icons';
 import { auth } from '../firebase';
-import { signInWithEmailAndPassword } from 'firebase/auth';
+import { setPersistence, browserSessionPersistence, signInWithEmailAndPassword } from 'firebase/auth';
 import axios from 'axios';
 import { useUserContext } from '../UserContext'; // Import your custom hook
 
@@ -20,6 +20,12 @@ const LoginForm: React.FC = () => {
 
   const handleLogin = async () => {
     try {
+      // Set session persistence
+      await setPersistence(auth, browserSessionPersistence).then(() => {
+        // Now sign in
+        return signInWithEmailAndPassword(auth, email, password);
+      });
+
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
 

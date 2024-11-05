@@ -29,7 +29,7 @@ const UserSchema : Schema = new Schema({
     },
     phno:{
         type:Number,
-        unique:true
+        default: 1234567890
     },
     createdAt:{
         type:Date,

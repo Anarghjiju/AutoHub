@@ -3,7 +3,7 @@ import { createUser,getUserDetailsUid ,updateUserRoles,updateUserDetails } from 
 
 const router = express.Router();
 
-router.post('/users', createUser);                   
+router.post('/users/register', createUser);                   
 router.get('/users/:uid', getUserDetailsUid);            
 router.patch('/users/:id/roles', updateUserRoles);
 router.patch('/users/update/:id',updateUserDetails)  ;

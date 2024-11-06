@@ -117,7 +117,7 @@ export const analyticalData = async (req: Request, res: Response): Promise<void>
       const totalPendingApproval = await usedCar.countDocuments({ verified: false, listed: false });
 
       const soldCars = await usedCar.find({ isSold: true });
-      const totalIncome = soldCars.reduce((sum, car) => sum + (car.price*0.1), 0);
+      const totalIncome = soldCars.reduce((sum, car) => sum + Math.floor(car.price * 0.1), 0);
 
       // Group by `make` and count the number of sold cars for each make
       const salesByMake = await usedCar.aggregate([

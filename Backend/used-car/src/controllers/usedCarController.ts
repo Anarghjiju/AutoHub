@@ -88,6 +88,16 @@ export const getListedCars = async (req: Request, res: Response): Promise<void> 
     }
 };
 
+export const getAllListedCars = async (req: Request, res: Response): Promise<void> => {
+  try {
+      const cars = await usedCar.find({ verified: true});
+      res.status(200).json( cars );
+  } catch (error) {
+      console.error('Error fetching listed cars:', error);
+      res.status(500).json({ error: 'Error fetching listed cars' });
+  }
+};
+
 export const getCarById = async (req: Request, res: Response):Promise<void>=> {
   try{
     const car = await usedCar.findById(req.params.id);
@@ -107,7 +117,7 @@ export const analyticalData = async (req: Request, res: Response): Promise<void>
       const totalPendingApproval = await usedCar.countDocuments({ verified: false, listed: false });
 
       const soldCars = await usedCar.find({ isSold: true });
-      const totalIncome = soldCars.reduce((sum, car) => sum + car.price, 0);
+      const totalIncome = soldCars.reduce((sum, car) => sum + (car.price*0.1), 0);
 
       // Group by `make` and count the number of sold cars for each make
       const salesByMake = await usedCar.aggregate([

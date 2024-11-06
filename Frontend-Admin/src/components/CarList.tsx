@@ -34,7 +34,7 @@ const CarList: React.FC = () => {
     useEffect(() => {
         const fetchCars = async () => {
             try {
-                const response = await fetch('http://localhost:3001/api/usedcars'); // Adjust endpoint as needed
+                const response = await fetch('http://localhost:3001/api/usedcars/all'); // Adjust endpoint as needed
                 const data = await response.json();
                 setCarList(data);
                 setFilteredCars(data); // Initially set all cars as filtered

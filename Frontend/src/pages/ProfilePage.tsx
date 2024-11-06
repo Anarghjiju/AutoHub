@@ -142,7 +142,7 @@ const Profile: React.FC = () => {
             <section className="personal-info">
               <div className="mphead-personal-info-container">
                 <h3 className="mphead-personal-info">Personal Information</h3>
-                {user && <button className="edit-button">Edit</button>}
+                {/* {user && <button className="edit-button">Edit</button>} */}
               </div>
               <div className="personal-info-details">
                 <p>Name: {user?.name}</p>

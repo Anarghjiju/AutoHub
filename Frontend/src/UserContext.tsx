@@ -1,7 +1,7 @@
 // src/UserContext.tsx
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { auth } from '../src/firebase'; // Import your Firebase configuration
-import { onAuthStateChanged, signOut } from 'firebase/auth'; // Import signOut
+import { getAuth,onAuthStateChanged, signOut } from 'firebase/auth'; // Import signOut
 
 // Define the shape of the user data
 interface User {
@@ -28,6 +28,7 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
   // Effect to check if user is authenticated
   useEffect(() => {
+    const auth = getAuth(); // Get the Firebase auth instance
     const unsubscribe = onAuthStateChanged(auth, async (userCredential) => {
       if (userCredential) {
         // User is signed in, fetch additional user data
@@ -49,6 +50,7 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   }, []);
 
   const logout = async () => {
+    const auth = getAuth();
     try {
       await signOut(auth);
       console.log('User signed out successfully.');

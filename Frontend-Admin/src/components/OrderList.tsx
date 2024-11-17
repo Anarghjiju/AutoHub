@@ -1,15 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { Modal, Button, ButtonGroup } from 'react-bootstrap';
 import axios from 'axios';
 import '../styles/orderList.css';
 
 const OrderList: React.FC = () => {
     const [cars, setCars] = useState<any[]>([]);
     const [selectedCar, setSelectedCar] = useState<any | null>(null);
-    const [modalIsOpen, setModalIsOpen] = useState(false);
     const [userDetails, setUserDetails] = useState<any[]>([]);
     const [filter, setFilter] = useState<'all' | 'confirmed' | 'unconfirmed'>('all');
-    const [confirmedUserId, setConfirmedUserId] = useState<string | null>(null); // Track confirmed user ID
+    const [confirmedUserId, setConfirmedUserId] = useState<string | null>(null);
 
     useEffect(() => {
         const fetchCarsWithOrders = async () => {
@@ -37,18 +35,16 @@ const OrderList: React.FC = () => {
         }
     };
 
-    const openModal = (car: any) => {
+    const openPopup = (car: any) => {
         setSelectedCar(car);
         fetchUserDetails(car.orders);
-        setConfirmedUserId(null); // Reset confirmed user ID when opening modal
-        setModalIsOpen(true);
+        setConfirmedUserId(car.buyerId || null);
     };
 
-    const closeModal = () => {
-        setModalIsOpen(false);
+    const closePopup = () => {
         setSelectedCar(null);
         setUserDetails([]);
-        setConfirmedUserId(null); // Reset confirmed user ID on modal close
+        setConfirmedUserId(null);
     };
 
     const confirmPurchase = async (userId: string) => {
@@ -56,43 +52,69 @@ const OrderList: React.FC = () => {
 
         try {
             await axios.patch(`http://localhost:3001/api/usedcars/${selectedCar._id}/buyer`, { buyerId: userId });
-            setSelectedCar({ ...selectedCar, buyerId: userId });
-            setConfirmedUserId(userId); // Set the confirmed user ID
-            console.log(`User ${userId} has been confirmed as the buyer.`); // Debug log
-            alert(`User ${userId} has been confirmed as the buyer.`);
-            closeModal();
+            setConfirmedUserId(userId);
+            closePopup();
         } catch (error) {
             console.error('Error confirming purchase:', error);
         }
     };
 
+    const deleteOrder = async (userId: string) => {
+        if (!selectedCar) return;
+
+        try {
+            await axios.patch(`http://localhost:3001/api/usedcars/remove-order/${selectedCar._id}`, { userId });
+            // Refresh user details by removing the deleted user
+            setUserDetails(prev => prev.filter(user => user._id !== userId));
+            // Refresh car data by removing the user from orders
+            setCars(prev =>
+                prev.map(car =>
+                    car._id === selectedCar._id
+                        ? { ...car, orders: car.orders.filter((order: string) => order !== userId) }
+                        : car
+                )
+            );
+        } catch (error) {
+            console.error('Error deleting order:', error);
+        }
+    };
+
     const filteredCars = cars.filter(car => {
-        if (filter === 'confirmed') return car.buyerId; // Only confirmed orders
-        if (filter === 'unconfirmed') return !car.buyerId; // Only unconfirmed orders
-        return true; // All orders
+        if (filter === 'confirmed') return car.buyerId;
+        if (filter === 'unconfirmed') return !car.buyerId;
+        return true;
     });
 
     return (
         <div className="order-list">
             <h3>Cars with Orders</h3>
-            <ButtonGroup className="filter-toggle">
-                <Button variant={filter === 'all' ? 'light' : 'outline-light'} onClick={() => setFilter('all')}>
+            <div className="filter-toggle">
+                <button 
+                    className={`btn ${filter === 'all' ? 'btn-light' : 'btn-outline-light'}`} 
+                    onClick={() => setFilter('all')}
+                >
                     All
-                </Button>
-                <Button variant={filter === 'confirmed' ? 'light' : 'outline-light'} onClick={() => setFilter('confirmed')}>
+                </button>
+                <button 
+                    className={`btn ${filter === 'confirmed' ? 'btn-light' : 'btn-outline-light'}`} 
+                    onClick={() => setFilter('confirmed')}
+                >
                     Confirmed
-                </Button>
-                <Button variant={filter === 'unconfirmed' ? 'light' : 'outline-light'} onClick={() => setFilter('unconfirmed')}>
+                </button>
+                <button 
+                    className={`btn ${filter === 'unconfirmed' ? 'btn-light' : 'btn-outline-light'}`} 
+                    onClick={() => setFilter('unconfirmed')}
+                >
                     Unconfirmed
-                </Button>
-            </ButtonGroup>
+                </button>
+            </div>
 
             {filteredCars.length === 0 ? (
                 <p>No cars with orders found for this filter.</p>
             ) : (
                 <ul>
                     {filteredCars.map(car => (
-                        <li key={car._id} onClick={() => openModal(car)}>
+                        <li key={car._id} onClick={() => openPopup(car)}>
                             <h5>{car.make} {car.carModel} ({car.year})</h5>
                             <p>Price: ${car.price}</p>
                             <p>Orders Count: {car.orders.length}</p>
@@ -101,42 +123,50 @@ const OrderList: React.FC = () => {
                 </ul>
             )}
 
-            <Modal show={modalIsOpen} onHide={closeModal} centered>
-                <Modal.Header closeButton>
-                    <Modal.Title>Car Details</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    {selectedCar && (
-                        <>
-                            <h3>{selectedCar.make} {selectedCar.carModel} ({selectedCar.year})</h3>
-                            <p>Price: ${selectedCar.price}</p>
-                            <h4>Orders:</h4>
-                            {userDetails.length > 0 ? (
-                                <ul>
-                                    {userDetails.map((user: any, index: number) => (
-                                        <li key={index}>
-                                            <span>- Name: {user.name} <br /> - Email: {user.email}</span>
-                                            <Button 
-                                                variant="success" 
-                                                onClick={() => confirmPurchase(user._id)} 
-                                                disabled={confirmedUserId !== null} // Disable if any user is confirmed
-                                                style={{ marginLeft: '10px' }}
-                                            >
-                                                {confirmedUserId === user._id ? 'Confirmed' : 'Confirm Purchase'}
-                                            </Button>
-                                        </li>
-                                    ))}
-                                </ul>
-                            ) : (
-                                <p>No orders found for this car.</p>
-                            )}
-                        </>
-                    )}
-                </Modal.Body>
-                <Modal.Footer>
-                    <Button variant="secondary" onClick={closeModal}>Close</Button>
-                </Modal.Footer>
-            </Modal>
+            {selectedCar && (
+                <div className="popup-overlay">
+                    <div className="popup-content">
+                        <button className="close-btn" onClick={closePopup}>×</button>
+                        <h3>{selectedCar.make} {selectedCar.carModel} ({selectedCar.year})</h3>
+                        <p>Price: ${selectedCar.price}</p>
+                        <h4>Orders:</h4>
+                        {userDetails.length > 0 ? (
+                            <ul>
+                                {userDetails.map((user: any, index: number) => (
+                                    <li key={index} className="user-detail-item">
+                                        <p>- Name: {user.name}</p>
+                                        <p>- Email: {user.email}</p>
+                                        <div className="user-contact">
+                                            <p>- Phone: {user.phno}</p>
+                                            {confirmedUserId === user._id ? (
+                                                <p className="confirmed-info">Ordered by: {user.name}</p>
+                                            ) : (
+                                                <>
+                                                    <button 
+                                                        className="confirm-btn" 
+                                                        onClick={() => confirmPurchase(user._id)} 
+                                                        disabled={!!confirmedUserId}
+                                                    >
+                                                        Confirm Purchase
+                                                    </button>
+                                                    <button 
+                                                        className="delete-btn" 
+                                                        onClick={() => deleteOrder(user._id)}
+                                                    >
+                                                        Delete Order
+                                                    </button>
+                                                </>
+                                            )}
+                                        </div>
+                                    </li>
+                                ))}
+                            </ul>
+                        ) : (
+                            <p>No orders found for this car.</p>
+                        )}
+                    </div>
+                </div>
+            )}
         </div>
     );
 };

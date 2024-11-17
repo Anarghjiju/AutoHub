@@ -1,5 +1,5 @@
 import express from 'express';
-import { addOrderToCar,getCarsBySellerId,getCarsByUserId,createUsedCar, getAllListedCars,approveCarListing, getListedCars,updateCarBuyerId,getCarsWithOrders,getCarById,deleteCar ,analyticalData,getNotApprovedCars,updateUsedCar} from '../controllers/usedCarController';
+import { removeOrderFromCar,removeBuyerFromCar,addOrderToCar,getCarsBySellerId,getCarsByUserId,createUsedCar, getAllListedCars,approveCarListing, getListedCars,updateCarBuyerId,getCarsWithOrders,getCarById,deleteCar ,analyticalData,getNotApprovedCars,updateUsedCar} from '../controllers/usedCarController';
 
 const router = express.Router();
 
@@ -17,5 +17,9 @@ router.patch('/usedcars/orders/:carId',addOrderToCar);
 router.delete('/usedcars/:id',deleteCar);
 router.get('/usedcars/orders', getCarsWithOrders); // New endpoint to fetch cars with orders
 router.patch('/usedcars/:id/buyer', updateCarBuyerId);
+router.patch('/usedcars/:id/remove', removeBuyerFromCar);
+
+router.patch('/usedcars/remove-order/:carId', removeOrderFromCar);
+
 
 export default router;

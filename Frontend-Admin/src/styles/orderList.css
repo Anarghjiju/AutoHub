@@ -1,40 +1,6 @@
-/* orderList.css */
-
-/* Force width on modal dialog and content */
-
-/* Header styling */
-
-
-/* Body styling */
-
-
-.modal-body h3, .modal-body h4 {
-    font-size: 1.25rem;
-    font-weight: bold;
-    margin-bottom: 10px;
-}
-
-/* Footer styling */
-.modal-footer {
-    background-color: #f8f9fa;
-    border-top: none;
-    border-radius: 0 0 10px 10px;
-}
-
-/* Button styling */
-.button-success {
-    background-color: #28a745;
-    color: white;
-    border: none;
-}
-
-.button-success:hover {
-    background-color: #218838;
-}
-
-/* Additional styling */
-.filter-toggle {
-    margin-bottom: 20px;
+/* Order List Styling */
+.order-list {
+    padding: 20px;
 }
 
 .order-list h3 {
@@ -43,21 +9,186 @@
     font-weight: bold;
 }
 
-.order-list ul {
+/* Filter Toggle Buttons */
+.filter-toggle {
+    margin-bottom: 20px;
+}
+
+.filter-toggle button {
+    margin-right: 10px;
+}
+
+/* List Styling */
+ul {
     list-style-type: none;
     padding: 0;
 }
 
 .order-list ul li {
-    padding: 15px;
-    margin: 10px 0;
-    border: 1px solid #ddd;
-    border-radius: 8px;
     cursor: pointer;
+    padding: 10px;
+    border: 1px solid #ddd;
+    margin: 10px 0;
+    border-radius: 5px;
     background-color: #f9f9f9;
     transition: background-color 0.3s ease;
 }
 
 .order-list ul li:hover {
     background-color: #f1f1f1;
+}
+
+/* Popup Overlay Styling */
+.popup-overlay {
+    position: fixed;
+    top: 27px;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    overflow: hidden; /* Prevents content spilling out of the overlay */
+}
+
+/* Popup Content Styling */
+.popup-content {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 90%; /* Adaptive width */
+    max-width: 730px;
+    max-height: 80vh; /* Ensures the popup doesn't exceed 80% of the viewport height */
+    overflow-y: auto; /* Adds vertical scrolling if content overflows */
+    position: relative;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25); /* Adds a subtle shadow */
+}
+
+/* Close Button */
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: transparent;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+/* Confirm Button */
+.confirm-btn {
+    padding: 5px 10px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 10px; /* Spacing between phone and confirm button */
+}
+
+.confirm-btn:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.confirm-btn:hover {
+    background-color: #108123; /* Darker green on hover */
+    transform: scale(1.05); /* Slightly enlarge on hover */
+}
+
+/* Confirmed Info */
+.confirmed-info {
+    font-weight: bold;
+    color: green;
+    margin-top: 10px;
+}
+
+/* User Detail Item Row Layout */
+.user-detail-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    padding: 5px;
+    border-bottom: 1px solid #ddd;
+}
+
+.user-detail-item p {
+    margin: 0 10px 0 0;
+}
+
+.user-contact {
+    display: flex;
+    align-items: center;
+}
+
+/* Field Widths for Row Layout */
+.user-name,
+.user-email,
+.user-phone {
+    flex: 1;
+    min-width: 120px;
+}
+
+.user-contact .confirm-btn {
+    margin-left: auto; /* Pushes the button to the end of the row */
+}
+
+/* Filter Toggle Styles */
+.filter-toggle .btn {
+    border: 1px solid #000000;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.filter-toggle .btn-outline-light {
+    color: #000000; /* Black text */
+    border-color: #000000; /* Black border */
+    background-color: transparent;
+}
+
+.filter-toggle .btn-light {
+    color: #ffffff; /* White text */
+    background-color: #000000; /* Black background */
+}
+
+/* Delete Button */
+.delete-btn {
+    background-color: #dc3545; /* Red background */
+    color: white; /* White text */
+    border: none; /* Remove border */
+    padding: 8px 12px; /* Add some padding */
+    cursor: pointer; /* Pointer cursor on hover */
+    font-size: 14px; /* Adjust font size */
+    margin-left: 10px; /* Add some spacing between buttons */
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth transitions */
+    border-radius: 5px;
+    margin-top: 20px;
+}
+
+.delete-btn:hover {
+    background-color: #c82333; /* Darker red on hover */
+    transform: scale(1.05); /* Slightly enlarge on hover */
+}
+
+.delete-btn:active {
+    background-color: #bd2130; /* Even darker red on click */
+    transform: scale(0.95); /* Slightly shrink on click */
+}
+
+/* Scrollbar Styling */
+.popup-content::-webkit-scrollbar {
+    width: 8px; /* Width of the scrollbar */
+}
+
+.popup-content::-webkit-scrollbar-thumb {
+    background: #ccc; /* Scrollbar thumb color */
+    border-radius: 4px; /* Rounded scrollbar thumb */
+}
+
+.popup-content::-webkit-scrollbar-thumb:hover {
+    background: #999; /* Darker thumb on hover */
 }

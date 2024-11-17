@@ -292,3 +292,69 @@ export const updateCarBuyerId = async (req: Request, res: Response): Promise<voi
     res.status(500).json({ error: 'Error updating buyer ID and sale status' });
   }
 };
+
+
+
+export const removeBuyerFromCar = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const { buyerId } = req.body; // Get the buyer ID from the request body
+
+    if (!buyerId) {
+      res.status(400).json({ error: 'Buyer ID is required' });
+      return;
+    }
+
+    // Find the car with the given buyer ID and update it
+    const updatedCar = await usedCar.findOneAndUpdate(
+      { buyerId }, // Find the car with the matching buyerId
+      {
+        $unset: { buyerId: "" },        // Remove the buyerId from the car
+        $pull: { orders: buyerId },     // Remove the buyerId from the orders array
+        isSold: false,                  // Set isSold to false
+        listed: true                    // Set listed to true
+      },
+      { new: true } // Return the updated document
+    );
+
+    // Check if the car was found and updated
+    if (!updatedCar) {
+      res.status(404).json({ error: 'Car not found or buyer ID not associated with any car' });
+    } else {
+      res.status(200).json({ message: 'Buyer ID removed and car status updated successfully', car: updatedCar });
+    }
+  } catch (error) {
+    console.error('Error removing buyer ID from car:', error);
+    res.status(500).json({ error: 'Error removing buyer ID and updating car status' });
+  }
+};
+
+
+export const removeOrderFromCar = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const { carId } = req.params;  // Get the carId from the request parameters
+    const { userId } = req.body;  // Get the userId from the request body
+
+    if (!userId) {
+      res.status(400).json({ error: 'User ID is required' });
+      return;
+    }
+
+    // Find the car and remove the userId from the orders array
+    const updatedCar = await usedCar.findByIdAndUpdate(
+      carId,
+      { $pull: { orders: userId } }, // $pull removes the userId from the orders array
+      { new: true } // Return the updated document
+    );
+
+    // Check if the car was found and updated
+    if (!updatedCar) {
+      res.status(404).json({ error: 'Car not found' });
+      return;
+    }
+
+    res.status(200).json({ message: 'Order removed successfully', car: updatedCar });
+  } catch (error) {
+    console.error('Error removing order from car:', error);
+    res.status(500).json({ error: 'Error removing order from car' });
+  }
+};
